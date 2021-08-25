@@ -1,6 +1,6 @@
 {
   "name": "voicemaker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Make your nodeJs speak",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -21,7 +21,7 @@
     "text-to-speech",
     "tts"
   ],
-  "author": "uriel Chemouni <uchemouni@gmail.com>",
+  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://urielch.github.io/)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/UrielCh/voicemaker/issues"

@@ -1,7 +1,8 @@
 import crypto from 'crypto';
+import { CommonTTSRequest } from '../common/commonTTSRequest';
 import { getLangFromVoice, VoiceMakerLangs, VoiceMakerVoices } from "./VoiceMakerVoices";
 
-export class VoiceMakerRequest {
+export class VoiceMakerRequest extends CommonTTSRequest {
     Engine: 'standard' | 'neural' = 'neural';
     VoiceId: string = 'ai2-Katie';
     LanguageCode: VoiceMakerLangs = "en-US";
@@ -71,16 +72,17 @@ export class VoiceMakerRequest {
         return Number(this.MasterPitch);
     }
 
-    toString(): string {
-        const values = [this.Effect, this.VoiceId, this.LanguageCode, this.Text, this.SampleRate, this.Effect, '' + this.MasterSpeed, '' + this.MasterVolume, '' + this.MasterPitch];
-        return values.join(',');
+
+    constructor(text: string) {
+        super();
+        this.Text = text;
     }
 
-    hash(): string {
-        return crypto.createHash('md5').update(this.toString()).digest('hex');
+    public summery(): string {
+        return [this.Effect, this.VoiceId, this.LanguageCode, this.Text, this.SampleRate, this.Effect, '' + this.MasterSpeed, '' + this.MasterVolume, '' + this.MasterPitch].join(',');
     }
 
-    filename(): string {
+    public filename(): string {
         return `vmkr-${this.hash()}.${this.OutputFormat}`;
     }
 

@@ -1,17 +1,18 @@
-import crypto from 'crypto';
+import { CommonTTSRequest } from '../common/commonTTSRequest';
 
-export class GoogleTTSRequest {
+export class GoogleTTSRequest extends CommonTTSRequest {
     text: string;
     lang = 'en';
     slow = false;
 
     constructor(text: string, lang?: string) {
+        super();
         this.text = text;
         this.lang = lang || 'en';
     }
 
-    hash(): string {
-        return crypto.createHash('md5').update(this.toString()).digest('hex');
+    summery(): string {
+        return `${this.lang},${this.slow},${this.text}`;
     }
 
     filename(): string {
