@@ -1,0 +1,42 @@
+{
+  "name": "voicemaker",
+  "version": "0.0.1",
+  "description": "Make your nodeJs speak",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "prepare": "tsc -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/UrielCh/voicemaker.git"
+  },
+  "keywords": [
+    "voicemaker",
+    "voicemaker.in",
+    "translate.google.com",
+    "google-tts",
+    "text-to-speech",
+    "tts"
+  ],
+  "author": "uriel Chemouni <uchemouni@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/UrielCh/voicemaker/issues"
+  },
+  "homepage": "https://github.com/UrielCh/voicemaker#readme",
+  "devDependencies": {
+    "@types/node": "^16.7.1",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "google-tts-api": "^2.0.2",
+    "got": "^11.8.2"
+  },
+  "files": [
+    "dist/"
+  ]
+}
