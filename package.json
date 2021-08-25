@@ -1,6 +1,6 @@
 {
   "name": "voicemaker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Make your nodeJs speak",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -37,6 +37,7 @@
     "got": "^11.8.2"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "CHANGELOG.md"
   ]
 }
