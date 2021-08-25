@@ -1,5 +1,9 @@
 # changelog
 
+## v 0.0.4
+
+- update doc
+
 ## v 0.0.3
 
 - improve README.md

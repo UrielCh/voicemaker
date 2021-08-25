@@ -29,7 +29,7 @@ await engine.say(request);
 
 ### Engine voicemaker.in
 
-to use voicemaker.in API you must define your developper token in the `VOICEMAKER_IN_TOKEN` environement variable.
+To use voicemaker.in API you must define your developer token in the `VOICEMAKER_IN_TOKEN` environment variable.
 
 ```typescript
 import { VoiceMaker, VoiceMakerRequest } from 'voicemaker';
@@ -45,8 +45,28 @@ console.log(`your speech is available in ${filename}`);
 await engine.say(request);
 ```
 
-## Notes
+Advanced usage:
 
+```typescript
+import { VoiceMaker, VoiceMakerRequest } from 'voicemaker';
+
+const engine = new VoiceMaker();
+const request = new VoiceMakerRequest('Your very secret password is 123456');
+// change the speaker to Ai1 Ivy
+request.setVoice("ai1-Ivy");
+// increate pitch by 4 (min value is -100, max is 100)
+request.masterPitch = 4;
+// increate volume by 10 (min value is -20, max is 20)
+request.masterVolume = 10;
+// increate speed by -10 (min value is -100, max is +100)
+request.masterSpeed = -10;
+// whisper the message
+request.Effect = "whispered";
+// whisper you password
+await engine.say(request);
+```
+
+## Notes
 
 ### Cache and log
 
