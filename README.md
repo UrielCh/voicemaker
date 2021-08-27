@@ -21,7 +21,7 @@ Powershell:
 $Env:GOOGLE_APPLICATION_CREDENTIALS = "c://pathtoyourCERT"
 ```
 
-Unix
+Unix:
 ```bash
 export GOOGLE_APPLICATION_CREDENTIALS="/pathtoyourCERT"
 ```
@@ -32,11 +32,11 @@ To make voicemaker TTS works, define an `VOICEMAKER_IN_TOKEN` env variable, to g
 
 Then put it onto your `VOICEMAKER_IN_TOKEN` valiable.
 
-Powershell
+Powershell:
 ```powershell
 $Env:VOICEMAKER_IN_TOKEN = "12345678-abcd-1234-1234-1234567890ab"
 ```
-Unix
+Unix:
 ```bash
 export VOICEMAKER_IN_TOKEN="12345678-abcd-1234-1234-1234567890ab"
 ```
