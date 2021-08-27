@@ -2,7 +2,7 @@
 
 This Api make your nodeJS app speak. [![NPM Version](https://img.shields.io/npm/v/voicemaker.svg?style=api)](https://www.npmjs.org/package/voicemaker)
 
-## Configure Environement
+## Configure Environment
 
 ### Google cloud
 
@@ -13,10 +13,10 @@ To make Google cloud TTS works, define a `GOOGLE_APPLICATION_CREDENTIALS` env va
 - Activate Google text-to-speech API for your project
 - Enable Billing
 - create a client
-- create a JSON and download a json certificate
-- set your `GOOGLE_APPLICATION_CREDENTIALS` environement variable to a path to your json certificate file. 
+- create and download a json certificate
+- set your `GOOGLE_APPLICATION_CREDENTIALS` environment variable to a path to your json certificate file. 
 
-powershell:
+Powershell:
 ```powershell
 $Env:GOOGLE_APPLICATION_CREDENTIALS = "c://pathtoyourCERT"
 ```
@@ -28,13 +28,11 @@ export GOOGLE_APPLICATION_CREDENTIALS="/pathtoyourCERT"
 
 ### Voicemaker
 
-To make voicemaker TTS works, define an `VOICEMAKER_IN_TOKEN` env variable
+To make voicemaker TTS works, define an `VOICEMAKER_IN_TOKEN` env variable, to get this token, send an E-Mail to `support@voicemaker.in` asking for a developper token.
 
-send an E-Mail to support@voicemaker.in asking for a developper token.
+Then put it onto your `VOICEMAKER_IN_TOKEN` valiable.
 
-then put it onto your `VOICEMAKER_IN_TOKEN` valiable.
-
-powershell
+Powershell
 ```powershell
 $Env:VOICEMAKER_IN_TOKEN = "12345678-abcd-1234-1234-1234567890ab"
 ```
@@ -43,14 +41,16 @@ Unix
 export VOICEMAKER_IN_TOKEN="12345678-abcd-1234-1234-1234567890ab"
 ```
 
-## Usage as a Script
+## Usage as a script
+
+This package includes a binary that can use every voice from any script; this script is optimized to let you easily switch between engines, volume, speed, and pitch values, which are normalized to -100% to +100%.
 
 ```hash
 npm install -g voicemaker
 voicemaker --help
 ```
 
-doc:
+### Help message
 ```hash
 Usage: voicemaker [options] [command]
 
@@ -60,37 +60,53 @@ Options:
 
 Commands:
   list <engine>            list available voices
-  say [options] <text...>  use a TTS engin to make your computer speek
+  say [options] <text...>  use a TTS engin to make your computer speak
   help [command]           display help for command
 
 ```
 
-### List available voices:
+```hash
+Usage: voicemaker say [options] <text...>
 
-for google voices
+use a TTS engine to make your computer speak
+
+Options:
+  -v, --voice <name>     select a voiceMaker, or a google cloud TTS voice
+  -s, --speed <speed>    customise talk speed
+  -p, --pitch <pitch>    customise talk pitch
+  -l, --lang <lang>      specify a lang code
+  -V, --volume <volume>  increate or decrease speech volume
+  -h, --help             display help for command
+
+```
+
+
+### List available voices
+
+For google voices
 ```
 voicemaker list google
 ```
 
-for voicemaker voices
+For voicemaker voices
 ```
 voicemaker list voicemaker
 ```
 
 ### Make it talk
 
-using google free voices
+Using google free voices
 ```
 voicemaker say hello word
 voicemaker say -l es-ES vamos a la playa
 ```
 
-using google cloud voices
+Using google cloud voices
 ```
 voicemaker say -v fr-FR-Standard-C bienvenue chez nous
 ```
 
-using voicemaker voices
+Using voicemaker voices
 ```
 voicemaker say -v ai2-de-DE-Patrick Willkommen
 voicemaker say -v ai2-ja-JP-Ayaka こんにちは
@@ -201,4 +217,4 @@ await engine.say(request);
 
 ### Cache and log
 
-Buy default every generated speech will be cached in the ~/.tts directory, a log.txt will also be added and will conains all cached request.
+By default, every generated speech will be cached in the ~/.tts directory; a log.txt will also be added and will contain all cached requests.

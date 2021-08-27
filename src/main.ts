@@ -95,7 +95,7 @@ program.version('0.1.0')
 
 program.command('say', {isDefault: true})
     .arguments('<text...>')
-    .description('use a TTS engin to make your computer speek')
+    .description('use a TTS engine to make your computer speak')
     .option('-v, --voice <name>', 'select a voiceMaker, or a google cloud TTS voice')
     .option('-s, --speed <speed>', 'customise talk speed', parsePerCent)
     .option('-p, --pitch <pitch>', 'customise talk pitch', parsePerCent)
