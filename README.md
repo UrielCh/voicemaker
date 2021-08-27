@@ -138,7 +138,7 @@ console.log(`your speech is available in ${filename}`);
 await engine.say(request);
 ```
 
-### Engine [translate.google.com](https://cloud.google.com/)
+### Engine [google cloud TTS](https://cloud.google.com/)
 
 
 ```typescript
@@ -148,7 +148,7 @@ const engine = new GoogleTTS2();
 const request = new GoogleTT2SRequest('hello');
 const filename = await engine.getTts(request);
 console.log(`your speech is available in ${filename}`);
-// Let it speak using translate.google.com engine
+// Let it speak using cloud.google.com engine
 await engine.say(request);
 ```
 
@@ -170,7 +170,7 @@ request.volume = 1;
 request.speed = -3;
 
 console.log(`your speech is available in ${filename}`);
-// Let it speak using translate.google.com engine
+// Let it speak using cloud.google.com engine
 await engine.say(request);
 ```
 
