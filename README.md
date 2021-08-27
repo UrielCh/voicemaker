@@ -1,12 +1,12 @@
-# voicemaker
+# Voicemaker
 
 This Api make your nodeJS app speak. [![NPM Version](https://img.shields.io/npm/v/voicemaker.svg?style=api)](https://www.npmjs.org/package/voicemaker)
 
-## configure Environement
+## Configure Environement
 
-### google cloud
+### Google cloud
 
-To make Google cloud TTS works, define a GOOGLE_APPLICATION_CREDENTIALS env variable:
+To make Google cloud TTS works, define a `GOOGLE_APPLICATION_CREDENTIALS` env variable:
 
 - Go to your [google console](https://console.cloud.google.com/)
 - Create a project
@@ -14,25 +14,36 @@ To make Google cloud TTS works, define a GOOGLE_APPLICATION_CREDENTIALS env vari
 - Enable Billing
 - create a client
 - create a JSON and download a json certificate
-- set your GOOGLE_APPLICATION_CREDENTIALS environement variable to a path to your json certificate file. 
+- set your `GOOGLE_APPLICATION_CREDENTIALS` environement variable to a path to your json certificate file. 
+
 powershell:
+```powershell
 $Env:GOOGLE_APPLICATION_CREDENTIALS = "c://pathtoyourCERT"
+```
+
 Unix
+```bash
 export GOOGLE_APPLICATION_CREDENTIALS="/pathtoyourCERT"
+```
 
-### voicemaker
+### Voicemaker
 
-To make voicemaker TTS works, define an VOICEMAKER_IN_TOKEN env variable
+To make voicemaker TTS works, define an `VOICEMAKER_IN_TOKEN` env variable
 
 send an E-Mail to support@voicemaker.in asking for a developper token.
 
-then put it onto your VOICEMAKER_IN_TOKEN valiable.
-powershell
-$Env:VOICEMAKER_IN_TOKEN = "12345678-abcd-1234-1234-1234567890ab"
-Unix
-export VOICEMAKER_IN_TOKEN="12345678-abcd-1234-1234-1234567890ab"
+then put it onto your `VOICEMAKER_IN_TOKEN` valiable.
 
-## usage as a Script
+powershell
+```powershell
+$Env:VOICEMAKER_IN_TOKEN = "12345678-abcd-1234-1234-1234567890ab"
+```
+Unix
+```bash
+export VOICEMAKER_IN_TOKEN="12345678-abcd-1234-1234-1234567890ab"
+```
+
+## Usage as a Script
 
 ```hash
 npm install -g voicemaker
@@ -54,7 +65,7 @@ Commands:
 
 ```
 
-### list available voices:
+### List available voices:
 
 for google voices
 ```
@@ -66,7 +77,7 @@ for voicemaker voices
 voicemaker list voicemaker
 ```
 
-### make it talk
+### Make it talk
 
 using google free voices
 ```
@@ -85,7 +96,7 @@ voicemaker say -v ai2-de-DE-Patrick Willkommen
 voicemaker say -v ai2-ja-JP-Ayaka こんにちは
 ```
 
-## useage as an API
+## Useage as an API
 
 ```
 npm install voicemaker
