@@ -1,6 +1,6 @@
 # Voicemaker
 
-This Api make your nodeJS app speak. [![NPM Version](https://img.shields.io/npm/v/voicemaker.svg?style=api)](https://www.npmjs.org/package/voicemaker)
+This Api make your nodeJS app or script speak. [![NPM Version](https://img.shields.io/npm/v/voicemaker.svg?style=api)](https://www.npmjs.org/package/voicemaker)
 
 ## Configure Environment
 
