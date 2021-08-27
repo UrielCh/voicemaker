@@ -1,16 +1,31 @@
-import { CommonTTSRequest } from '../common/commonTTSRequest';
+import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
 import { getLangFromVoice, VoiceMakerLangs, VoiceMakerVoices } from "./VoiceMakerVoices";
 
-export class VoiceMakerRequest extends CommonTTSRequest {
-    Engine: 'standard' | 'neural' = 'neural';
-    VoiceId: string = 'ai2-Katie';
-    LanguageCode: VoiceMakerLangs = "en-US";
-    Text: string = '';
-    OutputFormat: "mp3" | 'wav' = 'mp3';
-    /**
-     *  44100, 24000, 22050, 16000, 8000
-     */
-    SampleRate: "48000" | "44100" | "24000" | "22050" | "16000" | "8000" = '48000';
+export interface VoiceMakerRequestPublic {
+    Text: string;
+    Engine: 'standard' | 'neural';
+    VoiceId: string;
+    LanguageCode: VoiceMakerLangs;
+    OutputFormat: "mp3" | 'wav';
+    SampleRate: string;
+    Effect: 'default' | 'breathing' | 'soft' | 'whispered' | 'conversational' | 'news' | 'customersupport' | 'assistant' | 'happy' | 'empathic' | 'clam';
+    // number as string
+    MasterSpeed: string;
+    // number as string
+    MasterVolume: string;
+    // number as string
+    MasterPitch: string;
+}
+
+/**
+ * $25.00 USD / 1 million characters
+ */
+export class VoiceMakerRequest extends CommonTTSRequestAdv {
+    text: string;
+    engine: 'standard' | 'neural' = 'neural';
+    voiceId: string = 'ai2-Katie';
+    lang: VoiceMakerLangs = "en-US";
+    outputFormat: "mp3" | 'wav' = 'mp3';
     /**
      * breathing, soft, whispered - Only supports standard Engine ai1 voices.
      * conversational - Only support on neural Engine en-US - ai1-Joanna, ai1-Matthew, ai3-Aria, ai3-Jenny, cmn-CN - ai3-cmn-CN-Xiaoxiao.
@@ -21,68 +36,19 @@ export class VoiceMakerRequest extends CommonTTSRequest {
      * empathic - Only support on neural Engine en-US - ai3-Aria.
      * clam - Only support on neural Engine cmn-CN - ai3-cmn-CN-Yunye.
      */
-    Effect: 'default' | 'breathing' | 'soft' | 'whispered' | 'conversational' | 'news' | 'customersupport' | 'assistant' | 'happy' | 'empathic' | 'clam' = "default";
-    /**
-     * -100 - 100
-     */
-    private MasterSpeed = '0';
-
-    set masterSpeed(speed: number) {
-        if (speed > 100 || speed < -100) {
-            throw Error('invalid value for MasterSpeed');
-        }
-        this.MasterSpeed = "" + speed;
-    }
-
-    get masterSpeed() {
-        return Number(this.MasterSpeed);
-    }
-
-    /**
-     * -20 .. +20
-     */
-    private MasterVolume = '0';
-
-    set masterVolume(volume: number) {
-        if (volume > 20 || volume < -20) {
-            throw Error('invalid value for MasterVolume');
-        }
-        this.MasterVolume = "" + volume;
-    }
-
-    get masterVolume() {
-        return Number(this.MasterVolume);
-    }
-
-    /**
-     *  MasterPitch does not support neural Engine ai1 voices.
-     * -100 - 100
-     */
-    private MasterPitch = '0';
-
-    set masterPitch(pitch: number) {
-        if (pitch > 100 || pitch < -100) {
-            throw Error('invalid value for MasterPitch');
-        }
-        this.MasterPitch = "" + pitch;
-    }
-
-    get masterPitch() {
-        return Number(this.MasterPitch);
-    }
-
+    effect: 'default' | 'breathing' | 'soft' | 'whispered' | 'conversational' | 'news' | 'customersupport' | 'assistant' | 'happy' | 'empathic' | 'clam' = "default";
 
     constructor(text: string) {
-        super();
-        this.Text = text;
+        super({ pitch: { min: -100, max: 100 }, speed: { min: -100, max: 100 }, volume: { min: -20, max: 20 } });
+        this.text = text;
     }
 
     public summery(): string {
-        return [this.Effect, this.VoiceId, this.LanguageCode, this.Text, this.SampleRate, this.Effect, '' + this.MasterSpeed, '' + this.MasterVolume, '' + this.MasterPitch].join(',');
+        return [this.effect, this.voiceId, this.lang, this.specSummery(), this.text].join(',');
     }
 
     public filename(): string {
-        return `vmkr-${this.hash()}.${this.OutputFormat}`;
+        return `vmkr-${this.hash()}.${this.outputFormat}`;
     }
 
     /**
@@ -91,14 +57,30 @@ export class VoiceMakerRequest extends CommonTTSRequest {
     setVoice(voiceName: string) {
         const lng = getLangFromVoice(voiceName as VoiceMakerVoices)
         if (lng) {
-            this.LanguageCode = lng;
+            this.lang = lng;
         } else {
             // for unknow voice
             const m = voiceName.match(/-([a-z]{2}-[A-Z]{2})-/);
             if (m) {
-                this.LanguageCode = m[1] as VoiceMakerLangs;
+                this.lang = m[1] as VoiceMakerLangs;
             }
         }
-        this.VoiceId = voiceName;
+        this.voiceId = voiceName;
+    }
+
+
+    toRequest(): VoiceMakerRequestPublic {
+        return {
+            Text: this.text,
+            Effect: this.effect,
+            Engine: this.engine,
+            LanguageCode: this.lang,
+            MasterPitch: String(this.pitch),
+            MasterSpeed: String(this.speed),
+            MasterVolume: String(this.volume),
+            OutputFormat: this.outputFormat,
+            SampleRate: String(this.sampleRate),
+            VoiceId: this.voiceId,
+        }
     }
 }

@@ -5,6 +5,9 @@ export { VoiceMakerVoices, ALL_VOICEMAKE_VOICES } from './voicemakerin/VoiceMake
 export { GoogleTTS } from './googleTTS/GoogleTTS';
 export { GoogleTTSRequest } from './googleTTS/GoogleTTSRequest';
 
+export { GoogleTTS2 } from './googleTTS2/GoogleTTS2';
+export { GoogleTTS2Request } from './googleTTS2/GoogleTTS2Request';
+
 /**
  * build a nice default
  */

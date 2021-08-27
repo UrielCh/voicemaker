@@ -1,6 +1,6 @@
 {
   "name": "voicemaker",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "Make your nodeJs speak",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,6 +8,9 @@
     "prepublishOnly": "rimraf dist",
     "prepare": "tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "voicemaker": "./bin/voicemaker"
   },
   "repository": {
     "type": "git",
@@ -30,14 +33,18 @@
   "devDependencies": {
     "@types/node": "^16.7.1",
     "rimraf": "^3.0.2",
+    "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "@google-cloud/text-to-speech": "^3.3.0",
+    "commander": "^8.1.0",
     "google-tts-api": "^2.0.2",
     "got": "^11.8.2"
   },
   "files": [
     "dist/",
+    "bin/",
     "CHANGELOG.md"
   ]
 }

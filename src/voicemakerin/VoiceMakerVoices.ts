@@ -86,17 +86,17 @@ export const voiceMakerVoice = {
 export type VoiceMakerLangs = keyof typeof voiceMakerVoice;
 export type VoiceMakerVoices = typeof voiceMakerVoice[VoiceMakerLangs][number];
 
-const cache: {[key in VoiceMakerVoices]: VoiceMakerLangs} = {} as {[key in VoiceMakerVoices]: VoiceMakerLangs};
+export const voiceMakerVoiceCache: {[key in VoiceMakerVoices]: VoiceMakerLangs} = {} as {[key in VoiceMakerVoices]: VoiceMakerLangs};
 
 for (const lng of Object.keys(voiceMakerVoice)) {
     for (const ent of voiceMakerVoice[lng as VoiceMakerLangs]) {
         const voice = ent as VoiceMakerVoices;
-        cache[voice] = lng as VoiceMakerLangs;
+        voiceMakerVoiceCache[voice] = lng as VoiceMakerLangs;
     }
 }
 
 export function getLangFromVoice(voice: VoiceMakerVoices): VoiceMakerLangs {
-    return cache[voice];
+    return voiceMakerVoiceCache[voice];
 }
 
-export const ALL_VOICEMAKE_VOICES = Object.keys(cache);
+export const ALL_VOICEMAKE_VOICES = Object.keys(voiceMakerVoiceCache);

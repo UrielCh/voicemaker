@@ -18,8 +18,8 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
     /**
      * return a local path to your speech
      */
-    public async getTts(text: VoiceMakerRequest): Promise<string> {
-        const file = await this.cacheDir.getCacheFile(text.hash(), text.filename());
+    public async getTts(request: VoiceMakerRequest): Promise<string> {
+        const file = await this.cacheDir.getCacheFile(request.hash(), request.filename());
         try {
             await fs.promises.stat(file);
             return file;
@@ -31,13 +31,26 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
             throw Error(`Missing VOICEMAKER_IN_TOKEN environement variable, send an E-Mail to support@voicemaker.in to get one`);
         }
         try {
-            const resp = await got.post('https://developer.voicemaker.in/voice/api', { headers: { Authorization: `Bearer ${VOICEMAKER_IN_TOKEN}`, 'Content-Type': 'application/json' }, body: JSON.stringify(text) });
+            const resp = await got.post('https://developer.voicemaker.in/voice/api', { 
+                headers: {
+                    'user-agent': `VoiceMaker (https://github.com/UrielCh/voicemaker)`,
+                    Authorization: `Bearer ${VOICEMAKER_IN_TOKEN}`,
+                    'Content-Type': 'application/json',
+                 },
+                body: JSON.stringify(request.toRequest()),
+            });
             const body: VoiceMakerResponse = JSON.parse(resp.body);
             if (!body.path) {
                 throw Error('Access VoiceMaker failed with response ' + JSON.stringify(resp.rawBody));
             }
-            const speech = await got.get(body.path, { encoding: 'binary' });
+            const speech = await got.get(body.path, {
+                headers: {
+                    'user-agent': `VoiceMaker (https://github.com/UrielCh/voicemaker)`,
+                },
+                encoding: 'binary',
+            });
             await fs.promises.writeFile(file, speech.rawBody);
+            await super.log(request);
         } catch (e) {
             console.error('Failed to generarte voice');
             console.error(e);

@@ -68,6 +68,8 @@ export class SoundPlayer {
     }
 
     public play(what: string, options?: child_process.SpawnOptionsWithoutStdio): Promise<void> {
+        if (!this.player)
+            return this.playOS(what);
         return new Promise((success, reject) => {
             options = options || {};
             if (!what) {

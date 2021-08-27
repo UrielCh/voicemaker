@@ -1,5 +1,13 @@
 # changelog
 
+## v 0.1.0
+
+- add Google cloud TTS
+- refactor Requesrt object
+- enable Logs
+- improved say function
+- add voicemaker binary
+
 ## v 0.0.4
 
 - update doc

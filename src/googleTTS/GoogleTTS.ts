@@ -12,21 +12,22 @@ export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
         super(cacheDir || path.join(os.homedir(), '.tts', 'google'))
     }
 
-    public async getTts(text: GoogleTTSRequest): Promise<string> {
-        const hex = text.hash();
-        const file0 = text.filename();
+    public async getTts(request: GoogleTTSRequest): Promise<string> {
+        const hex = request.hash();
+        const file0 = request.filename();
         const file = await this.cacheDir.getCacheFile(hex, file0);
         try {
             await fs.promises.stat(file);
         } catch (e) {
             // get audio URL
-            const url = googleTTS.getAudioUrl(text.text, {
-                lang: text.lang,
-                slow: text.slow,
+            const url = googleTTS.getAudioUrl(request.text, {
+                lang: request.lang,
+                slow: request.slow,
                 host: 'https://translate.google.com',
             });
             const resp = await got.get(url, { encoding: 'binary' });
             await fs.promises.writeFile(file, resp.rawBody);
+            await super.log(request);
         }
         return file;
     }

@@ -1,7 +1,7 @@
 import SoundPlayer from "../SoundPlayer";
+import { CommonTTSRequest } from "./commonTTSRequest";
 import { LocalCache } from "./LocalCache";
-
-export abstract class CommonTTS<T> {
+export abstract class CommonTTS<T extends CommonTTSRequest> {
     private _player?: SoundPlayer;
     protected cacheDir: LocalCache;
 
@@ -10,6 +10,13 @@ export abstract class CommonTTS<T> {
     }
 
     abstract getTts(text: T): Promise<string>;
+
+    /**
+     * a new Request had been submited
+     */
+    public async log(request: T): Promise<void> {
+        await this.cacheDir.log(request);
+    }
 
     public async say(text: T): Promise<string> {
         const file = await this.getTts(text);
