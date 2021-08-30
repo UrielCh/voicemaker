@@ -26,6 +26,9 @@ Unix:
 export GOOGLE_APPLICATION_CREDENTIALS="/pathtoyourCERT"
 ```
 
+Alternatively you can save your certificate in ~/.tts/googlecloud/key.json.
+
+
 ### Voicemaker
 
 To make voicemaker TTS works, define an `VOICEMAKER_IN_TOKEN` env variable, to get this token, send an E-Mail to `support@voicemaker.in` asking for a developper token.
@@ -40,6 +43,8 @@ Unix:
 ```bash
 export VOICEMAKER_IN_TOKEN="12345678-abcd-1234-1234-1234567890ab"
 ```
+
+Alternatively you can save your certificate in ~/.tts/voiceMaker/key.json (as text data).
 
 ## Usage as a script
 

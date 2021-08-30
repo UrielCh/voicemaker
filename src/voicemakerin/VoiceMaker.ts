@@ -26,9 +26,22 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
         } catch (e) {
             // create new one
         }
-        const VOICEMAKER_IN_TOKEN = process.env.VOICEMAKER_IN_TOKEN;
+        let VOICEMAKER_IN_TOKEN = process.env.VOICEMAKER_IN_TOKEN;
         if (!VOICEMAKER_IN_TOKEN) {
-            throw Error(`Missing VOICEMAKER_IN_TOKEN environement variable, send an E-Mail to support@voicemaker.in to get one`);
+            const key = await this.cacheDir.getKey();
+            if (key) {
+                const data = await fs.promises.readFile(key, {encoding: 'utf-8'});
+                const m = data.match(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/);
+                if (m) {
+                    process.env.VOICEMAKER_IN_TOKEN = m[0];
+                    VOICEMAKER_IN_TOKEN = m[0];
+                } else {
+                    console.log(`${key} exists but do not contains any Token`);
+                }
+            }
+        }
+        if (!VOICEMAKER_IN_TOKEN) {
+            throw Error(`Missing VOICEMAKER_IN_TOKEN environement variable, or token in ~/.tts/voiceMaker/key.json file, send an E-Mail to support@voicemaker.in to get one`);
         }
         try {
             const resp = await got.post('https://developer.voicemaker.in/voice/api', { 

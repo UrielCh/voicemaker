@@ -30,9 +30,18 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
         } catch (e) {
             // create new one
         }
-        const GOOGLE_APPLICATION_CREDENTIALS = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+
+        let GOOGLE_APPLICATION_CREDENTIALS = process.env.GOOGLE_APPLICATION_CREDENTIALS;
         if (!GOOGLE_APPLICATION_CREDENTIALS) {
-            throw Error(`Missing GOOGLE_APPLICATION_CREDENTIALS environement variable`);
+            const key = await this.cacheDir.getKey();
+            if (key) {
+                process.env.GOOGLE_APPLICATION_CREDENTIALS = key;
+                GOOGLE_APPLICATION_CREDENTIALS = key
+            }
+        }
+
+        if (!GOOGLE_APPLICATION_CREDENTIALS) {
+            throw Error(`Missing GOOGLE_APPLICATION_CREDENTIALS environement variable, or key in ~/.tts/googlecloud/key.json`);
         }
         try {
             const [responce, error] = await this.client.synthesizeSpeech(request.toRequest());
