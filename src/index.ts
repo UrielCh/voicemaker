@@ -7,6 +7,7 @@ export { GoogleTTSRequest } from './googleTTS/GoogleTTSRequest';
 
 export { GoogleTTS2 } from './googleTTS2/GoogleTTS2';
 export { GoogleTTS2Request } from './googleTTS2/GoogleTTS2Request';
+export { GoogleVoices, ALL_GOOGLE_VOICES } from './googleTTS2/GoogleTTS2Voices';
 
 export { getVoice, getEngine, VoiceSelectionVoiceMaker, VoiceSelectionGoogle } from './common/utils';
 

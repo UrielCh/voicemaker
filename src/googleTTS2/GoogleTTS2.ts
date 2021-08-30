@@ -11,6 +11,7 @@ import os from 'os';
 import fs from 'fs';
 import { CommonTTS } from '../common/commonTTS';
 import { GoogleTTS2Request } from './GoogleTTS2Request';
+import { GoogleVoices } from './GoogleTTS2Voices';
 
 export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
     client = new textToSpeech.TextToSpeechClient();
@@ -63,7 +64,7 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
     }
 
     getRequest(text: string, voice?: string): GoogleTTS2Request {
-        return new GoogleTTS2Request(text, voice);
+        return new GoogleTTS2Request(text, voice as GoogleVoices);
     }
 }
 

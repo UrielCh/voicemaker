@@ -1,5 +1,8 @@
 # changelog
 
+## v 0.1.4
+- add GoogleVoices, ALL_GOOGLE_VOICES exports
+
 ## v 0.1.3
 
 - add getter/setter for outputFormat in all requests

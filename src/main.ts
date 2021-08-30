@@ -55,7 +55,7 @@ program.version('0.1.0')
         }
         if (engine === 'google') {
             for (const voice of Object.keys(GoogleTTS2Voice)) {
-                const info = GoogleTTS2Voice[voice];
+                const info = GoogleTTS2Voice[voice as GoogleVoices];
                 console.log(`${voice} is a ${info.ssmlGender} speaking ${info.lang}`)
             }
             return

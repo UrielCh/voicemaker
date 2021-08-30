@@ -1,5 +1,4 @@
 import { protos } from '@google-cloud/text-to-speech';
-import { format } from 'path/posix';
 import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
 import { GoogleTTS2Voice, GoogleVoices } from './GoogleTTS2Voices';
 /**
@@ -17,7 +16,7 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
         super(text, { pitch: { min: -20, max: 20 }, speed: { min: 0.25, max: 4 }, volume: { min: -16.0, max: 16.0 } });
         this.text = text;
         if (voice)
-            this.setVoice(voice as string)
+            this.setVoice(voice)
     }
 
     set outputFormat(format: "mp3" | 'wav' | 'ogg') {
@@ -39,7 +38,7 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
     }
 
     getVoice(): string {
-        return this.voice as string;
+        return this.voice;
     }
 
     summery(): string {
