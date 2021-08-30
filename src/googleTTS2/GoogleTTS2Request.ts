@@ -1,4 +1,5 @@
 import { protos } from '@google-cloud/text-to-speech';
+import { format } from 'path/posix';
 import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
 import { GoogleTTS2Voice, GoogleVoices } from './GoogleTTS2Voices';
 /**
@@ -8,7 +9,7 @@ import { GoogleTTS2Voice, GoogleVoices } from './GoogleTTS2Voices';
 export class GoogleTTS2Request extends CommonTTSRequestAdv {
     lang = 'en-US';
     private voice: GoogleVoices = 'en-US-Wavenet-A';
-    format: 'mp3' | 'ogg' | 'wav' = 'mp3';
+    private _format: 'mp3' | 'ogg' | 'wav' = 'mp3';
     gender: "FEMALE" | "MALE" = "FEMALE";
 
     constructor(text: string, voice?: GoogleVoices) {
@@ -17,6 +18,14 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
         this.text = text;
         if (voice)
             this.setVoice(voice as string)
+    }
+
+    set outputFormat(format: "mp3" | 'wav' | 'ogg') {
+        this._format = format;
+    }
+
+    get outputFormat(): "mp3" | 'wav' | 'ogg' {
+        return this._format;
     }
 
     setVoice(voiceName: string) {
@@ -39,12 +48,12 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
     }
 
     filename(): string {
-        return `tts-${this.hash()}.${this.format}`;
+        return `tts-${this.hash()}.${this.outputFormat}`;
     }
 
     toRequest(): protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest {
         let audioEncoding: protos.google.cloud.texttospeech.v1.AudioEncoding;
-        switch (this.format) {
+        switch (this.outputFormat) {
             case 'mp3':
                 audioEncoding = protos.google.cloud.texttospeech.v1.AudioEncoding.MP3;
                 break;

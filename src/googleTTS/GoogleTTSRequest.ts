@@ -3,7 +3,7 @@ import { CommonTTSRequest } from '../common/commonTTSRequest';
 export class GoogleTTSRequest extends CommonTTSRequest {
     lang = 'en-US';
     slow = false;
-
+    private _format: 'mp3' = 'mp3';
     constructor(text: string, lang?: string) {
         super(text);
         this.text = text;
@@ -15,7 +15,7 @@ export class GoogleTTSRequest extends CommonTTSRequest {
     }
 
     filename(): string {
-        return `tts-${this.hash()}.mp3`;
+        return `tts-${this.hash()}.${this.outputFormat}`;
     }
 
     set sampleRate(sampleRate: number) {}
@@ -35,5 +35,15 @@ export class GoogleTTSRequest extends CommonTTSRequest {
     setVoice(voiceName: string): void {}
     getVoice(): string {
         return 'not supported'
+    }
+
+    set outputFormat(format: "mp3" | 'wav' | 'ogg') {
+        if (format !== 'mp3')
+            throw Error(`${format} is not supported`)
+        this._format = format;
+    }
+
+    get outputFormat(): "mp3" {
+        return this._format;
     }
 }

@@ -1,5 +1,9 @@
 # changelog
 
+## v 0.1.3
+
+- add getter/setter for outputFormat in all requests
+
 ## v 0.1.2
 
 - add getEngine and getVoice method for generate speech genericaly

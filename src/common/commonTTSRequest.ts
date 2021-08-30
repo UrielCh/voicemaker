@@ -35,4 +35,7 @@ export abstract class CommonTTSRequest {
 
     abstract setVoice(voiceName: string): void;
     abstract getVoice(): string;
+
+    abstract set outputFormat(format: "mp3" | 'wav' | 'ogg');
+    abstract get outputFormat(): "mp3" | 'wav' | 'ogg'
 }
