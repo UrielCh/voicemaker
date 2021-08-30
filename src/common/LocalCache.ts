@@ -1,5 +1,6 @@
 import path from 'path';
 import fs from 'fs';
+import EOL from 'os';
 import { CommonTTSRequest } from './commonTTSRequest';
 /**
  * deal with local cacher files
@@ -21,7 +22,7 @@ export class LocalCache {
 
     async log(req: CommonTTSRequest): Promise<void> {
         try {
-            await fs.promises.appendFile(this.logFile, `${new Date().toISOString()}\t${req.filename()}\t${req.summery().replace(/[\r\n\t]+/g, ' ')}`, {encoding: 'utf-8'});
+            await fs.promises.appendFile(this.logFile, `${new Date().toISOString()}\t${req.filename()}\t${req.summery().replace(/[\r\n\t]+/g, ' ')}${EOL}`, {encoding: 'utf-8'});
         } catch (e) {
             console.error(`warning failed to log request in ${this.logFile}`);
         }

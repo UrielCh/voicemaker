@@ -1,5 +1,8 @@
 # changelog
 
+## v 0.1.5
+- add Missing EOL in log.txt
+
 ## v 0.1.4
 - add GoogleVoices, ALL_GOOGLE_VOICES exports
 
