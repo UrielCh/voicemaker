@@ -21,9 +21,8 @@ export interface VoiceMakerRequestPublic {
  * $25.00 USD / 1 million characters
  */
 export class VoiceMakerRequest extends CommonTTSRequestAdv {
-    text: string;
     engine: 'standard' | 'neural' = 'neural';
-    voiceId: string = 'ai2-Katie';
+    private voice: string = 'ai2-Katie';
     lang: VoiceMakerLangs = "en-US";
     outputFormat: "mp3" | 'wav' = 'mp3';
     /**
@@ -38,13 +37,14 @@ export class VoiceMakerRequest extends CommonTTSRequestAdv {
      */
     effect: 'default' | 'breathing' | 'soft' | 'whispered' | 'conversational' | 'news' | 'customersupport' | 'assistant' | 'happy' | 'empathic' | 'clam' = "default";
 
-    constructor(text: string) {
-        super({ pitch: { min: -100, max: 100 }, speed: { min: -100, max: 100 }, volume: { min: -20, max: 20 } });
-        this.text = text;
+    constructor(text: string, voice?: string) {
+        super(text, { pitch: { min: -100, max: 100 }, speed: { min: -100, max: 100 }, volume: { min: -20, max: 20 } });
+        if (voice)
+            this.setVoice(voice);
     }
 
     public summery(): string {
-        return [this.effect, this.voiceId, this.lang, this.specSummery(), this.text].join(',');
+        return [this.effect, this.voice, this.lang, this.specSummery(), this.text].join(',');
     }
 
     public filename(): string {
@@ -65,9 +65,12 @@ export class VoiceMakerRequest extends CommonTTSRequestAdv {
                 this.lang = m[1] as VoiceMakerLangs;
             }
         }
-        this.voiceId = voiceName;
+        this.voice = voiceName;
     }
 
+    getVoice(): string {
+        return this.voice;
+    }
 
     toRequest(): VoiceMakerRequestPublic {
         return {
@@ -80,7 +83,7 @@ export class VoiceMakerRequest extends CommonTTSRequestAdv {
             MasterVolume: String(this.volume),
             OutputFormat: this.outputFormat,
             SampleRate: String(this.sampleRate),
-            VoiceId: this.voiceId,
+            VoiceId: this.voice,
         }
     }
 }

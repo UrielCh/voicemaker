@@ -31,4 +31,8 @@ export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
         }
         return file;
     }
+
+    getRequest(text: string): GoogleTTSRequest {
+        return new GoogleTTSRequest(text);
+    }
 }

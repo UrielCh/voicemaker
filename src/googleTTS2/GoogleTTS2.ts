@@ -61,6 +61,10 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
         }
         return file;
     }
+
+    getRequest(text: string, voice?: string): GoogleTTS2Request {
+        return new GoogleTTS2Request(text, voice);
+    }
 }
 
 export default GoogleTTS2;

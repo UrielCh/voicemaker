@@ -1,5 +1,10 @@
 # changelog
 
+## v 0.1.2
+
+- add getEngine and getVoice method for generate speech genericaly
+- add getRequest(text, voice) in all engines.
+
 ## v 0.1.1
 
 - token can not be store in  ~/.tts/voiceMaker/key.json for voicemaker and ~/.tts/googlecloud/key.json for google cloud

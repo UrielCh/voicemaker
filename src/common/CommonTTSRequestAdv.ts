@@ -13,8 +13,8 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
     _volume = 0;
     _sampleRate: number = 24000;
 
-    constructor(private limits: { speed: FieldConstraint, pitch: FieldConstraint, volume: FieldConstraint }) {
-        super();
+    constructor(text: string, private limits: { speed: FieldConstraint, pitch: FieldConstraint, volume: FieldConstraint }) {
+        super(text);
     }
 
     set sampleRate(sampleRate: number) {

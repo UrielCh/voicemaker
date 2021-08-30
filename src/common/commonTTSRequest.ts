@@ -1,6 +1,8 @@
 import crypto from 'crypto';
 
 export abstract class CommonTTSRequest {
+    constructor(public text: string) {}
+
     /**
      * must fully describe the request
      */
@@ -16,4 +18,21 @@ export abstract class CommonTTSRequest {
      * filename used to store the file incache
      */
     abstract filename(): string;
+
+    abstract set sampleRate(sampleRate: number);
+    abstract set pitch(pitch: number);
+    abstract set speed(speed: number);
+    abstract set volume(volume: number);
+
+    abstract get sampleRate(): number;
+    abstract get speed(): number;
+    abstract get pitch(): number;
+    abstract get volume(): number;
+
+    abstract set pitchPer100(pitch: number);
+    abstract set speedPer100(speed: number);
+    abstract set volumePer100(volume: number);
+
+    abstract setVoice(voiceName: string): void;
+    abstract getVoice(): string;
 }

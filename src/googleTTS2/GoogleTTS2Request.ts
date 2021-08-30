@@ -6,15 +6,14 @@ import { GoogleTTS2Voice, GoogleVoices } from './GoogleTTS2Voices';
  * classic: free tier: 4M / Month, then $4.00 USD / 1 million characters
  */
 export class GoogleTTS2Request extends CommonTTSRequestAdv {
-    text: string;
     lang = 'en-US';
-    VoiceId: GoogleVoices = 'en-US-Wavenet-A';
+    private voice: GoogleVoices = 'en-US-Wavenet-A';
     format: 'mp3' | 'ogg' | 'wav' = 'mp3';
     gender: "FEMALE" | "MALE" = "FEMALE";
 
     constructor(text: string, voice?: GoogleVoices) {
         // super({ pitch: { min: -20, max: 20 }, speed: { min: 0.25, max: 4 }, volume: { min: -96.0, max: 16.0 } });
-        super({ pitch: { min: -20, max: 20 }, speed: { min: 0.25, max: 4 }, volume: { min: -16.0, max: 16.0 } });
+        super(text, { pitch: { min: -20, max: 20 }, speed: { min: 0.25, max: 4 }, volume: { min: -16.0, max: 16.0 } });
         this.text = text;
         if (voice)
             this.setVoice(voice as string)
@@ -26,12 +25,16 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
             throw Error(`voiceName ${voiceName} is unknown`);
         }
         this.sampleRate = lng.naturalSampleRateHertz;
-        this.VoiceId = voiceName as GoogleVoices;
+        this.voice = voiceName as GoogleVoices;
         this.gender = lng.ssmlGender as "FEMALE" | "MALE";
     }
 
+    getVoice(): string {
+        return this.voice as string;
+    }
+
     summery(): string {
-        const keys = [/*effect, */ this.VoiceId as string, this.lang, this.specSummery(), this.text]
+        const keys = [/*effect, */ this.getVoice(), this.lang, this.specSummery(), this.text]
         return keys.join(',');
     }
 
@@ -57,7 +60,7 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
 
         return {
             input: { text: this.text },
-            voice: { name: this.VoiceId as string, languageCode: this.lang, ssmlGender: this.gender },
+            voice: { name: this.getVoice(), languageCode: this.lang, ssmlGender: this.gender },
             audioConfig: { pitch: this.pitch, audioEncoding, speakingRate: this.speed, sampleRateHertz: this.sampleRate }
         }
     }

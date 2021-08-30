@@ -1,4 +1,5 @@
 import commander, { Command } from 'commander';
+import { getVoice } from './common/utils';
 import { GoogleTTS } from './googleTTS/GoogleTTS';
 import { GoogleTTSRequest } from './googleTTS/GoogleTTSRequest';
 import GoogleTTS2 from "./googleTTS2/GoogleTTS2";
@@ -7,16 +8,6 @@ import { GoogleTTS2Voice, GoogleVoices } from './googleTTS2/GoogleTTS2Voices';
 import VoiceMaker from './voicemakerin/VoiceMaker';
 import { VoiceMakerRequest } from './voicemakerin/VoiceMakerRequest';
 import { voiceMakerVoiceCache, VoiceMakerVoices } from './voicemakerin/VoiceMakerVoices';
-
-interface VoiceSelectionVM {
-    type: 'voicemaker',
-    voice: VoiceMakerVoices;
-}
-
-interface VoiceSelectionGo {
-    type: 'google',
-    voice: GoogleVoices,
-}
 
 function parseLangCode(value: string, dummyPrevious: string): string {
     if (!value.match(/^[a-z]{2,3}-[A-Z]{2}$/))
@@ -38,25 +29,6 @@ function parsePerCent(value: string, dummyPrevious: number): number {
         throw new commander.InvalidArgumentError('Not a valid percent value like ".2", "-0.4", "60%", "-10%"');
     }
     return parsedValue / 100;
-}
-
-function getVoice(voice?: string): VoiceSelectionVM | VoiceSelectionGo | null {
-    if (!voice)
-        return null;
-    if (voiceMakerVoiceCache[voice as VoiceMakerVoices]) {
-        return {
-            type: 'voicemaker',
-            voice: voice as VoiceMakerVoices,
-        }
-    }
-    if (GoogleTTS2Voice[voice as GoogleVoices]) {
-        return {
-            type: 'google',
-            voice: voice as GoogleVoices,
-        }
-    }
-    console.error(`unknown voice ${voice}, switch back to default voice`)
-    return null;
 }
 
 interface SayOption {

@@ -71,6 +71,10 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
         }
         return file;
     }
+
+    getRequest(text: string, voice?: string): VoiceMakerRequest {
+        return new VoiceMakerRequest(text, voice);
+    }
 }
 
 export default VoiceMaker;

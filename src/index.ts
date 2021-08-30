@@ -8,6 +8,8 @@ export { GoogleTTSRequest } from './googleTTS/GoogleTTSRequest';
 export { GoogleTTS2 } from './googleTTS2/GoogleTTS2';
 export { GoogleTTS2Request } from './googleTTS2/GoogleTTS2Request';
 
+export { getVoice, getEngine, VoiceSelectionVoiceMaker, VoiceSelectionGoogle } from './common/utils';
+
 /**
  * build a nice default
  */

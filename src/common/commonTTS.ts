@@ -29,4 +29,6 @@ export abstract class CommonTTS<T extends CommonTTSRequest> {
     set player(player: SoundPlayer) {
         this.player = player;
     }
+
+    abstract getRequest(text: string, voice?: string): T;
 }
