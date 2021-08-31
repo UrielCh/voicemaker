@@ -1,11 +1,11 @@
-import { CommonTTSRequest } from '../common/commonTTSRequest';
+import { AudioFormat, CommonTTSRequest } from '../common/commonTTSRequest';
 
 export class GoogleTTSRequest extends CommonTTSRequest {
     lang = 'en-US';
     slow = false;
-    private _format: 'mp3' = 'mp3';
+
     constructor(text: string, lang?: string) {
-        super(text);
+        super(text, ['mp3']);
         this.text = text;
         this.lang = lang || 'en-US';
     }
@@ -37,13 +37,7 @@ export class GoogleTTSRequest extends CommonTTSRequest {
         return 'not supported'
     }
 
-    set outputFormat(format: "mp3" | 'wav' | 'ogg') {
-        if (format !== 'mp3')
-            throw Error(`${format} is not supported`)
-        this._format = format;
-    }
-
-    get outputFormat(): "mp3" {
-        return this._format;
-    }
+    toRequest() {
+        throw new Error('Method not implemented.');
+    }    
 }

@@ -18,8 +18,8 @@ export abstract class CommonTTS<T extends CommonTTSRequest> {
         await this.cacheDir.log(request);
     }
 
-    public async say(text: T): Promise<string> {
-        const file = await this.getTts(text);
+    public async say(request: T): Promise<string> {
+        const file = await this.getTts(request);
         if (!this._player)
             this._player = new SoundPlayer();
         await this._player.play(file);

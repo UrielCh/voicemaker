@@ -1,4 +1,4 @@
-import path from 'path';
+import { join } from 'path';
 import fs from 'fs';
 import EOL from 'os';
 import { CommonTTSRequest } from './commonTTSRequest';
@@ -12,12 +12,20 @@ export class LocalCache {
         try {
             fs.mkdirSync(this.root, {recursive: true});
         } catch (e) { }
-        this.logFile = path.join(this.root, 'log.txt');
-        this.keyFile = path.join(this.root, 'key.json');
+        this.logFile = join(this.root, 'log.txt');
+        this.keyFile = join(this.root, 'key.json');
     }
 
-    async getCacheFile(key: string, filename: string): Promise<string> {
-        return path.join(this.root, filename);
+    async getCacheFile(key: string, filename: string): Promise<{file: string, exists: boolean}> {
+        const file = join(this.root, filename);
+        let exists = false;
+        try {
+            await fs.promises.stat(file);
+            exists = true;
+        } catch (e) {
+            // create new one
+        }
+        return {file, exists};
     }
 
     async log(req: CommonTTSRequest): Promise<void> {

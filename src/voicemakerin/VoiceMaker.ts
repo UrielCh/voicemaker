@@ -1,5 +1,5 @@
 import path from 'path';
-import os from 'os';
+import { homedir } from 'os';
 import fs from 'fs';
 import got from 'got';
 import { VoiceMakerRequest } from './VoiceMakerRequest';
@@ -12,20 +12,10 @@ interface VoiceMakerResponse {
 
 export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
     constructor(cacheDir?: string) {
-        super(cacheDir || path.join(os.homedir(), '.tts', 'voiceMaker'))
+        super(cacheDir || path.join(homedir(), '.tts', 'voiceMaker'))
     }
 
-    /**
-     * return a local path to your speech
-     */
-    public async getTts(request: VoiceMakerRequest): Promise<string> {
-        const file = await this.cacheDir.getCacheFile(request.hash(), request.filename());
-        try {
-            await fs.promises.stat(file);
-            return file;
-        } catch (e) {
-            // create new one
-        }
+    private async getToken(): Promise<string> {
         let VOICEMAKER_IN_TOKEN = process.env.VOICEMAKER_IN_TOKEN;
         if (!VOICEMAKER_IN_TOKEN) {
             const key = await this.cacheDir.getKey();
@@ -43,6 +33,17 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
         if (!VOICEMAKER_IN_TOKEN) {
             throw Error(`Missing VOICEMAKER_IN_TOKEN environement variable, or token in ~/.tts/voiceMaker/key.json file, send an E-Mail to support@voicemaker.in to get one`);
         }
+        return VOICEMAKER_IN_TOKEN;
+    }
+
+    /**
+     * return a local path to your speech
+     */
+    public async getTts(request: VoiceMakerRequest): Promise<string> {
+        const {file, exists} = await this.cacheDir.getCacheFile(request.hash(), request.filename());
+        if (exists)
+            return file;
+        const VOICEMAKER_IN_TOKEN = await this.getToken();
         try {
             const resp = await got.post('https://developer.voicemaker.in/voice/api', { 
                 headers: {

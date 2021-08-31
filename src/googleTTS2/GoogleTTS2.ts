@@ -7,7 +7,7 @@
 import * as textToSpeech from '@google-cloud/text-to-speech';
 
 import path from 'path';
-import os from 'os';
+import { homedir } from 'os';
 import fs from 'fs';
 import { CommonTTS } from '../common/commonTTS';
 import { GoogleTTS2Request } from './GoogleTTS2Request';
@@ -17,21 +17,10 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
     client = new textToSpeech.TextToSpeechClient();
 
     constructor(cacheDir?: string) {
-        super(cacheDir || path.join(os.homedir(), '.tts', 'googlecloud'))
+        super(cacheDir || path.join(homedir(), '.tts', 'googlecloud'))
     }
 
-    /**
-     * return a local path to your speech
-     */
-    public async getTts(request: GoogleTTS2Request): Promise<string> {
-        const file = await this.cacheDir.getCacheFile(request.hash(), request.filename());
-        try {
-            await fs.promises.stat(file);
-            return file;
-        } catch (e) {
-            // create new one
-        }
-
+    private async getToken(): Promise<string> {
         let GOOGLE_APPLICATION_CREDENTIALS = process.env.GOOGLE_APPLICATION_CREDENTIALS;
         if (!GOOGLE_APPLICATION_CREDENTIALS) {
             const key = await this.cacheDir.getKey();
@@ -44,6 +33,17 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
         if (!GOOGLE_APPLICATION_CREDENTIALS) {
             throw Error(`Missing GOOGLE_APPLICATION_CREDENTIALS environement variable, or key in ~/.tts/googlecloud/key.json`);
         }
+        return GOOGLE_APPLICATION_CREDENTIALS;
+    }
+
+    /**
+     * return a local path to your speech
+     */
+    public async getTts(request: GoogleTTS2Request): Promise<string> {
+        const {file, exists} = await this.cacheDir.getCacheFile(request.hash(), request.filename());
+        if (exists)
+            return file;
+        await this.getToken();
         try {
             const [responce, error] = await this.client.synthesizeSpeech(request.toRequest());
 

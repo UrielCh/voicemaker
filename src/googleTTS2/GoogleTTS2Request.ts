@@ -8,24 +8,16 @@ import { GoogleTTS2Voice, GoogleVoices } from './GoogleTTS2Voices';
 export class GoogleTTS2Request extends CommonTTSRequestAdv {
     lang = 'en-US';
     private voice: GoogleVoices = 'en-US-Wavenet-A';
-    private _format: 'mp3' | 'ogg' | 'wav' = 'mp3';
     gender: "FEMALE" | "MALE" = "FEMALE";
 
     constructor(text: string, voice?: GoogleVoices) {
         // super({ pitch: { min: -20, max: 20 }, speed: { min: 0.25, max: 4 }, volume: { min: -96.0, max: 16.0 } });
-        super(text, { pitch: { min: -20, max: 20 }, speed: { min: 0.25, max: 4 }, volume: { min: -16.0, max: 16.0 } });
+        super(text, { pitch: { min: -20, max: 20 }, speed: { min: 0.25, max: 4 }, volume: { min: -16.0, max: 16.0 }, supportedFormat: ['mp3', 'ogg', 'wav'] });
         this.text = text;
         if (voice)
             this.setVoice(voice)
     }
 
-    set outputFormat(format: "mp3" | 'wav' | 'ogg') {
-        this._format = format;
-    }
-
-    get outputFormat(): "mp3" | 'wav' | 'ogg' {
-        return this._format;
-    }
 
     setVoice(voiceName: string) {
         const lng = GoogleTTS2Voice[voiceName as GoogleVoices]

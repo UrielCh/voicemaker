@@ -1,12 +1,6 @@
 import commander, { Command } from 'commander';
-import { getVoice } from './common/utils';
-import { GoogleTTS } from './googleTTS/GoogleTTS';
-import { GoogleTTSRequest } from './googleTTS/GoogleTTSRequest';
-import GoogleTTS2 from "./googleTTS2/GoogleTTS2";
-import { GoogleTTS2Request } from "./googleTTS2/GoogleTTS2Request";
+import { getEngine, getVoice } from './common/utils';
 import { GoogleTTS2Voice, GoogleVoices } from './googleTTS2/GoogleTTS2Voices';
-import VoiceMaker from './voicemakerin/VoiceMaker';
-import { VoiceMakerRequest } from './voicemakerin/VoiceMakerRequest';
 import { voiceMakerVoiceCache, VoiceMakerVoices } from './voicemakerin/VoiceMakerVoices';
 
 function parseLangCode(value: string, dummyPrevious: string): string {
@@ -65,7 +59,7 @@ program.version('0.1.0')
     });
 
 
-program.command('say', {isDefault: true})
+program.command('say', { isDefault: true })
     .arguments('<text...>')
     .description('use a TTS engine to make your computer speak')
     .option('-v, --voice <name>', 'select a voiceMaker, or a google cloud TTS voice')
@@ -75,41 +69,15 @@ program.command('say', {isDefault: true})
     .option('-V, --volume <volume>', 'increate or decrease speech volume', parsePerCent)
     .action(function (texts: string[], options: SayOption) {
         const voice = getVoice(options.voice);
-        if (!voice) {
-            const engine = new GoogleTTS();
-            const req = new GoogleTTSRequest(texts.join(' '));
-            if (options.lang)
-                req.lang = options.lang;
-            if (options.speed && options.speed < 0)
-                req.slow = true;
-            engine.say(req);
-            return;
-        }
-        if (voice.type === 'google') {
-            const engine = new GoogleTTS2();
-            const req = new GoogleTTS2Request(texts.join(' '), voice.voice);
-            if (options.speed)
-                req.speedPer100 = options.speed;
-            if (options.pitch)
-                req.pitchPer100 = options.pitch;
-            if (options.volume)
-                req.volumePer100 = options.volume;
-            engine.say(req);
-            return;
-        }
-        if (voice.type === 'voicemaker') {
-            const engine = new VoiceMaker();
-            const req = new VoiceMakerRequest(texts.join(' '));
-            req.setVoice(voice.voice);
-            if (options.speed)
-                req.speedPer100 = options.speed;
-            if (options.pitch)
-                req.pitchPer100 = options.pitch;
-            if (options.volume)
-                req.volumePer100 = options.volume;
-            engine.say(req);
-            return;
-        }
+        const engine = getEngine(voice.voice);
+        const req = engine.getRequest(texts.join(' '));
+        if (options.speed)
+            req.speedPer100 = options.speed;
+        if (options.pitch)
+            req.pitchPer100 = options.pitch;
+        if (options.volume)
+            req.volumePer100 = options.volume;
+        engine.say(req);
     });
 
 program.parse(process.argv);

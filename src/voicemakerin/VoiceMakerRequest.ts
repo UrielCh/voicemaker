@@ -1,3 +1,4 @@
+import { AudioFormat } from '../common/commonTTSRequest';
 import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
 import { getLangFromVoice, VoiceMakerLangs, VoiceMakerVoices } from "./VoiceMakerVoices";
 
@@ -6,7 +7,7 @@ export interface VoiceMakerRequestPublic {
     Engine: 'standard' | 'neural';
     VoiceId: string;
     LanguageCode: VoiceMakerLangs;
-    OutputFormat: "mp3" | 'wav';
+    OutputFormat: AudioFormat; // "mp3" | 'wav'
     SampleRate: string;
     Effect: 'default' | 'breathing' | 'soft' | 'whispered' | 'conversational' | 'news' | 'customersupport' | 'assistant' | 'happy' | 'empathic' | 'clam';
     // number as string
@@ -24,7 +25,6 @@ export class VoiceMakerRequest extends CommonTTSRequestAdv {
     engine: 'standard' | 'neural' = 'neural';
     private voice: string = 'ai2-Katie';
     lang: VoiceMakerLangs = "en-US";
-    _format: "mp3" | 'wav' = 'mp3';
     /**
      * breathing, soft, whispered - Only supports standard Engine ai1 voices.
      * conversational - Only support on neural Engine en-US - ai1-Joanna, ai1-Matthew, ai3-Aria, ai3-Jenny, cmn-CN - ai3-cmn-CN-Xiaoxiao.
@@ -37,18 +37,8 @@ export class VoiceMakerRequest extends CommonTTSRequestAdv {
      */
     effect: 'default' | 'breathing' | 'soft' | 'whispered' | 'conversational' | 'news' | 'customersupport' | 'assistant' | 'happy' | 'empathic' | 'clam' = "default";
 
-    set outputFormat(format: "mp3" | 'wav' | 'ogg') {
-        if (format === 'ogg')
-            throw Error('ogg is not supported')
-        this._format = format;
-    }
-
-    get outputFormat(): "mp3" | 'wav' {
-        return this._format;
-    }
-
     constructor(text: string, voice?: string) {
-        super(text, { pitch: { min: -100, max: 100 }, speed: { min: -100, max: 100 }, volume: { min: -20, max: 20 } });
+        super(text, { pitch: { min: -100, max: 100 }, speed: { min: -100, max: 100 }, volume: { min: -20, max: 20 }, supportedFormat: ["mp3", 'wav'] });
         if (voice)
             this.setVoice(voice);
     }

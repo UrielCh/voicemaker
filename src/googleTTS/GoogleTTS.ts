@@ -15,10 +15,8 @@ export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
     public async getTts(request: GoogleTTSRequest): Promise<string> {
         const hex = request.hash();
         const file0 = request.filename();
-        const file = await this.cacheDir.getCacheFile(hex, file0);
-        try {
-            await fs.promises.stat(file);
-        } catch (e) {
+        const { file, exists } = await this.cacheDir.getCacheFile(hex, file0);
+        if (!exists) {
             // get audio URL
             const url = googleTTS.getAudioUrl(request.text, {
                 lang: request.lang,

@@ -1,4 +1,4 @@
-import { CommonTTSRequest } from "./commonTTSRequest";
+import { AudioFormat, CommonTTSRequest } from "./commonTTSRequest";
 
 export interface FieldConstraint {
     min: number;
@@ -13,8 +13,8 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
     _volume = 0;
     _sampleRate: number = 24000;
 
-    constructor(text: string, private limits: { speed: FieldConstraint, pitch: FieldConstraint, volume: FieldConstraint }) {
-        super(text);
+    constructor(text: string, private limits: { speed: FieldConstraint, pitch: FieldConstraint, volume: FieldConstraint, supportedFormat: AudioFormat[] }) {
+        super(text, limits.supportedFormat);
     }
 
     set sampleRate(sampleRate: number) {

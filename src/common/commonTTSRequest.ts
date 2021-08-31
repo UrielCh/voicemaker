@@ -1,7 +1,11 @@
 import crypto from 'crypto';
 
+export type AudioFormat = "mp3" | 'wav' | 'ogg' | 'flac';
+
 export abstract class CommonTTSRequest {
-    constructor(public text: string) {}
+    private _format: AudioFormat = 'mp3';
+
+    constructor(public text: string, private supportedFormat: AudioFormat[]) { }
 
     /**
      * must fully describe the request
@@ -36,6 +40,32 @@ export abstract class CommonTTSRequest {
     abstract setVoice(voiceName: string): void;
     abstract getVoice(): string;
 
-    abstract set outputFormat(format: "mp3" | 'wav' | 'ogg');
-    abstract get outputFormat(): "mp3" | 'wav' | 'ogg'
+    set outputFormat(format:AudioFormat) {
+        if (this.supportedFormat.includes(format))
+            this._format = format;
+        else 
+            throw Error(`${format} audio format is not supported`)
+    }
+    
+    get outputFormat(): AudioFormat {
+        return this._format;
+    }
+
+    get mimeType(): string {
+        switch (this.outputFormat) {
+            case 'mp3':
+                return 'audio/mpeg';
+            case 'ogg':
+                return 'audio/ogg';
+            case 'wav':
+                return 'audio/wav';
+            case 'flac':
+                return 'audio/flac';
+        }
+    }
+
+    /**
+     * format the request to the proper model
+     */
+    abstract toRequest(): any;
 }
