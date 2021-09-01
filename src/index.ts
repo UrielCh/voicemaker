@@ -9,14 +9,19 @@ export { GoogleTTS2 } from './googleTTS2/GoogleTTS2';
 export { GoogleTTS2Request } from './googleTTS2/GoogleTTS2Request';
 export { GoogleVoices, ALL_GOOGLE_VOICES } from './googleTTS2/GoogleTTS2Voices';
 
+export { Watson } from './watson/Watson';
+export { WatsonRequest } from './watson/WatsonRequest';
+export { WatsonVoices, ALL_WATSON_VOICES } from './watson/watsonVoices';
+
 export { getVoice, getEngine, VoiceSelectionVoiceMaker, VoiceSelectionGoogle } from './common/utils';
 
+
 /**
- * build a nice default
+ * build a default export
  */
-import { VoiceMaker } from "./voicemakerin/VoiceMaker";
-import { GoogleTTS } from './googleTTS/GoogleTTS';
+
+import { getVoice, getEngine } from './common/utils';
 
 export default {
-    VoiceMaker, GoogleTTS
+    getVoice, getEngine
 }

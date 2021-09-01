@@ -66,8 +66,8 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
             await fs.promises.writeFile(file, speech.rawBody);
             await super.log(request);
         } catch (e) {
-            console.error('Failed to generarte voice');
-            console.error(e);
+            // console.error('Failed to generarte voice');
+            // console.error(e);
             throw (e);
         }
         return file;

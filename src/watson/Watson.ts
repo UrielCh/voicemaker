@@ -2,7 +2,7 @@ import { homedir } from "os";
 import path from "path";
 import fs from "fs";
 import { CommonTTS } from "../common/commonTTS";
-import got from "got/dist/source";
+import got from "got";
 import { WatsonRequest } from "./WatsonRequest";
 
 export class Watson extends CommonTTS<WatsonRequest> {
@@ -15,55 +15,68 @@ export class Watson extends CommonTTS<WatsonRequest> {
      * London: https://api.eu-gb.text-to-speech.watson.cloud.ibm.com
      * Seoul: https://api.kr-seo.text-to-speech.watson.cloud.ibm.com
      */
-    serviceUrl: string = 'https://api.eu-de.text-to-speech.watson.cloud.ibm.com';
 
     constructor(cacheDir?: string) {
         super(cacheDir || path.join(homedir(), '.tts', 'watson'))
     }
 
-    private async getToken(): Promise<string> {
-        let WATSON_TOKEN = process.env.WATSON_TOKEN;
-        if (!WATSON_TOKEN) {
+    private async getToken(): Promise<{ TEXT_TO_SPEECH_APIKEY: string, TEXT_TO_SPEECH_URL: string }> {
+        let TEXT_TO_SPEECH_APIKEY = process.env.TEXT_TO_SPEECH_APIKEY;
+        let TEXT_TO_SPEECH_URL = process.env.TEXT_TO_SPEECH_URL;
+
+        if (!TEXT_TO_SPEECH_APIKEY) {
             const key = await this.cacheDir.getKey();
             if (key) {
-                const data = await fs.promises.readFile(key, {encoding: 'utf-8'});
-                const m = data.match(/[a-zA-Z0-9_]{44}/);
+                let data = await fs.promises.readFile(key, { encoding: 'utf-8' });
+
+                let m = data.match(/https:\/\/[^"]+/);
                 if (m) {
-                    process.env.WATSON_TOKEN = m[0];
-                    WATSON_TOKEN = m[0];
+                    TEXT_TO_SPEECH_URL = m[0];
+                    data = data.replace(TEXT_TO_SPEECH_URL, '');
                 } else {
-                    console.log(`${key} exists but do not contains any Token`);
+                    throw Error(`can not found TEXT_TO_SPEECH_URL end point in ${key}`)
+                }
+
+                m = data.match(/[a-zA-Z0-9_]{44}/);
+                if (m) {
+                    process.env.TEXT_TO_SPEECH_APIKEY = m[0];
+                    TEXT_TO_SPEECH_APIKEY = m[0];
+                } else {
+                    throw Error(`can not found TEXT_TO_SPEECH_APIKEY api key in ${key}`)
                 }
             }
         }
-        if (!WATSON_TOKEN) {
-            throw Error(`Missing WATSON_TOKEN environement variable, or token in ~/.tts/watson/key.json file.`);
+        if (!TEXT_TO_SPEECH_APIKEY || !TEXT_TO_SPEECH_URL) {
+            throw Error(`Missing TEXT_TO_SPEECH_URL and TEXT_TO_SPEECH_APIKEY environement variable, or token in ~/.tts/watson/key.json file.`);
         }
-        return WATSON_TOKEN;
+        return { TEXT_TO_SPEECH_APIKEY, TEXT_TO_SPEECH_URL };
     }
 
     async getTts(request: WatsonRequest): Promise<string> {
-        const {file, exists} = await this.cacheDir.getCacheFile(request.hash(), request.filename());
+        const { file, exists } = await this.cacheDir.getCacheFile(request.hash(), request.filename());
         if (exists)
             return file;
-        const WATSON_TOKEN = await this.getToken();
+        const { TEXT_TO_SPEECH_APIKEY, TEXT_TO_SPEECH_URL } = await this.getToken();
         try {
-            const resp = await got.post(`${this.serviceUrl}/v1/synthesize`, { 
+            const { text, voice, accept } = request.toRequest();
+            console.log({ text, voice, accept });
+            const resp = await got.post(`${TEXT_TO_SPEECH_URL}/v1/synthesize`, {
+                searchParams: { voice }, // , accept, text
+                username: 'apikey',
+                password: TEXT_TO_SPEECH_APIKEY,
                 headers: {
                     'user-agent': `VoiceMaker (https://github.com/UrielCh/voicemaker)`,
-                    Authorization: `Bearer ${WATSON_TOKEN}`,
                     'Content-Type': 'application/json',
-                    'Accept': request.mimeType,
-                 },
-                body: JSON.stringify(request.toRequest()),
+                    'Accept': accept,
+                },
+                body: JSON.stringify({ text }),
             });
             if (resp.statusCode === 200) {
                 await fs.promises.writeFile(file, resp.rawBody);
                 await super.log(request);
             }
         } catch (e) {
-            console.error('Failed to generarte voice');
-            console.error(e);
+            // console.error('Failed to generarte voice');
             throw (e);
         }
         return file;

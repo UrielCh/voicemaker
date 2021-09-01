@@ -7,7 +7,7 @@ export interface WatsonRequestPublic {
 }
 
 /**
- * 
+ * $20.00 USD / 1 million characters
  */
 export class WatsonRequest extends CommonTTSRequestAdv {
     private voice: string = 'en-US_MichaelV3Voice';

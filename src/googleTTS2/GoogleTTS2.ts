@@ -56,8 +56,8 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
             await fs.promises.writeFile(file, data);
             await super.log(request);
         } catch (e) {
-            console.error('Failed to generarte voice');
-            console.error(e);
+            // console.error('Failed to generarte voice');
+            // console.error(e);
             throw (e);
         }
         return file;

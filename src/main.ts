@@ -67,17 +67,22 @@ program.command('say', { isDefault: true })
     .option('-p, --pitch <pitch>', 'customise talk pitch', parsePerCent)
     .option('-l, --lang <lang>', 'specify a lang code', parseLangCode)
     .option('-V, --volume <volume>', 'increate or decrease speech volume', parsePerCent)
-    .action(function (texts: string[], options: SayOption) {
+    .action(async function (texts: string[], options: SayOption) {
         const voice = getVoice(options.voice);
         const engine = getEngine(voice.voice);
-        const req = engine.getRequest(texts.join(' '));
+        const req = engine.getRequest(texts.join(' '), voice.voice);
         if (options.speed)
             req.speedPer100 = options.speed;
         if (options.pitch)
             req.pitchPer100 = options.pitch;
         if (options.volume)
             req.volumePer100 = options.volume;
-        engine.say(req);
+        try {
+            await engine.say(req);
+        } catch (e) {
+            console.error(e);
+            process.exit(-1);
+        }
     });
 
 program.parse(process.argv);

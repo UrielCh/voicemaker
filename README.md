@@ -46,6 +46,15 @@ export VOICEMAKER_IN_TOKEN="12345678-abcd-1234-1234-1234567890ab"
 
 Alternatively you can save your certificate in ~/.tts/voiceMaker/key.json (as text data).
 
+
+### IBM Watson
+
+To make IBM watson TTS works, define an `TEXT_TO_SPEECH_APIKEY` and `TEXT_TO_SPEECH_URL` env variable, you can get them from an `ibm-credentials.env` file from https://cloud.ibm.com/
+
+
+Alternatively you can save your certificate in ~/.tts/watson/key.json (as text data or a json file).
+
+
 ## Usage as a script
 
 This package includes a binary that can use every voice from any script; this script is optimized to let you easily switch between engines, volume, speed, and pitch values, which are normalized to -100% to +100%.

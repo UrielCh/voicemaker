@@ -1,5 +1,11 @@
 # changelog
 
+## v 0.2.0
+- fix EOL import
+- add IBM watson API
+- change default export
+- remove stdout and stderr output
+
 ## v 0.1.5
 - add Missing EOL in log.txt
 
