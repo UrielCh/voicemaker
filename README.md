@@ -2,6 +2,8 @@
 
 This Api make your nodeJS app or script speak. [![NPM Version](https://img.shields.io/npm/v/voicemaker.svg?style=api)](https://www.npmjs.org/package/voicemaker)
 
+With this API you can use and compare available TTS APIs from Google, voicemaker.in, IBM Watson, more are comming.
+
 ## Configure Environment
 
 ### Google cloud
@@ -85,7 +87,7 @@ Usage: voicemaker say [options] <text...>
 use a TTS engine to make your computer speak
 
 Options:
-  -v, --voice <name>     select a voiceMaker, or a google cloud TTS voice
+  -v, --voice <name>     select a voiceMaker, IBM watson, or a google cloud TTS voice.
   -s, --speed <speed>    customise talk speed
   -p, --pitch <pitch>    customise talk pitch
   -l, --lang <lang>      specify a lang code
@@ -93,7 +95,6 @@ Options:
   -h, --help             display help for command
 
 ```
-
 
 ### List available voices
 
