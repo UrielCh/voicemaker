@@ -1,6 +1,6 @@
 {
   "name": "voicemaker",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Make your nodeJs speak",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

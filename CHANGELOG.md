@@ -1,5 +1,8 @@
 # changelog
 
+## v 0.2.1
+- update voicemaker.in voicelist
+
 ## v 0.2.0
 - fix EOL import
 - add IBM watson API
