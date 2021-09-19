@@ -1,15 +1,16 @@
 import commander, { Command } from 'commander';
-import { getEngine, getVoice } from './common/utils';
+import { ALL_WATSON_VOICES } from '.';
+import { ALL_ENGINE, getEngine, getVoice } from './common/utils';
 import { GoogleTTS2Voice, GoogleVoices } from './googleTTS2/GoogleTTS2Voices';
 import { voiceMakerVoiceCache, VoiceMakerVoices } from './voicemakerin/VoiceMakerVoices';
 
-function parseLangCode(value: string, dummyPrevious: string): string {
-    if (!value.match(/^[a-z]{2,3}-[A-Z]{2}$/))
+function parseLangCode(value: string): string {
+    if (!value.match(/^[a-z]{2,3}(-[A-Z]{2})?$/))
         throw new commander.InvalidArgumentError('should be a lang code like en-US, en-GB, es-MX, fr-FR ...');
     return value;
 }
 
-function parsePerCent(value: string, dummyPrevious: number): number {
+function parsePerCent(value: string): number {
     value = value.trim();
     const value2 = value.replace('%', '');
     const parsedValue = parseInt(value2, 10);
@@ -37,12 +38,15 @@ const program = new Command();
 
 program.version('0.1.0')
     .command('list')
-    .arguments('<engine>')
-    .description('list available voices')
-    .action(function (engine: string) {
+    .arguments('[engine]')
+    .description('List available voices from an engine')
+    .option('-l, --lang <lang>', 'Display only voice with the correct lang code', parseLangCode)
+    .action(function (engine: string, options: SayOption) {
         if (engine === 'voicemaker') {
             for (const voice of Object.keys(voiceMakerVoiceCache)) {
                 const lang = voiceMakerVoiceCache[voice as VoiceMakerVoices];
+                if (options.lang && !lang.includes(options.lang))
+                    continue
                 console.log(`${voice} speak ${lang}`)
             }
             return;
@@ -50,11 +54,21 @@ program.version('0.1.0')
         if (engine === 'google') {
             for (const voice of Object.keys(GoogleTTS2Voice)) {
                 const info = GoogleTTS2Voice[voice as GoogleVoices];
+                if (options.lang && !info.lang.includes(options.lang))
+                    continue
                 console.log(`${voice} is a ${info.ssmlGender} speaking ${info.lang}`)
             }
             return
         }
-        console.error(`engine parameter should be voicemaker of google`);
+        if (engine === 'watson') {
+            for (const voice of ALL_WATSON_VOICES) {
+                if (options.lang && !voice.startsWith(options.lang))
+                    continue
+                console.log(`${voice}`);
+            }
+            return
+        }
+        console.error(`Engine parameter should be on of: ${ALL_ENGINE.join(', ')}`);
         process.exit(-1)
     });
 

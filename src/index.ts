@@ -15,7 +15,6 @@ export { WatsonVoices, ALL_WATSON_VOICES } from './watson/watsonVoices';
 
 export { getVoice, getEngine, VoiceSelectionVoiceMaker, VoiceSelectionGoogle } from './common/utils';
 
-
 /**
  * build a default export
  */

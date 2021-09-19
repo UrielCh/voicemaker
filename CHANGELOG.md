@@ -1,18 +1,27 @@
 # changelog
 
+# v 0.2.2
+
+- improve cli add list engine
+- improve cli allow voice listing filtered by lang
+
 ## v 0.2.1
+
 - update voicemaker.in voicelist
 
 ## v 0.2.0
+
 - fix EOL import
 - add IBM watson API
 - change default export
 - remove stdout and stderr output
 
 ## v 0.1.5
+
 - add Missing EOL in log.txt
 
 ## v 0.1.4
+
 - add GoogleVoices, ALL_GOOGLE_VOICES exports
 
 ## v 0.1.3

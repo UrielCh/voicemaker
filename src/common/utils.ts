@@ -29,9 +29,14 @@ export interface VoiceSelectionNone {
     voice: null,
 }
 
+export const ALL_ENGINE = ['voicemaker', 'google', 'watson'] as const;
+
+/** 
+ * get engine name + voice matching a voice name.
+ */
 export function getVoice(voice?: string): VoiceSelectionVoiceMaker | VoiceSelectionGoogle | VoiceSelectionWatson | VoiceSelectionNone {
     if (!voice)
-        return {type: null, voice: null};
+        return { type: null, voice: null };
     if (voiceMakerVoiceCache[voice as VoiceMakerVoices]) {
         return {
             type: 'voicemaker',
@@ -51,9 +56,12 @@ export function getVoice(voice?: string): VoiceSelectionVoiceMaker | VoiceSelect
         }
     }
     console.error(`unknown voice ${voice}, switch back to default voice`)
-    return {type: null, voice: null};
+    return { type: null, voice: null };
 }
 
+/** 
+ * get a new engine from a voice name.
+ */
 export function getEngine(voice?: string | null): CommonTTS<CommonTTSRequest> {
     if (!voice)
         return new GoogleTTS();
