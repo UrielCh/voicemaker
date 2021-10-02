@@ -2,8 +2,9 @@ import { homedir } from "os";
 import path from "path";
 import fs from "fs";
 import { CommonTTS } from "../common/commonTTS";
-import got from "got";
+// import got from "got";
 import { WatsonRequest } from "./WatsonRequest";
+import axios, { AxiosResponse } from 'axios';
 
 export class Watson extends CommonTTS<WatsonRequest> {
     /**
@@ -59,22 +60,46 @@ export class Watson extends CommonTTS<WatsonRequest> {
         const { TEXT_TO_SPEECH_APIKEY, TEXT_TO_SPEECH_URL } = await this.getToken();
         try {
             const { text, voice, accept } = request.toRequest();
-            console.log({ text, voice, accept });
-            const resp = await got.post(`${TEXT_TO_SPEECH_URL}/v1/synthesize`, {
-                searchParams: { voice }, // , accept, text
-                username: 'apikey',
-                password: TEXT_TO_SPEECH_APIKEY,
-                headers: {
-                    'user-agent': `VoiceMaker (https://github.com/UrielCh/voicemaker)`,
-                    'Content-Type': 'application/json',
-                    'Accept': accept,
-                },
-                body: JSON.stringify({ text }),
-            });
-            if (resp.statusCode === 200) {
-                await fs.promises.writeFile(file, resp.rawBody);
+            const API_URL = `${TEXT_TO_SPEECH_URL}/v1/synthesize?voice=${voice}`;
+            const headers = {
+                'user-agent': this.userAgent,
+                'Content-Type': 'application/json',
+                'Accept': accept,
+            };
+            /** Axios Implementaion */
+            const resp = await axios.post<string, AxiosResponse<Buffer>>(API_URL,
+                JSON.stringify({ text }),
+                {
+                    // searchParams: { voice }, // , accept, text
+                    auth: {
+                        username: 'apikey',
+                        password: TEXT_TO_SPEECH_APIKEY,
+                    },
+                    headers,
+                    responseType: 'arraybuffer',
+                });
+            if (resp.status === 200) {
+                await fs.promises.writeFile(file, resp.data);
                 await super.log(request);
+            } else {
+                throw Error(`Access Watson failed with response ${JSON.stringify(resp.data)}`);
             }
+
+            /** GOT implementaion */
+            // const resp = await got.post(API_URL, {
+            //     // searchParams: { voice }, // , accept, text
+            //     username: 'apikey',
+            //     password: TEXT_TO_SPEECH_APIKEY,
+            //     headers,
+            //     body: JSON.stringify({ text }),
+            // });
+            // if (resp.statusCode === 200) {
+            //     await fs.promises.writeFile(file, resp.rawBody);
+            //     await super.log(request);
+            // } else {
+            //    throw Error(`Access Watson failed with response ${JSON.stringify(resp.data)}`);
+            // }
+
         } catch (e) {
             // console.error('Failed to generarte voice');
             throw (e);

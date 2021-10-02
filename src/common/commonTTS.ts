@@ -1,9 +1,11 @@
 import SoundPlayer from "../SoundPlayer";
 import { CommonTTSRequest } from "./commonTTSRequest";
 import { LocalCache } from "./LocalCache";
+
 export abstract class CommonTTS<T extends CommonTTSRequest> {
     private _player?: SoundPlayer;
     protected cacheDir: LocalCache;
+    public userAgent: string = `VoiceMaker (https://github.com/UrielCh/voicemaker)`;
 
     constructor(cacheDir: string) {
         this.cacheDir = new LocalCache(cacheDir);

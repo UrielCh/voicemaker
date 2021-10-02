@@ -1,8 +1,8 @@
 import path from 'path';
 import { homedir } from 'os';
 import fs from 'fs';
-import got from 'got';
-import { VoiceMakerRequest } from './VoiceMakerRequest';
+import axios, { AxiosResponse } from 'axios';
+import { VoiceMakerRequest, VoiceMakerRequestPublic } from './VoiceMakerRequest';
 import { CommonTTS } from '../common/commonTTS';
 
 interface VoiceMakerResponse {
@@ -20,7 +20,7 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
         if (!VOICEMAKER_IN_TOKEN) {
             const key = await this.cacheDir.getKey();
             if (key) {
-                const data = await fs.promises.readFile(key, {encoding: 'utf-8'});
+                const data = await fs.promises.readFile(key, { encoding: 'utf-8' });
                 const m = data.match(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/);
                 if (m) {
                     process.env.VOICEMAKER_IN_TOKEN = m[0];
@@ -40,30 +40,36 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
      * return a local path to your speech
      */
     public async getTts(request: VoiceMakerRequest): Promise<string> {
-        const {file, exists} = await this.cacheDir.getCacheFile(request.hash(), request.filename());
+        const { file, exists } = await this.cacheDir.getCacheFile(request.hash(), request.filename());
         if (exists)
             return file;
         const VOICEMAKER_IN_TOKEN = await this.getToken();
+        const reqData: VoiceMakerRequestPublic = request.toRequest();
+        const API_URL = 'https://developer.voicemaker.in/voice/api';
+        const headers = {
+            'user-agent': this.userAgent,
+            Authorization: `Bearer ${VOICEMAKER_IN_TOKEN}`,
+            'Content-Type': 'application/json',
+        };
+        const headersLt = {
+            'user-agent': this.userAgent,
+        };
+
         try {
-            const resp = await got.post('https://developer.voicemaker.in/voice/api', { 
-                headers: {
-                    'user-agent': `VoiceMaker (https://github.com/UrielCh/voicemaker)`,
-                    Authorization: `Bearer ${VOICEMAKER_IN_TOKEN}`,
-                    'Content-Type': 'application/json',
-                 },
-                body: JSON.stringify(request.toRequest()),
-            });
-            const body: VoiceMakerResponse = JSON.parse(resp.body);
-            if (!body.path) {
-                throw Error('Access VoiceMaker failed with response ' + JSON.stringify(resp.rawBody));
-            }
-            const speech = await got.get(body.path, {
-                headers: {
-                    'user-agent': `VoiceMaker (https://github.com/UrielCh/voicemaker)`,
-                },
-                encoding: 'binary',
-            });
-            await fs.promises.writeFile(file, speech.rawBody);
+            /* Axios implementaion */
+            const resp = await axios.post<VoiceMakerRequestPublic, AxiosResponse<VoiceMakerResponse>>(API_URL, reqData, { responseType: 'json', headers });
+            const body: VoiceMakerResponse = resp.data;
+            if (!body.path) throw Error(`Access VoiceMaker failed with response ${JSON.stringify(resp.data)}`);
+            const speech = await axios.get<never, AxiosResponse<Buffer>>(body.path, { headers: headersLt, responseType: 'arraybuffer' });
+            await fs.promises.writeFile(file, speech.data);
+
+            /* Got implementaion */
+            // const resp = await got.post(API_URL, { headers, body: JSON.stringify(request.toRequest()) });
+            // const body: VoiceMakerResponse = JSON.parse(resp.body);
+            // if (!body.path) throw Error(`Access VoiceMaker failed with response ${JSON.stringify(resp.rawBody)}`);
+            // const speech = await got.get(body.path, { headers: headersLt, encoding: 'binary' });
+            // await fs.promises.writeFile(file, speech.rawBody);
+
             await super.log(request);
         } catch (e) {
             // console.error('Failed to generarte voice');

@@ -1,5 +1,10 @@
 # changelog
 
+# v 0.2.3
+
+- replace got by axios
+- add log error on watson failure
+
 # v 0.2.2
 
 - improve cli add list engine
