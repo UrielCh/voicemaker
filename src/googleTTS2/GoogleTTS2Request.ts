@@ -1,6 +1,13 @@
-import { protos } from '@google-cloud/text-to-speech';
+// import { protos } from '@google-cloud/text-to-speech';
 import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
 import { GoogleTTS2Voice, GoogleVoices } from './GoogleTTS2Voices';
+
+export interface ISynthesizeSpeechRequest {
+    input: { text: string },
+    voice: { name: string, languageCode: string, ssmlGender: "FEMALE" | "MALE" },
+    audioConfig: { pitch: number, audioEncoding: number, speakingRate: number, sampleRateHertz: number }
+}
+
 /**
  * WaveNet: free tier: 1M / Month, then $16.00 USD / 1 million characters
  * classic: free tier: 4M / Month, then $4.00 USD / 1 million characters
@@ -42,20 +49,21 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
         return `tts-${this.hash()}.${this.outputFormat}`;
     }
 
-    toRequest(): protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest {
-        let audioEncoding: protos.google.cloud.texttospeech.v1.AudioEncoding;
+    /** protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest */
+    toRequest(): ISynthesizeSpeechRequest {
+        let audioEncoding: number;// protos.google.cloud.texttospeech.v1.AudioEncoding;
         switch (this.outputFormat) {
             case 'mp3':
-                audioEncoding = protos.google.cloud.texttospeech.v1.AudioEncoding.MP3;
+                audioEncoding = 2; //protos.google.cloud.texttospeech.v1.AudioEncoding.MP3;
                 break;
             case 'ogg':
-                audioEncoding = protos.google.cloud.texttospeech.v1.AudioEncoding.OGG_OPUS;
+                audioEncoding = 3; //protos.google.cloud.texttospeech.v1.AudioEncoding.OGG_OPUS;
                 break;
             case 'wav':
-                audioEncoding = protos.google.cloud.texttospeech.v1.AudioEncoding.LINEAR16;
+                audioEncoding = 1; //protos.google.cloud.texttospeech.v1.AudioEncoding.LINEAR16;
                 break;
             default:
-                audioEncoding = protos.google.cloud.texttospeech.v1.AudioEncoding.AUDIO_ENCODING_UNSPECIFIED;
+                audioEncoding = 0; //protos.google.cloud.texttospeech.v1.AudioEncoding.AUDIO_ENCODING_UNSPECIFIED;
         }
 
         return {

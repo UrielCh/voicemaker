@@ -13,6 +13,19 @@ import { CommonTTS } from '../common/commonTTS';
 import { GoogleTTS2Request } from './GoogleTTS2Request';
 import { GoogleVoices } from './GoogleTTS2Voices';
 
+export interface GoogleToken {
+    "type": "service_account",
+    "project_id": string, // prj name
+    "private_key_id": string, // hexa key
+    "private_key": string, // BEGIN PRIVATE KEY blob as string
+    "client_email": string, // email address
+    "client_id": string, // big number in base 10
+    "auth_uri": string, // url "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": string, // url "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": string, // "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": string, // iam url
+}
+
 export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
     client = new textToSpeech.TextToSpeechClient();
 
@@ -43,13 +56,11 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
         const {file, exists} = await this.cacheDir.getCacheFile(request.hash(), request.filename());
         if (exists)
             return file;
-        await this.getToken();
+        const tokenFile = await this.getToken();
+
         try {
             const [responce, error] = await this.client.synthesizeSpeech(request.toRequest());
-
             let data = responce.audioContent;
-            // [protos.google.cloud.texttospeech.v1.ISynthesizeSpeechResponse, protos.google.cloud.texttospeech.v1.ISynthesizeSpeechRequest | undefined, {} | undefined]
-
             if (!data) {
                 throw Error('Access VoiceMaker failed with response ' + JSON.stringify(error));
             }
