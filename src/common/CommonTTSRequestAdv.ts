@@ -50,11 +50,11 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
     }
 
     set speed(speed: number) {
-        this._pitch = this.filterValue('speed', this.limits.speed, speed);
+        this._speed = this.filterValue('speed', this.limits.speed, speed);
     }
 
     set volume(volume: number) {
-        this._pitch = this.filterValue('volume', this.limits.volume, volume);
+        this._volume = this.filterValue('volume', this.limits.volume, volume);
     }
 
     set pitchPer100(pitch: number) {
@@ -62,11 +62,11 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
     }
 
     set speedPer100(speed: number) {
-        this._pitch = this.filterValuePer100('speed', this.limits.speed, speed);
+        this._speed = this.filterValuePer100('speed', this.limits.speed, speed);
     }
 
     set volumePer100(volume: number) {
-        this._pitch = this.filterValuePer100('volume', this.limits.volume, volume);
+        this._volume = this.filterValuePer100('volume', this.limits.volume, volume);
     }
 
     get sampleRate(): number {
