@@ -1,5 +1,9 @@
 # changelog
 
+# v 1.1.1
+
+- add elevenlabs in engine list
+ 
 # v 1.1.0
 
 - add elevenlabs driver
