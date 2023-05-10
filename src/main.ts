@@ -37,7 +37,7 @@ interface SayOption {
 
 const program = new Command();
 
-program.version('1.0.1')
+program.version('1.1.0')
     .command('list')
     .arguments('[engine]')
     .description('List available voices from an engine')
