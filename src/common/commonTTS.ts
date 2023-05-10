@@ -32,5 +32,5 @@ export abstract class CommonTTS<T extends CommonTTSRequest> {
         this.player = player;
     }
 
-    abstract getRequest(text: string, voice?: string | null, voiceId?: string | null): T;
+    abstract getRequest(text: string, voice?: string | null): T;
 }

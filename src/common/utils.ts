@@ -1,3 +1,4 @@
+import ElevenLab from "../elevenLabio/ElevenLab";
 import { GoogleTTS } from "../googleTTS/GoogleTTS";
 import GoogleTTS2 from "../googleTTS2/GoogleTTS2";
 import { GoogleTTS2Voice, GoogleVoices } from "../googleTTS2/GoogleTTS2Voices";
@@ -9,24 +10,29 @@ import { CommonTTS } from "./commonTTS";
 import { CommonTTSRequest } from "./commonTTSRequest";
 
 
+export interface VoiceSelectionElevenLabs {
+    type: 'elevenlabs';
+    voice: string;
+}
+
 export interface VoiceSelectionVoiceMaker {
-    type: 'voicemaker',
+    type: 'voicemaker';
     voice: VoiceMakerVoices;
 }
 
 export interface VoiceSelectionGoogle {
-    type: 'google',
-    voice: GoogleVoices,
+    type: 'google';
+    voice: GoogleVoices;
 }
 
 export interface VoiceSelectionWatson {
-    type: 'watson',
-    voice: WatsonVoices,
+    type: 'watson';
+    voice: WatsonVoices;
 }
 
 export interface VoiceSelectionNone {
-    type: null,
-    voice: null,
+    type: null;
+    voice: null;
 }
 
 export const ALL_ENGINE = ['voicemaker', 'google', 'watson'] as const;
@@ -34,7 +40,7 @@ export const ALL_ENGINE = ['voicemaker', 'google', 'watson'] as const;
 /** 
  * get engine name + voice matching a voice name.
  */
-export function getVoice(voice?: string): VoiceSelectionVoiceMaker | VoiceSelectionGoogle | VoiceSelectionWatson | VoiceSelectionNone {
+export function getVoice(voice?: string): VoiceSelectionVoiceMaker | VoiceSelectionGoogle | VoiceSelectionWatson | VoiceSelectionElevenLabs | VoiceSelectionNone {
     if (!voice)
         return { type: null, voice: null };
     if (voiceMakerVoiceCache[voice as VoiceMakerVoices]) {
@@ -55,6 +61,12 @@ export function getVoice(voice?: string): VoiceSelectionVoiceMaker | VoiceSelect
             voice: voice as WatsonVoices,
         }
     }
+    if (voice.length === 20) {
+        return {
+            type: 'elevenlabs',
+            voice,
+        }
+    }
     console.error(`unknown voice ${voice}, switch back to default voice`)
     return { type: null, voice: null };
 }
@@ -73,6 +85,9 @@ export function getEngine(voice?: string | null): CommonTTS<CommonTTSRequest> {
     }
     if (WATSON_VOICES_SET.has(voice as WatsonVoices)) {
         return new Watson();
+    }
+    if (voice.length === 20) {
+        return new ElevenLab();
     }
     console.error(`Unknown voice ${voice}, switch back to default voice`)
     return new GoogleTTS();

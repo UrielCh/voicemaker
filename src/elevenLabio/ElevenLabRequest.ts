@@ -2,7 +2,7 @@ import { CommonTTSRequest } from "../common/commonTTSRequest";
 
 export interface ElevenLabRequestPublicBody {
   text: string;
-  model_id: string;
+  model_id?: "eleven_monolingual_v1" | 'eleven_multilingual_v1';
   voice_settings: {
     stability: number;
     similarity_boost: number;
@@ -54,7 +54,7 @@ export interface ElevenLabRequestVoice {
  */
 export class ElevenLabRequest extends CommonTTSRequest {
   voiceId: string;
-  modelId: string;
+  modelId?: "eleven_monolingual_v1" | 'eleven_multilingual_v1';
   stability = 0;
   similarityBoost = 0;
   /**
@@ -73,13 +73,13 @@ export class ElevenLabRequest extends CommonTTSRequest {
   setVoice(voiceName: string): void {
     this.voiceId = voiceName;
   }
+  
   getVoice(): string {
     return this.voiceId;
   }
 
-  constructor(text: string, modelId: string, voiceId: string) {
+  constructor(text: string, voiceId: string) {
     super(text, []);
-    this.modelId = modelId;
     this.voiceId = voiceId;
   }
 
@@ -113,7 +113,7 @@ export class ElevenLabRequest extends CommonTTSRequest {
       optimize_streaming_latency: this.optimizeStreamingLatency,
       body: {
         text: this.text,
-        model_id: this.modelId,
+        // model_id: this.modelId,
         voice_settings: {
           similarity_boost: this.similarityBoost,
           stability: this.stability,

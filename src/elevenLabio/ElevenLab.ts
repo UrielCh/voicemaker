@@ -61,8 +61,8 @@ export class ElevenLab extends CommonTTS<ElevenLabRequest> {
         return file;
     }
 
-    getRequest(text: string, modelId: string, voiceId: string): ElevenLabRequest {
-        return new ElevenLabRequest(text, modelId, voiceId);
+    getRequest(text: string, voiceId: string): ElevenLabRequest {
+        return new ElevenLabRequest(text, voiceId);
     }
 
     async getModel(): Promise<ElevenLabRequestModel[]> {
