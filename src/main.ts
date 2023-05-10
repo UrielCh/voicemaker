@@ -3,6 +3,7 @@ import { ALL_WATSON_VOICES } from '.';
 import { ALL_ENGINE, getEngine, getVoice } from './common/utils';
 import { GoogleTTS2Voice, GoogleVoices } from './googleTTS2/GoogleTTS2Voices';
 import { voiceMakerVoiceCache, VoiceMakerVoices } from './voicemakerin/VoiceMakerVoices';
+import ElevenLab from './elevenLabio/ElevenLab';
 
 function parseLangCode(value: string): string {
     if (!value.match(/^[a-z]{2,3}(-[A-Z]{2})?$/))
@@ -36,12 +37,12 @@ interface SayOption {
 
 const program = new Command();
 
-program.version('0.1.0')
+program.version('1.0.1')
     .command('list')
     .arguments('[engine]')
     .description('List available voices from an engine')
     .option('-l, --lang <lang>', 'Display only voice with the correct lang code', parseLangCode)
-    .action(function (engine: string, options: SayOption) {
+    .action(async function (engine: string, options: SayOption) {
         if (engine === 'voicemaker') {
             for (const voice of Object.keys(voiceMakerVoiceCache)) {
                 const lang = voiceMakerVoiceCache[voice as VoiceMakerVoices];
@@ -65,6 +66,19 @@ program.version('0.1.0')
                 if (options.lang && !voice.startsWith(options.lang))
                     continue
                 console.log(`${voice}`);
+            }
+            return
+        }
+        if (engine === 'elevenlabs' || engine === '11labs') {
+            const provider = new ElevenLab();
+            const voices = await provider.getVoices();
+            for (const voice of voices) {
+                // for (const lang of model.languages) {
+                //     if (options.lang && lang.language_id !== options.lang)
+                //         continue
+                //     console.log(`modelId: ${model.model_id} speak ${lang.language_id}}`)
+                // }
+                console.log(`${voice.voice_id} name: ${voice.name} [${voice.category}] sample: ${voice.preview_url}`)
             }
             return
         }

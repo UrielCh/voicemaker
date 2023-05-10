@@ -14,7 +14,8 @@
   },
 
   "scripts": {
-    "prepublishOnly": "rimraf dist",
+    "clean": "rimraf dist",
+    "prepublishOnly": "npm run clean",
     "build": "tsc --pretty --project . && tsc --pretty --project tsconfig-cjs.json",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
