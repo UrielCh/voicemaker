@@ -35,7 +35,7 @@ export interface VoiceSelectionNone {
     voice: null;
 }
 
-export const ALL_ENGINE = ['voicemaker', 'google', 'watson'] as const;
+export const ALL_ENGINE = ['voicemaker', 'google', 'watson', 'elevenlabs'] as const;
 
 /** 
  * get engine name + voice matching a voice name.
