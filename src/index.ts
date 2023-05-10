@@ -2,6 +2,9 @@ export { VoiceMaker } from "./voicemakerin/VoiceMaker";
 export { VoiceMakerRequest } from "./voicemakerin/VoiceMakerRequest";
 export { VoiceMakerVoices, ALL_VOICEMAKE_VOICES } from './voicemakerin/VoiceMakerVoices';
 
+export { ElevenLabs } from "./elevenLabsio/ElevenLabs";
+export { ElevenLabsRequest } from "./elevenLabsio/ElevenLabsRequest";
+
 export { GoogleTTS } from './googleTTS/GoogleTTS';
 export { GoogleTTSRequest } from './googleTTS/GoogleTTSRequest';
 

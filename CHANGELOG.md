@@ -1,6 +1,11 @@
 # changelog
 
+# v 1.1.0
+
+- add elevenlabs driver
+
 # v 1.0.0
+
 - Hotfix: fix setters for voicemaker configuration (pitch, speed, volume)
 - project contains CJS + ESM exports
 - update voiceMakerVoice list

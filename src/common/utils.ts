@@ -1,4 +1,4 @@
-import ElevenLab from "../elevenLabio/ElevenLab";
+import ElevenLabs from "../elevenLabsio/ElevenLabs";
 import { GoogleTTS } from "../googleTTS/GoogleTTS";
 import GoogleTTS2 from "../googleTTS2/GoogleTTS2";
 import { GoogleTTS2Voice, GoogleVoices } from "../googleTTS2/GoogleTTS2Voices";
@@ -87,7 +87,7 @@ export function getEngine(voice?: string | null): CommonTTS<CommonTTSRequest> {
         return new Watson();
     }
     if (voice.length === 20) {
-        return new ElevenLab();
+        return new ElevenLabs();
     }
     console.error(`Unknown voice ${voice}, switch back to default voice`)
     return new GoogleTTS();

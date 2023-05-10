@@ -1,6 +1,6 @@
 import { CommonTTSRequest } from "../common/commonTTSRequest";
 
-export interface ElevenLabRequestPublicBody {
+export interface ElevenLabsRequestPublicBody {
   text: string;
   model_id?: "eleven_monolingual_v1" | 'eleven_multilingual_v1';
   voice_settings: {
@@ -9,14 +9,14 @@ export interface ElevenLabRequestPublicBody {
   };
 }
 
-export interface ElevenLabRequestPublic {
+export interface ElevenLabsRequestPublic {
   voiceId: string;
   optimize_streaming_latency: number;
-  body: ElevenLabRequestPublicBody;
+  body: ElevenLabsRequestPublicBody;
   // optimize_streaming_latency: this.optimize_streaming_latency,
 }
 
-export interface ElevenLabRequestModel {
+export interface ElevenLabsRequestModel {
   model_id: string;
   name: string;
   can_be_finetuned: boolean;
@@ -27,7 +27,7 @@ export interface ElevenLabRequestModel {
   languages: Array<{ language_id: string; name: string }>;
 }
 
-export interface ElevenLabRequestVoice {
+export interface ElevenLabsRequestVoice {
   voice_id: string;
   name: string;
   samples: string | null;
@@ -52,7 +52,7 @@ export interface ElevenLabRequestVoice {
 /**
  *
  */
-export class ElevenLabRequest extends CommonTTSRequest {
+export class ElevenLabsRequest extends CommonTTSRequest {
   voiceId: string;
   modelId?: "eleven_monolingual_v1" | 'eleven_multilingual_v1';
   stability = 0;
@@ -107,7 +107,7 @@ export class ElevenLabRequest extends CommonTTSRequest {
   //     return this.voice;
   // }
 
-  toRequest(): ElevenLabRequestPublic {
+  toRequest(): ElevenLabsRequestPublic {
     return {
       voiceId: this.voiceId,
       optimize_streaming_latency: this.optimizeStreamingLatency,

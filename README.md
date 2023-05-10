@@ -31,6 +31,23 @@ export GOOGLE_APPLICATION_CREDENTIALS="/pathtoyourCERT"
 Alternatively you can save your certificate in ~/.tts/googlecloud/key.json.
 
 
+### ElevenLabs
+
+To make elevenlabs TTS works, define an `ELEVENLABS_IO_TOKEN` env variable, log on https://beta.elevenlabs.io/ and go to Profile Settings to get one.
+
+Then put it onto your `ELEVENLABS_IO_TOKEN` valiable.
+
+Powershell:
+```powershell
+$Env:ELEVENLABS_IO_TOKEN = "123456781234567890abcdef12345678"
+```
+Unix:
+```bash
+export ELEVENLABS_IO_TOKEN="123456781234567890abcdef12345678"
+```
+
+Alternatively you can save your certificate in ~/.tts/elevenlabs/key.json (as text data).
+
 ### Voicemaker
 
 To make voicemaker TTS works, define an `VOICEMAKER_IN_TOKEN` env variable, to get this token, send an E-Mail to `support@voicemaker.in` asking for a developper token.

@@ -3,7 +3,7 @@ import { ALL_WATSON_VOICES } from '.';
 import { ALL_ENGINE, getEngine, getVoice } from './common/utils';
 import { GoogleTTS2Voice, GoogleVoices } from './googleTTS2/GoogleTTS2Voices';
 import { voiceMakerVoiceCache, VoiceMakerVoices } from './voicemakerin/VoiceMakerVoices';
-import ElevenLab from './elevenLabio/ElevenLab';
+import ElevenLabs from './elevenLabsio/ElevenLabs';
 
 function parseLangCode(value: string): string {
     if (!value.match(/^[a-z]{2,3}(-[A-Z]{2})?$/))
@@ -70,7 +70,7 @@ program.version('1.0.1')
             return
         }
         if (engine === 'elevenlabs' || engine === '11labs') {
-            const provider = new ElevenLab();
+            const provider = new ElevenLabs();
             const voices = await provider.getVoices();
             for (const voice of voices) {
                 // for (const lang of model.languages) {
