@@ -1,5 +1,9 @@
 # changelog
 
+# v 1.0.0
+- Hotfix: fix setters for voicemaker configuration (pitch, speed, volume)
+- project contains CJS + ESM exports
+
 # v 0.2.3
 
 - replace got by axios
