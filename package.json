@@ -15,7 +15,8 @@
 
   "scripts": {
     "prepublishOnly": "rimraf dist",
-    "prepare": "tsc --pretty --project . && tsc --pretty --project tsconfig-cjs.json",
+    "build": "tsc --pretty --project . && tsc --pretty --project tsconfig-cjs.json",
+    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
@@ -48,7 +49,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@google-cloud/text-to-speech": "^3.3.1",
+    "@google-cloud/text-to-speech": "^4.2.2",
     "axios": "^0.22.0",
     "commander": "^8.2.0",
     "google-tts-api": "^2.0.2"
