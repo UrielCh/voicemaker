@@ -33,7 +33,7 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
         super(cacheDir || path.join(homedir(), '.tts', 'googlecloud'))
     }
 
-    private async getToken(): Promise<string> {
+    public async getToken(): Promise<string> {
         let GOOGLE_APPLICATION_CREDENTIALS = process.env.GOOGLE_APPLICATION_CREDENTIALS;
         if (!GOOGLE_APPLICATION_CREDENTIALS) {
             const key = await this.cacheDir.getKey();

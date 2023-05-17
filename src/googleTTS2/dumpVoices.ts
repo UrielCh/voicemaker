@@ -1,7 +1,11 @@
 import { EOL } from 'os';
 import * as textToSpeech from '@google-cloud/text-to-speech';
+import { GoogleTTS2 } from './GoogleTTS2';
 
 async function main() {
+    const tts = new GoogleTTS2();
+    await tts.getToken();
+
     const client = new textToSpeech.TextToSpeechClient();
 
     const [result] = await client.listVoices({});
@@ -17,5 +21,6 @@ async function main() {
     });
     out.push('}');
     console.log(out.join(EOL));
+    console.log('insert this list in GoogleTTS2Voices.ts');
 }
 main()

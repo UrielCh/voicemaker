@@ -1,6 +1,6 @@
 {
   "name": "voicemaker",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Make your nodeJs speak",
   "main": "dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -18,6 +18,7 @@
     "prepublishOnly": "npm run clean",
     "build": "tsc --pretty --project . && tsc --pretty --project tsconfig-cjs.json",
     "prepare": "npm run build",
+    "dumpVoicesGoogle": "ts-node --project tsconfig-cjs.json src/googleTTS2/dumpVoices.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {

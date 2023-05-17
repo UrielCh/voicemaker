@@ -3,6 +3,7 @@
 # v 1.1.1
 
 - add elevenlabs in engine list
+- update Google cloud voices list
  
 # v 1.1.0
 
