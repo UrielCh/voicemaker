@@ -74,7 +74,7 @@ export function getVoice(voice?: string): VoiceSelectionVoiceMaker | VoiceSelect
 /** 
  * get a new engine from a voice name.
  */
-export function getEngine(voice?: string | null): CommonTTS<CommonTTSRequest> {
+export function getEngine(voice?: string | null): CommonTTS<CommonTTSRequest, any> {
     if (!voice)
         return new GoogleTTS();
     if (voiceMakerVoiceCache[voice as VoiceMakerVoices]) {
