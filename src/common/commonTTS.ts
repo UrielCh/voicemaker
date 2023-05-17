@@ -2,7 +2,7 @@ import SoundPlayer from "../SoundPlayer";
 import { CommonTTSRequest } from "./commonTTSRequest";
 import { LocalCache } from "./LocalCache";
 
-export abstract class CommonTTS<T extends CommonTTSRequest> {
+export abstract class CommonTTS<T extends CommonTTSRequest, TokenType = string> {
     private _player?: SoundPlayer;
     protected cacheDir: LocalCache;
     public userAgent: string = `VoiceMaker (https://github.com/UrielCh/voicemaker)`;
@@ -10,6 +10,9 @@ export abstract class CommonTTS<T extends CommonTTSRequest> {
     constructor(cacheDir: string) {
         this.cacheDir = new LocalCache(cacheDir);
     }
+
+
+    abstract getToken(): Promise<TokenType>;
 
     abstract getTts(text: T): Promise<string>;
 

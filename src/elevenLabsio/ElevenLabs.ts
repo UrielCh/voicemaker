@@ -11,7 +11,7 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
         super(cacheDir || path.join(homedir(), '.tts', 'elevenlabs'))
     }
 
-    private async getToken(): Promise<string> {
+    public async getToken(): Promise<string> {
         let ELEVENLABS_IO_TOKEN = process.env.ELEVENLABS_IO_TOKEN;
         if (!ELEVENLABS_IO_TOKEN) {
             const key = await this.cacheDir.getKey();

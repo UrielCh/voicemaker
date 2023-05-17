@@ -7,7 +7,7 @@ import { WatsonRequest } from "./WatsonRequest";
 import axios, { AxiosResponse } from 'axios';
 import pc from "picocolors";
 
-export class Watson extends CommonTTS<WatsonRequest> {
+export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: string, TEXT_TO_SPEECH_URL: string }> {
     /**
      * Dallas: https://api.us-south.text-to-speech.watson.cloud.ibm.com
      * Washington DC: https://api.us-east.text-to-speech.watson.cloud.ibm.com
@@ -22,7 +22,7 @@ export class Watson extends CommonTTS<WatsonRequest> {
         super(cacheDir || path.join(homedir(), '.tts', 'watson'))
     }
 
-    private async getToken(): Promise<{ TEXT_TO_SPEECH_APIKEY: string, TEXT_TO_SPEECH_URL: string }> {
+    public async getToken(): Promise<{ TEXT_TO_SPEECH_APIKEY: string, TEXT_TO_SPEECH_URL: string }> {
         let TEXT_TO_SPEECH_APIKEY = process.env.TEXT_TO_SPEECH_APIKEY;
         let TEXT_TO_SPEECH_URL = process.env.TEXT_TO_SPEECH_URL;
 

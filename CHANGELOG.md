@@ -1,5 +1,10 @@
 # changelog
 
+# v 1.1.2
+
+* make getToken(): Promise<string> public in engings
+* add exports
+
 # v 1.1.1
 
 - add elevenlabs in engine list

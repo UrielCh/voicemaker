@@ -1,6 +1,6 @@
 export { VoiceMaker } from "./voicemakerin/VoiceMaker";
-export { VoiceMakerRequest } from "./voicemakerin/VoiceMakerRequest";
-export { VoiceMakerVoices, ALL_VOICEMAKE_VOICES } from './voicemakerin/VoiceMakerVoices';
+export { VoiceMakerRequest, type VoiceMakerEffect, type VoiceMakerRequestPublic } from "./voicemakerin/VoiceMakerRequest";
+export { type VoiceMakerVoices, ALL_VOICEMAKE_VOICES } from './voicemakerin/VoiceMakerVoices';
 
 export { ElevenLabs } from "./elevenLabsio/ElevenLabs";
 export { ElevenLabsRequest } from "./elevenLabsio/ElevenLabsRequest";
@@ -10,11 +10,11 @@ export { GoogleTTSRequest } from './googleTTS/GoogleTTSRequest';
 
 export { GoogleTTS2 } from './googleTTS2/GoogleTTS2';
 export { GoogleTTS2Request } from './googleTTS2/GoogleTTS2Request';
-export { GoogleVoices, ALL_GOOGLE_VOICES } from './googleTTS2/GoogleTTS2Voices';
+export { type GoogleVoices, ALL_GOOGLE_VOICES } from './googleTTS2/GoogleTTS2Voices';
 
 export { Watson } from './watson/Watson';
 export { WatsonRequest } from './watson/WatsonRequest';
-export { WatsonVoices, ALL_WATSON_VOICES } from './watson/watsonVoices';
+export { type WatsonVoices, ALL_WATSON_VOICES } from './watson/watsonVoices';
 
 export { getVoice, getEngine, VoiceSelectionVoiceMaker, VoiceSelectionGoogle } from './common/utils';
 

@@ -14,6 +14,10 @@ export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
         super(cacheDir || path.join(os.homedir(), '.tts', 'google'))
     }
 
+    public getToken(): Promise<string> {
+        return Promise.resolve('');
+    }
+
     public async getTts(request: GoogleTTSRequest): Promise<string> {
         const hex = request.hash();
         const file0 = request.filename();

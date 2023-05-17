@@ -16,7 +16,7 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
         super(cacheDir || path.join(homedir(), '.tts', 'voiceMaker'))
     }
 
-    private async getToken(): Promise<string> {
+    public async getToken(): Promise<string> {
         let VOICEMAKER_IN_TOKEN = process.env.VOICEMAKER_IN_TOKEN;
         if (!VOICEMAKER_IN_TOKEN) {
             const key = await this.cacheDir.getKey();
