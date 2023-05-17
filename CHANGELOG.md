@@ -3,7 +3,9 @@
 # v 1.1.1
 
 - add elevenlabs in engine list
+- list voicemaker available effect
 - update Google cloud voices list
+- add colors on stdout outputs
  
 # v 1.1.0
 

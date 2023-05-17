@@ -25,7 +25,6 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
             this.setVoice(voice)
     }
 
-
     setVoice(voiceName: string) {
         const lng = GoogleTTS2Voice[voiceName as GoogleVoices]
         if (!lng) {
@@ -34,6 +33,8 @@ export class GoogleTTS2Request extends CommonTTSRequestAdv {
         this.sampleRate = lng.naturalSampleRateHertz;
         this.voice = voiceName as GoogleVoices;
         this.gender = lng.ssmlGender as "FEMALE" | "MALE";
+        if (lng.langs.length === 1)
+            this.lang = lng.langs[0];
     }
 
     getVoice(): string {

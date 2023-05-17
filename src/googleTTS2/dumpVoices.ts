@@ -17,7 +17,7 @@ async function main() {
     out.push(`export const GoogleTTS2Voice = {`);
     voices.forEach(voice => {
         const languageCodes = voice.languageCodes || [];
-        out.push(`    "${voice.name}": { lang: ["${languageCodes.join(", ")}"], naturalSampleRateHertz: ${voice.naturalSampleRateHertz}, ssmlGender: "${voice.ssmlGender}"},`);
+        out.push(`    "${voice.name}": { langs: ["${languageCodes.join(", ")}"], naturalSampleRateHertz: ${voice.naturalSampleRateHertz}, ssmlGender: "${voice.ssmlGender}"},`);
     });
     out.push('}');
     console.log(out.join(EOL));

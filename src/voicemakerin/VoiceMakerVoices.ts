@@ -9,7 +9,7 @@
  * }
  * copy(codes.join('\r\n'));
  *
- * // https://developer.voicemaker.in/voice/list
+ * // https://developer.voicemaker.in/apidocs
  *
  */
 export const voiceMakerVoice = {

@@ -2,6 +2,8 @@ import { AudioFormat } from '../common/commonTTSRequest';
 import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
 import { getLangFromVoice, VoiceMakerLangs, VoiceMakerVoices } from "./VoiceMakerVoices";
 
+export const VoiceMakerEffectList = [ 'default', 'breathing', 'soft', 'whispered', 'conversational', 'news', 'customersupport', 'assistant', 'happy', 'empathic', 'clam', 'whispered', 'happy', 'sad', 'angry', 'excited', 'friendly', 'hopeful', 'shouting', 'terrified', 'unfriendly' ] as const 
+export type VoiceMakerEffect = typeof VoiceMakerEffectList[number]
 export interface VoiceMakerRequestPublic {
     Text: string;
     Engine: 'standard' | 'neural';
@@ -9,13 +11,36 @@ export interface VoiceMakerRequestPublic {
     LanguageCode: VoiceMakerLangs;
     OutputFormat: AudioFormat; // "mp3" | 'wav'
     SampleRate: string;
-    Effect: 'default' | 'breathing' | 'soft' | 'whispered' | 'conversational' | 'news' | 'customersupport' | 'assistant' | 'happy' | 'empathic' | 'clam';
+    Effect: VoiceMakerEffect;
     // number as string
     MasterSpeed: string;
     // number as string
     MasterVolume: string;
     // number as string
     MasterPitch: string;
+}
+
+export function getVoicemakerEffect(voiceMakerName: string): VoiceMakerEffect[] {
+    const result: VoiceMakerEffect[] = ['default'];
+    if (voiceMakerName.startsWith('ai1'))
+        result.push('breathing', 'soft', 'whispered');
+    if (['ai1-Joanna', 'ai1-Matthew', 'ai3-Aria', 'ai3-Jenny', 'ai3-cmn-CN-Xiaoxiao'].includes(voiceMakerName))
+        result.push('conversational');
+    if (['ai1-Amy', 'ai3-Jony', 'ai3-Aria', 'ai3-Jenny', 'ai1-es-US-Lupe'].includes(voiceMakerName))
+        result.push('news');
+    if (['ai3-Aria', 'ai3-Jenny', 'ai3-Jenny', 'ai3-Jenny', 'ai3-cmn-CN-Yunyang'].includes(voiceMakerName))
+        result.push('customersupport');
+    if (['ai3-Aria', 'ai3-Jenny'].includes(voiceMakerName))
+        result.push('assistant');
+    if (['ai3-Aria', 'ai3-cmn-CN-Yunye', 'ai3-cmn-CN-Xariyah', 'ai3-cmn-CN-Xiomara', 'ai3-cmn-CN-Carissa', 'ai3-cmn-CN-Xylia', 'ai3-cmn-CN-Xander'].includes(voiceMakerName))
+        result.push('happy');
+    if (['ai3-Aria'].includes(voiceMakerName))
+        result.push('empathic');
+    if (['ai3-cmn-CN-Yunye'].includes(voiceMakerName))
+        result.push('clam');
+    if (['ai3-Aria', 'ai3-Jenny', 'ai3-Jony', 'ai3-en-US-Alexander', 'ai3-en-US-Madison', 'ai3-en-US-Jayden', 'ai3-en-US-Ashley', 'ai3-en-US-Joshua'].includes(voiceMakerName))
+        result.push('whispered', 'happy', 'sad', 'angry', 'excited', 'friendly', 'hopeful', 'shouting', 'terrified', 'unfriendly');
+    return result;
 }
 
 /**
