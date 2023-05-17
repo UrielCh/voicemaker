@@ -6,6 +6,7 @@
 - list voicemaker available effect
 - update Google cloud voices list
 - add colors on stdout outputs
+- display process time
  
 # v 1.1.0
 
