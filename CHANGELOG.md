@@ -2,7 +2,7 @@
 
 # v 1.1.2
 
-* make getToken(): Promise<string> public in engings
+* make getToken(): Promise<string> public in engines
 * add exports
 
 # v 1.1.1
