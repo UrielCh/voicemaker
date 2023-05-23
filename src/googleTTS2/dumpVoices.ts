@@ -12,7 +12,6 @@ async function main() {
     const voices = result.voices;
     if (!voices)
         return;
-    //console.log('Voices:');
     let out: string[] = [];
     out.push(`export const GoogleTTS2Voice = {`);
     voices.forEach(voice => {

@@ -108,9 +108,8 @@ program
         // }
         const voice_id = pc.yellow(voice.voice_id);
         const name = pc.yellow(voice.name.padEnd(10));
-        console.log(
-          `${voice_id} name: ${name} [${pc.red(voice.category)}] sample: ${pc.underline(voice.preview_url)}`
-        );
+        const txt = `${voice_id} name: ${name} [${pc.red(voice.category)}] sample: ${pc.underline(voice.preview_url)}`;
+        console.log(txt);
       }
       return;
     }

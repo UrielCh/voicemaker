@@ -22,7 +22,6 @@ export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
         const { file, exists } = await this.cacheDir.getRequestCache(request);
         if (!exists) {
             // get audio URL
-            const start = Date.now();
             const url = googleTTS.getAudioUrl(request.text, {
                 lang: request.lang,
                 slow: request.slow,
@@ -31,7 +30,6 @@ export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
             // const resp = await got.get(url, { encoding: 'binary' });
             // await fs.promises.writeFile(file, resp.rawBody);
             const resp = await axios.get<Buffer>(url, { responseType: 'arraybuffer' });
-            console.log(`New GoogleTTS speech generated in ${pc.yellow(Date.now() - start)} ms, size: ${pc.yellow((resp.data.length / 1024).toFixed(1))} KB`);
             await fs.promises.writeFile(file, resp.data);
             await super.log(request);
         }

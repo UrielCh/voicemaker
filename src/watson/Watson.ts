@@ -67,7 +67,6 @@ export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: st
                 'Content-Type': 'application/json',
                 'Accept': accept,
             };
-            const start = Date.now();
             /** Axios Implementaion */
             const resp = await axios.post<string, AxiosResponse<Buffer>>(API_URL,
                 JSON.stringify({ text }),
@@ -81,7 +80,6 @@ export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: st
                     responseType: 'arraybuffer',
                 });
             if (resp.status === 200) {
-                console.log(`New Watson speech generated in ${pc.yellow(Date.now() - start)} ms, size: ${pc.yellow((resp.data.length / 1024).toFixed(1))} KB`);
                 await fs.promises.writeFile(file, resp.data);
                 await super.log(request);
             } else {

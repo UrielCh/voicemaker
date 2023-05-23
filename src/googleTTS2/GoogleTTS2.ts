@@ -61,13 +61,11 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
         await this.getToken();
 
         try {
-            const start = Date.now();
             const [responce, error] = await this.client.synthesizeSpeech(request.toRequest());
             let data = responce.audioContent;
             if (!data) {
                 throw Error(`Access VoiceMaker failed with response ${JSON.stringify(error)}`);
             }
-            console.log(`New GoogleCloud speech generated in ${pc.yellow(Date.now() - start)} ms, size: ${pc.yellow((data.length / 1024).toFixed(1))} KB`);
             await fs.promises.writeFile(file, data);
             await super.log(request);
         } catch (e) {

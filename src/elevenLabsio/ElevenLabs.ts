@@ -22,7 +22,7 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
                     process.env.ELEVENLABS_IO_TOKEN = m[0];
                     ELEVENLABS_IO_TOKEN = m[0];
                 } else {
-                    console.log(`${key} exists but do not contains any Token`);
+                    console.error(`${key} exists but does not contains any Token`);
                 }
             }
         }
@@ -49,10 +49,8 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
         };
 
         try {
-            const start = Date.now();
             /* Axios implementaion */
             const speech = await axios.post<ElevenLabsRequestPublicBody, AxiosResponse<Buffer>>(API_URL, reqData.body, {responseType: 'arraybuffer', headers });
-            console.log(`New GoogleTTS speech generated in ${pc.yellow(Date.now() - start)} ms, size: ${pc.yellow((speech.data.length / 1024).toFixed(1))} KB`);
             await fs.promises.writeFile(file, speech.data);
             await super.log(request);
         } catch (e) {
