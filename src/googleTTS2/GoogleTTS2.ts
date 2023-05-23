@@ -75,6 +75,10 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
         return file;
     }
 
+    public async stream(request: GoogleTTS2Request): Promise<NodeJS.ReadableStream> {
+        throw Error('not Implemented yet');
+    }
+
     getRequest(text: string, voice?: string): GoogleTTS2Request {
         return new GoogleTTS2Request(text, voice as GoogleVoices);
     }

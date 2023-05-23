@@ -1,5 +1,12 @@
 # changelog
 
+# v 1.1.3
+
+* fix incorrect message errors
+* improve error message
+* start stream integration
+* remove all console.log
+
 # v 1.1.2
 
 * make getToken(): Promise<string> public in engines

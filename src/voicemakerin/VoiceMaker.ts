@@ -71,6 +71,10 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
         return file;
     }
 
+    public async stream(request: VoiceMakerRequest): Promise<NodeJS.ReadableStream> {
+        throw Error('not Implemented yet');
+    }
+
     getRequest(text: string, voice?: string): VoiceMakerRequest {
         return new VoiceMakerRequest(text, voice);
     }
