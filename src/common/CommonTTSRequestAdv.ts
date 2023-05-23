@@ -25,9 +25,9 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
 
     private filterValuePer100(name: string, constraint: FieldConstraint, value: number) {
         if (value > 1)
-            throw Error(`${name} per 100 can not exceed +100%`);
+            throw Error(`${name} per 100 can not exceed +100% (you passed the value ${value})`);
         if (value < -1)
-            throw Error(`${name} per 100 can not subceed -100%`);
+            throw Error(`${name} per 100 can not subceed -100% (you passed the value ${value})`);
         if (value < 0) {
             return -constraint.min * value;
         }
@@ -39,9 +39,9 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
 
     private filterValue(name: string, constraint: FieldConstraint, value: number) {
         if (value > constraint.max)
-            throw Error(`${name} can not exceed ${this.limits.pitch.max}`);
+            throw Error(`${name} can not exceed ${constraint.max}`);
         if (value < constraint.min)
-            throw Error(`${name} can not subceed ${this.limits.pitch.min}`);
+            throw Error(`${name} can not subceed ${constraint.min}`);
         return value;
     }
 
