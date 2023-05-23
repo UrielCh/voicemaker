@@ -55,7 +55,7 @@ export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: st
     }
 
     async getTts(request: WatsonRequest): Promise<string> {
-        const { file, exists } = await this.cacheDir.getCacheFile(request.hash(), request.filename());
+        const { file, exists } = await this.cacheDir.getRequestCache(request);
         if (exists)
             return file;
         const { TEXT_TO_SPEECH_APIKEY, TEXT_TO_SPEECH_URL } = await this.getToken();

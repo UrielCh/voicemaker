@@ -36,7 +36,7 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
      * return a local path to your speech
      */
     public async getTts(request: ElevenLabsRequest): Promise<string> {
-        const { file, exists } = await this.cacheDir.getCacheFile(request.hash(), request.filename());
+        const { file, exists } = await this.cacheDir.getRequestCache(request);
         if (exists)
             return file;
         const ELEVENLABS_IO_TOKEN = await this.getToken();

@@ -54,7 +54,7 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
      * return a local path to your speech
      */
     public async getTts(request: GoogleTTS2Request): Promise<string> {
-        const {file, exists} = await this.cacheDir.getCacheFile(request.hash(), request.filename());
+        const {file, exists} = await this.cacheDir.getRequestCache(request);
         if (exists)
             return file;
         // ensure GOOGLE_APPLICATION_CREDENTIALS env is set

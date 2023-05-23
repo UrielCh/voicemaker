@@ -14,6 +14,12 @@ export class LocalCache {
         this.logFile = join(this.root, 'log.txt');
     }
 
+    getRequestCache(request: CommonTTSRequest): Promise<{file: string, exists: boolean}> {
+        const key = request.hash();
+        const filename = request.filename();
+        return this.getCacheFile(key, filename);
+    }
+
     async getCacheFile(key: string, filename: string): Promise<{file: string, exists: boolean}> {
         const file = join(this.root, filename);
         let exists = false;

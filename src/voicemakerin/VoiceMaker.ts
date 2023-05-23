@@ -41,7 +41,7 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
      * return a local path to your speech
      */
     public async getTts(request: VoiceMakerRequest): Promise<string> {
-        const { file, exists } = await this.cacheDir.getCacheFile(request.hash(), request.filename());
+        const { file, exists } = await this.cacheDir.getRequestCache(request);
         if (exists)
             return file;
         const VOICEMAKER_IN_TOKEN = await this.getToken();
