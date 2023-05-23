@@ -12,7 +12,6 @@ import fs from 'fs';
 import { CommonTTS } from '../common/commonTTS';
 import { GoogleTTS2Request } from './GoogleTTS2Request';
 import { GoogleVoices } from './GoogleTTS2Voices';
-import pc from 'picocolors';
 
 export interface GoogleToken {
     "type": "service_account",

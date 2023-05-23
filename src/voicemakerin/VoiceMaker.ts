@@ -4,7 +4,6 @@ import fs from 'fs';
 import axios, { AxiosResponse } from 'axios';
 import { VoiceMakerRequest, VoiceMakerRequestPublic } from './VoiceMakerRequest';
 import { CommonTTS } from '../common/commonTTS';
-import pc from 'picocolors';
 
 interface VoiceMakerResponse {
     success: boolean,
@@ -57,20 +56,11 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
         };
 
         try {
-            // const start = Date.now();
-            /* Axios implementaion */
             const resp = await axios.post<VoiceMakerRequestPublic, AxiosResponse<VoiceMakerResponse>>(API_URL, reqData, { responseType: 'json', headers });
             const body: VoiceMakerResponse = resp.data;
             if (!body.path) throw Error(`Access VoiceMaker failed with response ${JSON.stringify(resp.data)}`);
             const speech = await axios.get<never, AxiosResponse<Buffer>>(body.path, { headers: headersLt, responseType: 'arraybuffer' });
             await fs.promises.writeFile(file, speech.data);
-
-            /* Got implementaion */
-            // const resp = await got.post(API_URL, { headers, body: JSON.stringify(request.toRequest()) });
-            // const body: VoiceMakerResponse = JSON.parse(resp.body);
-            // if (!body.path) throw Error(`Access VoiceMaker failed with response ${JSON.stringify(resp.rawBody)}`);
-            // const speech = await got.get(body.path, { headers: headersLt, encoding: 'binary' });
-            // await fs.promises.writeFile(file, speech.rawBody);
 
             await super.log(request);
         } catch (e) {

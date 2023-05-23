@@ -4,7 +4,6 @@ import fs from 'fs';
 import axios, { AxiosResponse } from 'axios';
 import { ElevenLabsRequest, ElevenLabsRequestModel, ElevenLabsRequestPublic, ElevenLabsRequestPublicBody, ElevenLabsRequestVoice } from './ElevenLabsRequest';
 import { CommonTTS } from '../common/commonTTS';
-import pc from 'picocolors';
 
 export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
     constructor(cacheDir?: string) {
@@ -49,7 +48,6 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
         };
 
         try {
-            /* Axios implementaion */
             const speech = await axios.post<ElevenLabsRequestPublicBody, AxiosResponse<Buffer>>(API_URL, reqData.body, {responseType: 'arraybuffer', headers });
             await fs.promises.writeFile(file, speech.data);
             await super.log(request);

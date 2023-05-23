@@ -2,10 +2,8 @@ import { homedir } from "os";
 import path from "path";
 import fs from "fs";
 import { CommonTTS } from "../common/commonTTS";
-// import got from "got";
 import { WatsonRequest } from "./WatsonRequest";
 import axios, { AxiosResponse } from 'axios';
-import pc from "picocolors";
 
 export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: string, TEXT_TO_SPEECH_URL: string }> {
     /**
@@ -67,7 +65,6 @@ export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: st
                 'Content-Type': 'application/json',
                 'Accept': accept,
             };
-            /** Axios Implementaion */
             const resp = await axios.post<string, AxiosResponse<Buffer>>(API_URL,
                 JSON.stringify({ text }),
                 {
@@ -85,22 +82,6 @@ export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: st
             } else {
                 throw Error(`Access Watson failed with response ${JSON.stringify(resp.data)}`);
             }
-
-            /** GOT implementaion */
-            // const resp = await got.post(API_URL, {
-            //     // searchParams: { voice }, // , accept, text
-            //     username: 'apikey',
-            //     password: TEXT_TO_SPEECH_APIKEY,
-            //     headers,
-            //     body: JSON.stringify({ text }),
-            // });
-            // if (resp.statusCode === 200) {
-            //     await fs.promises.writeFile(file, resp.rawBody);
-            //     await super.log(request);
-            // } else {
-            //    throw Error(`Access Watson failed with response ${JSON.stringify(resp.data)}`);
-            // }
-
         } catch (e) {
             // console.error('Failed to generarte voice');
             throw (e);

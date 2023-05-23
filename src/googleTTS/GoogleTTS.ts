@@ -6,7 +6,6 @@ import path from 'path';
 import axios from 'axios';
 import { GoogleTTSRequest } from './GoogleTTSRequest';
 import { CommonTTS } from '../common/commonTTS';
-import pc from 'picocolors';
 
 export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
 
@@ -21,14 +20,11 @@ export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
     public async getTts(request: GoogleTTSRequest): Promise<string> {
         const { file, exists } = await this.cacheDir.getRequestCache(request);
         if (!exists) {
-            // get audio URL
             const url = googleTTS.getAudioUrl(request.text, {
                 lang: request.lang,
                 slow: request.slow,
                 host: 'https://translate.google.com',
             });
-            // const resp = await got.get(url, { encoding: 'binary' });
-            // await fs.promises.writeFile(file, resp.rawBody);
             const resp = await axios.get<Buffer>(url, { responseType: 'arraybuffer' });
             await fs.promises.writeFile(file, resp.data);
             await super.log(request);
