@@ -16,6 +16,8 @@ export abstract class CommonTTS<T extends CommonTTSRequest, TokenType = string> 
 
     abstract getTts(text: T): Promise<string>;
 
+    abstract stream(text: T): Promise<NodeJS.ReadableStream>;
+
     /**
      * a new Request had been submited
      */

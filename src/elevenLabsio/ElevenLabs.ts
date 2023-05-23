@@ -59,6 +59,10 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
         return file;
     }
 
+    public async stream(request: ElevenLabsRequest): Promise<NodeJS.ReadableStream> {
+        throw Error('not Implemented yet');
+    }
+
     getRequest(text: string, voiceId: string): ElevenLabsRequest {
         return new ElevenLabsRequest(text, voiceId);
     }

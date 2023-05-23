@@ -89,6 +89,10 @@ export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: st
         return file;
     }
 
+    public async stream(request: WatsonRequest): Promise<NodeJS.ReadableStream> {
+        throw Error('not Implemented yet');
+    }
+
     getRequest(text: string, voice?: string): WatsonRequest {
         return new WatsonRequest(text, voice);
     }
