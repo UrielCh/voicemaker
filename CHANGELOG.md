@@ -5,6 +5,7 @@
 * fix incorrect message errors
 * improve error message
 * start stream integration
+* remove all console.log
 
 # v 1.1.2
 
