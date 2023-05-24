@@ -6,6 +6,7 @@
 * improve error message
 * start stream integration
 * remove all console.log
+* add funding
 
 # v 1.1.2
 
