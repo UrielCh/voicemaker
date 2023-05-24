@@ -15,9 +15,9 @@
   "scripts": {
     "clean": "rimraf dist",
     "prepublishOnly": "npm run clean",
-    "build": "tsc --pretty --project . && tsc --pretty --project tsconfig-cjs.json",
+    "build": "tsc --pretty --project . && tsc --pretty --project tsconfig-esm.json",
     "prepare": "npm run build",
-    "dumpVoicesGoogle": "ts-node --project tsconfig-cjs.json src/googleTTS2/dumpVoices.ts",
+    "dumpVoicesGoogle": "ts-node --project tsconfig-esm.json src/googleTTS2/dumpVoices.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
