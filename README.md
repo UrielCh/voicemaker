@@ -177,7 +177,7 @@ await engine.say(request);
 import { GoogleTTS2, GoogleTTS2Request } from 'voicemaker';
 
 const engine = new GoogleTTS2();
-const request = new GoogleTT2SRequest('hello');
+const request = new GoogleTTS2Request('hello');
 const filename = await engine.getTts(request);
 console.log(`your speech is available in ${filename}`);
 // Let it speak using cloud.google.com engine
