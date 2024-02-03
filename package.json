@@ -13,7 +13,7 @@
     }
   },
   "scripts": {
-    "clean": "rimraf dist",
+    "clean": "rimraf cjs/*/ cjs/*.js  esm/*/ esm/*.js esm/*.ts",
     "prepublishOnly": "npm run clean",
     "build": "tsc --pretty --project tsconfig.json && tsc --pretty --project tsconfig-cjs.json",
     "prepare": "npm run build",
@@ -47,14 +47,14 @@
   "homepage": "https://github.com/UrielCh/voicemaker#readme",
   "devDependencies": {
     "@types/node": "^20.11.16",
-    "rimraf": "^5.0.0",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@google-cloud/text-to-speech": "^4.2.2",
-    "axios": "^1.4.0",
-    "commander": "^10.0.1",
+    "@google-cloud/text-to-speech": "^5.0.2",
+    "axios": "^1.6.7",
+    "commander": "^12.0.0",
     "google-tts-api": "^2.0.2",
     "picocolors": "^1.0.0"
   },
