@@ -59,7 +59,8 @@
     "picocolors": "^1.0.0"
   },
   "files": [
-    "dist/",
+    "cjs/",
+    "esm/",
     "bin/",
     "CHANGELOG.md"
   ]
