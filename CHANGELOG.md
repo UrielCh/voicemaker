@@ -1,5 +1,9 @@
 # changelog
 
+# v 1.2.0
+
+* new ESM/CJS dual stack
+
 # v 1.1.3
 
 * fix incorrect message errors
