@@ -1,4 +1,4 @@
-import * as googleTTS from "google-tts-api"; // ES6 or TypeScript
+import { googleTTS } from "../deps.ts";
 import os from "node:os";
 import path from "node:path";
 import { axios } from "../deps.ts";
