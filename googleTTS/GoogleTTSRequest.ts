@@ -1,4 +1,4 @@
-import { AudioFormat, CommonTTSRequest } from "../common/commonTTSRequest.ts";
+import { CommonTTSRequest } from "../common/commonTTSRequest.ts";
 
 export class GoogleTTSRequest extends CommonTTSRequest {
   lang = "en-US";
@@ -43,7 +43,7 @@ export class GoogleTTSRequest extends CommonTTSRequest {
   }
   set volumePer100(volume: number) {}
 
-  setVoice(voiceName: string): void {}
+  setVoice(_voiceName: string): void {}
   getVoice(): string {
     return "not supported";
   }

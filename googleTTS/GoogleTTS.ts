@@ -7,7 +7,7 @@ import { CommonTTS } from "../common/commonTTS.ts";
 import { createReadStream, createWriteStream, promises as fs } from "node:fs";
 import { PassThrough, pipeline } from "node:stream";
 // import { promisify } from "node:util";
-import { Buffer } from "../../deps.ts";
+import { Buffer } from "../deps.ts";
 
 // const pipelineAsync = promisify(pipeline);
 

@@ -7,7 +7,7 @@ import {
   VoiceMakerRequestPublic,
 } from "./VoiceMakerRequest.ts";
 import { CommonTTS } from "../common/commonTTS.ts";
-import { Buffer } from "../../deps.ts";
+import { Buffer } from "../deps.ts";
 
 interface VoiceMakerResponse {
   success: boolean;

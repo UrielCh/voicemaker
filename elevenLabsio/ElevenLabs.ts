@@ -10,7 +10,7 @@ import {
   ElevenLabsRequestVoice,
 } from "./ElevenLabsRequest.ts";
 import { CommonTTS } from "../common/commonTTS.ts";
-import { Buffer } from "../../deps.ts";
+import { Buffer } from "../deps.ts";
 
 export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
   constructor(cacheDir?: string) {
