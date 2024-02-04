@@ -74,7 +74,8 @@ export async function buildDnt() {
 
   await emptyDir("./npm");
   await build({
-    entryPoints: ["./mod.ts", "./main.ts"],
+//    entryPoints: ["./mod.ts"], // , "./main.ts"
+    entryPoints: ["./main.ts"], // , "./main.ts"
     outDir: "./npm",
     test: false,
     shims: {
@@ -93,10 +94,11 @@ export async function buildDnt() {
   );
   Deno.writeTextFileSync("npm/README.md", readme);
   Deno.mkdirSync("npm/bin");
-  Deno.writeTextFileSync("npm/bin/voicemaker", `#!/usr/bin/env node
+  const binFile = "npm/bin/voicemaker";
+  Deno.writeTextFileSync(binFile, `#!/usr/bin/env node
 require('../script/main.js');
 `) ;
-  Deno.chmodSync("npm/bin/voicemaker", 0o755);
+  Deno.chmodSync(binFile, 0o755);
 }
 
 if (import.meta.main) {
