@@ -60,6 +60,9 @@ export async function buildDnt() {
     private: false,
     homepage: "https://github.com/UrielCh/voicemaker#readme",
     version,
+    bin: {
+      "voicemaker": "bin/voicemaker"
+    },  
     repository: {
       type: "git",
       url: "git+https://github.com/UrielCh/voicemaker.git",
@@ -71,12 +74,13 @@ export async function buildDnt() {
 
   await emptyDir("./npm");
   await build({
-    entryPoints: ["./mod.ts"],
+    entryPoints: ["./mod.ts", "./main.ts"],
     outDir: "./npm",
-    test: true,
+    test: false,
     shims: {
       deno: true,
     },
+    typeCheck: "both",
     compilerOptions: {},
     package: packageJson,
   });
@@ -88,6 +92,11 @@ export async function buildDnt() {
     "@denodnt/logger",
   );
   Deno.writeTextFileSync("npm/README.md", readme);
+  Deno.mkdirSync("npm/bin");
+  Deno.writeTextFileSync("npm/bin/voicemaker", `#!/usr/bin/env node
+require('../script/main.js');
+`) ;
+  Deno.chmodSync("npm/bin/voicemaker", 0o755);
 }
 
 if (import.meta.main) {
