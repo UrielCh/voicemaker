@@ -1,11 +1,17 @@
 import { Command, InvalidArgumentError } from "npm:commander";
-import { ALL_WATSON_VOICES } from "./mod.ts";
-import { ALL_ENGINE, getEngine, getVoice } from "./common/utils.ts";
-import { GoogleTTS2Voice, GoogleVoices } from "./googleTTS2/GoogleTTS2Voices.ts";
-import { voiceMakerVoiceCache, VoiceMakerVoices } from "./voicemakerin/VoiceMakerVoices.ts";
-import ElevenLabs from "./elevenLabsio/ElevenLabs.ts";
+import {
+  ALL_ENGINE,
+  ALL_WATSON_VOICES,
+  ElevenLabs,
+  getEngine,
+  getVoice,
+  getVoicemakerEffect,
+  GoogleTTS2Voice,
+  type GoogleVoices,
+  voiceMakerVoiceCache,
+  type VoiceMakerVoices,
+} from "./mod.ts";
 import pc from "npm:picocolors";
-import { getVoicemakerEffect } from "./voicemakerin/VoiceMakerRequest.ts";
 
 function parseLangCode(value: string): string {
   if (!value.match(/^[a-z]{2,3}(-[A-Z]{2})?$/)) {
