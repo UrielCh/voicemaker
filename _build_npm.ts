@@ -74,8 +74,8 @@ export async function buildDnt() {
 
   await emptyDir("./npm");
   await build({
-//    entryPoints: ["./mod.ts"], // , "./main.ts"
-    entryPoints: ["./main.ts"], // , "./main.ts"
+    entryPoints: ["./mod.ts"], // , "./main.ts"
+    // entryPoints: ["./main.ts"], // , "./main.ts"
     outDir: "./npm",
     test: false,
     shims: {
