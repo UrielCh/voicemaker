@@ -4,7 +4,7 @@ import fs from "node:fs";
 import { CommonTTS } from "../common/commonTTS.ts";
 import { WatsonRequest } from "./WatsonRequest.ts";
 import axios, { AxiosResponse } from "axios";
-import { Buffer } from "https://deno.land/std@0.177.0/node/buffer.ts";
+import { Buffer } from "../../deps.ts";
 
 export class Watson extends CommonTTS<
   WatsonRequest,
@@ -102,7 +102,7 @@ export class Watson extends CommonTTS<
     return file;
   }
 
-  public async stream(request: WatsonRequest): Promise<NodeJS.ReadableStream> {
+  public stream(_request: WatsonRequest): Promise<NodeJS.ReadableStream> {
     throw Error("not Implemented yet");
   }
 

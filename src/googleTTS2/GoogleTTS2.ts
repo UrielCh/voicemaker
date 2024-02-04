@@ -68,7 +68,7 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
       const [responce, error] = await this.client.synthesizeSpeech(
         request.toRequest(),
       );
-      let data = responce.audioContent;
+      const data = responce.audioContent;
       if (!data) {
         throw Error(
           `Access VoiceMaker failed with response ${JSON.stringify(error)}`,
@@ -84,8 +84,8 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
     return file;
   }
 
-  public async stream(
-    request: GoogleTTS2Request,
+  public stream(
+    _request: GoogleTTS2Request,
   ): Promise<NodeJS.ReadableStream> {
     throw Error("not Implemented yet");
   }

@@ -25,7 +25,7 @@ export class LocalCache {
   }
 
   async getCacheFile(
-    key: string,
+    _key: string,
     filename: string,
   ): Promise<{ file: string; exists: boolean }> {
     const file = join(this.root, filename);
@@ -45,7 +45,7 @@ export class LocalCache {
         req.summery().replace(/[\r\n\t]+/g, " ")
       }${EOL}`;
       await fs.promises.appendFile(this.logFile, text, { encoding: "utf-8" });
-    } catch (e) {
+    } catch (_e) {
       console.error(`warning failed to log request in ${this.logFile}`);
     }
   }

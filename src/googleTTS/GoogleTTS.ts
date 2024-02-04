@@ -6,10 +6,10 @@ import { GoogleTTSRequest } from "./GoogleTTSRequest.ts";
 import { CommonTTS } from "../common/commonTTS.ts";
 import { createReadStream, createWriteStream, promises as fs } from "node:fs";
 import { PassThrough, pipeline } from "node:stream";
-import { promisify } from "node:util";
-import { Buffer } from "https://deno.land/std@0.177.0/node/buffer.ts";
+// import { promisify } from "node:util";
+import { Buffer } from "../../deps.ts";
 
-const pipelineAsync = promisify(pipeline);
+// const pipelineAsync = promisify(pipeline);
 
 const host = "https://translate.google.com";
 

@@ -7,7 +7,7 @@ import {
   VoiceMakerRequestPublic,
 } from "./VoiceMakerRequest.ts";
 import { CommonTTS } from "../common/commonTTS.ts";
-import { Buffer } from "https://deno.land/std@0.177.0/node/buffer.ts";
+import { Buffer } from "../../deps.ts";
 
 interface VoiceMakerResponse {
   success: boolean;
@@ -90,8 +90,8 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
     return file;
   }
 
-  public async stream(
-    request: VoiceMakerRequest,
+  public stream(
+    _request: VoiceMakerRequest,
   ): Promise<NodeJS.ReadableStream> {
     throw Error("not Implemented yet");
   }

@@ -10,7 +10,7 @@ import {
   ElevenLabsRequestVoice,
 } from "./ElevenLabsRequest.ts";
 import { CommonTTS } from "../common/commonTTS.ts";
-import { Buffer } from "https://deno.land/std@0.177.0/node/buffer.ts";
+import { Buffer } from "../../deps.ts";
 
 export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
   constructor(cacheDir?: string) {
@@ -73,8 +73,8 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
     return file;
   }
 
-  public async stream(
-    request: ElevenLabsRequest,
+  public stream(
+    _request: ElevenLabsRequest,
   ): Promise<NodeJS.ReadableStream> {
     throw Error("not Implemented yet");
   }
