@@ -1,5 +1,14 @@
 {
   "tasks": {
     "dev": "deno run --watch main.ts"
+  },
+  "fmt": {
+    "exclude": ["npm/"]
+  },
+  "lint": {
+    "exclude": ["npm/"]
+  },
+  "test": {
+    "exclude": ["npm/"]
   }
 }

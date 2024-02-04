@@ -10,7 +10,6 @@
  * copy(codes.join('\r\n'));
  *
  * // https://developer.voicemaker.in/apidocs
- *
  */
 export const voiceMakerVoice = {
   "af-ZA": ["ai3-af-ZA-Sura", "ai3-af-ZA-Kungawo"] as const,

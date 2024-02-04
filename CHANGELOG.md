@@ -2,20 +2,20 @@
 
 # v 1.2.0
 
-* new ESM/CJS dual stack
+- new ESM/CJS dual stack
 
 # v 1.1.3
 
-* fix incorrect message errors
-* improve error message
-* start stream integration
-* remove all console.log
-* add funding
+- fix incorrect message errors
+- improve error message
+- start stream integration
+- remove all console.log
+- add funding
 
 # v 1.1.2
 
-* make getToken(): Promise<string> public in engines
-* add exports
+- make getToken(): Promise<string> public in engines
+- add exports
 
 # v 1.1.1
 
@@ -24,7 +24,7 @@
 - update Google cloud voices list
 - add colors on stdout outputs
 - display process time
- 
+
 # v 1.1.0
 
 - add elevenlabs driver
@@ -34,7 +34,7 @@
 - Hotfix: fix setters for voicemaker configuration (pitch, speed, volume)
 - project contains CJS + ESM exports
 - update voiceMakerVoice list
-  
+
 # v 0.2.3
 
 - replace got by axios
@@ -75,7 +75,8 @@
 
 ## v 0.1.1
 
-- token can not be store in  ~/.tts/voiceMaker/key.json for voicemaker and ~/.tts/googlecloud/key.json for google cloud
+- token can not be store in ~/.tts/voiceMaker/key.json for voicemaker and
+  ~/.tts/googlecloud/key.json for google cloud
 
 ## v 0.1.0
 

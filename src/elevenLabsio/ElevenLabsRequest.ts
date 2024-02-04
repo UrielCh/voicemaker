@@ -2,7 +2,7 @@ import { CommonTTSRequest } from "../common/commonTTSRequest.ts";
 
 export interface ElevenLabsRequestPublicBody {
   text: string;
-  model_id?: "eleven_monolingual_v1" | 'eleven_multilingual_v1';
+  model_id?: "eleven_monolingual_v1" | "eleven_multilingual_v1";
   voice_settings: {
     stability: number;
     similarity_boost: number;
@@ -36,25 +36,29 @@ export interface ElevenLabsRequestVoice {
     model_id: string | null;
     is_allowed_to_fine_tune: boolean;
     fine_tuning_requested: boolean;
-    finetuning_state: "not_started" | "in_progress" | "completed" | "failed" | "canceled" | "unknown";
+    finetuning_state:
+      | "not_started"
+      | "in_progress"
+      | "completed"
+      | "failed"
+      | "canceled"
+      | "unknown";
     verification_attempts: null;
     verification_failures: [];
     verification_attempts_count: number;
     slice_ids: null;
-  },
-  labels: {},
+  };
+  labels: {};
   description: null;
   preview_url: string;
   available_for_tiers: [];
   settings: null;
 }
 
-/**
- *
- */
+/** */
 export class ElevenLabsRequest extends CommonTTSRequest {
   voiceId: string;
-  modelId?: "eleven_monolingual_v1" | 'eleven_multilingual_v1';
+  modelId?: "eleven_monolingual_v1" | "eleven_multilingual_v1";
   stability = 0;
   similarityBoost = 0;
   /**
@@ -73,7 +77,7 @@ export class ElevenLabsRequest extends CommonTTSRequest {
   setVoice(voiceName: string): void {
     this.voiceId = voiceName;
   }
-  
+
   getVoice(): string {
     return this.voiceId;
   }
@@ -96,10 +100,11 @@ export class ElevenLabsRequest extends CommonTTSRequest {
    */
   setOptimizeStreamingLatency(lvl: number) {
     lvl = lvl | 0;
-    if (lvl < 0 || lvl > 22)
+    if (lvl < 0 || lvl > 22) {
       throw Error(
-        "optimize_streaming_latency must be contain between 0 and 22"
+        "optimize_streaming_latency must be contain between 0 and 22",
       );
+    }
     this.optimizeStreamingLatency = lvl;
   }
 

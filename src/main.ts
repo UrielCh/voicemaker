@@ -1,7 +1,10 @@
-import { Command, InvalidArgumentError} from "commander";
+import { Command, InvalidArgumentError } from "commander";
 import { ALL_WATSON_VOICES } from "./mod.ts";
 import { ALL_ENGINE, getEngine, getVoice } from "./common/utils.ts";
-import { GoogleTTS2Voice, GoogleVoices } from "./googleTTS2/GoogleTTS2Voices.ts";
+import {
+  GoogleTTS2Voice,
+  GoogleVoices,
+} from "./googleTTS2/GoogleTTS2Voices.ts";
 import {
   voiceMakerVoiceCache,
   VoiceMakerVoices,
@@ -11,10 +14,11 @@ import pc from "picocolors";
 import { getVoicemakerEffect } from "./voicemakerin/VoiceMakerRequest.ts";
 
 function parseLangCode(value: string): string {
-  if (!value.match(/^[a-z]{2,3}(-[A-Z]{2})?$/))
+  if (!value.match(/^[a-z]{2,3}(-[A-Z]{2})?$/)) {
     throw new InvalidArgumentError(
-      "should be a lang code like en-US, en-GB, es-MX, fr-FR ..."
+      "should be a lang code like en-US, en-GB, es-MX, fr-FR ...",
     );
+  }
   return value;
 }
 
@@ -25,14 +29,14 @@ function parsePerCent(value: string): number {
   if (value === value2) {
     if (parsedValue > 1 || parsedValue < -1) {
       throw new InvalidArgumentError(
-        'Not a valid percent value like ".2", "-0.4", "60%", "-10%"'
+        'Not a valid percent value like ".2", "-0.4", "60%", "-10%"',
       );
     }
     return parsedValue;
   }
   if (parsedValue > 100 || parsedValue < -100) {
     throw new InvalidArgumentError(
-      'Not a valid percent value like ".2", "-0.4", "60%", "-10%"'
+      'Not a valid percent value like ".2", "-0.4", "60%", "-10%"',
     );
   }
   return parsedValue / 100;
@@ -56,7 +60,7 @@ program
   .option(
     "-l, --lang <lang>",
     "Display only voice with the correct lang code",
-    parseLangCode
+    parseLangCode,
   )
   .action(async function (engine: string, options: SayOption) {
     if (engine === "voicemaker") {
@@ -66,7 +70,11 @@ program
         let dispVoice = voice.padEnd(20);
         dispVoice = pc.yellow(dispVoice);
         const effects = getVoicemakerEffect(voice);
-        console.log(`${dispVoice} speak ${pc.green(lang.padEnd(6))} supported effect: ${pc.red(effects.join(', '))}`);
+        console.log(
+          `${dispVoice} speak ${pc.green(lang.padEnd(6))} supported effect: ${
+            pc.red(effects.join(", "))
+          }`,
+        );
       }
       return;
     }
@@ -74,8 +82,9 @@ program
       for (const voice of Object.keys(GoogleTTS2Voice)) {
         const info = GoogleTTS2Voice[voice as GoogleVoices];
         const { lang } = options;
-        if (lang && !info.langs.find((curLang) => curLang.includes(lang)))
+        if (lang && !info.langs.find((curLang) => curLang.includes(lang))) {
           continue;
+        }
         let langs = info.langs.join(", ");
         langs = pc.green(langs);
         let ssmlGender = info.ssmlGender.padEnd(6);
@@ -108,7 +117,9 @@ program
         // }
         const voice_id = pc.yellow(voice.voice_id);
         const name = pc.yellow(voice.name.padEnd(10));
-        const txt = `${voice_id} name: ${name} [${pc.red(voice.category)}] sample: ${pc.underline(voice.preview_url)}`;
+        const txt = `${voice_id} name: ${name} [${
+          pc.red(voice.category)
+        }] sample: ${pc.underline(voice.preview_url)}`;
         console.log(txt);
       }
       return;
@@ -123,7 +134,7 @@ program
   .description("use a TTS engine to make your computer speak")
   .option(
     "-v, --voice <name>",
-    "select a voiceMaker, or a google cloud TTS voice"
+    "select a voiceMaker, or a google cloud TTS voice",
   )
   .option("-s, --speed <speed>", "customise talk speed", parsePerCent)
   .option("-p, --pitch <pitch>", "customise talk pitch", parsePerCent)
@@ -131,7 +142,7 @@ program
   .option(
     "-V, --volume <volume>",
     "increate or decrease speech volume",
-    parsePerCent
+    parsePerCent,
   )
   .action(async function (texts: string[], options: SayOption) {
     const voice = getVoice(options.voice);
