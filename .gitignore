@@ -1,7 +1,3 @@
-node_modules
-dist
 .vscode/launch.json
-esm/*.d.ts
-**/*.js
-esm/**/*.d.ts
 .DS_Store
+npm/

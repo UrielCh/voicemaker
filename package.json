@@ -1,7 +1,4 @@
 {
-  "name": "voicemaker",
-  "version": "1.2.0",
-  "description": "Make your nodeJs speak",
   "main": "cjs/index.js",
   "module": "./esm/index.js",
   "typings": "esm/index.d.ts",
@@ -12,44 +9,8 @@
       "types": "./esm/index.d.ts"
     }
   },
-  "scripts": {
-    "clean": "rimraf cjs/*/ cjs/*.js  esm/*/ esm/*.js esm/*.ts",
-    "prepublishOnly": "npm run clean",
-    "build": "tsc --pretty --project tsconfig.json && tsc --pretty --project tsconfig-cjs.json",
-    "prepare": "npm run build",
-    "dumpVoicesGoogle": "ts-node --project tsconfig.json src/googleTTS2/dumpVoices.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "bin": {
     "voicemaker": "./bin/voicemaker"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/UrielCh/voicemaker.git"
-  },
-  "keywords": [
-    "elevenlabs",
-    "voicemaker",
-    "voicemaker.in",
-    "translate.google.com",
-    "google-tts",
-    "cloud.ibm.com",
-    "watson",
-    "text-to-speech",
-    "tts"
-  ],
-  "author": "Uriel Chemouni <uchemouni@gmail.com> (https://urielch.github.io/)",
-  "license": "MIT",
-  "funding": "https://github.com/UrielCh/voicemaker?sponsor=1",
-  "bugs": {
-    "url": "https://github.com/UrielCh/voicemaker/issues"
-  },
-  "homepage": "https://github.com/UrielCh/voicemaker#readme",
-  "devDependencies": {
-    "@types/node": "^20.11.16",
-    "rimraf": "^5.0.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@google-cloud/text-to-speech": "^5.0.2",
