@@ -3,7 +3,7 @@ import path from "node:path";
 import fs from "node:fs";
 import { CommonTTS } from "../common/commonTTS.ts";
 import { WatsonRequest } from "./WatsonRequest.ts";
-import axios, { AxiosResponse } from "axios";
+import { axios, type AxiosResponse } from "../deps.ts";
 import { Buffer } from "../deps.ts";
 
 export class Watson extends CommonTTS<

@@ -1,7 +1,7 @@
 import * as googleTTS from "google-tts-api"; // ES6 or TypeScript
 import os from "node:os";
 import path from "node:path";
-import axios from "axios";
+import { axios } from "../deps.ts";
 import { GoogleTTSRequest } from "./GoogleTTSRequest.ts";
 import { CommonTTS } from "../common/commonTTS.ts";
 import { createReadStream, createWriteStream, promises as fs } from "node:fs";
@@ -55,7 +55,7 @@ export class GoogleTTS extends CommonTTS<GoogleTTSRequest> {
     response.data.pipe(passThrough);
     const tempFile = file + ".tmp";
     const writeStream = createWriteStream(tempFile);
-    pipeline(response.data, writeStream, (err) => {
+    pipeline(response.data, writeStream as any, (err: any) => {
       if (err) {
         console.error("Failed to save file", err);
         fs.unlink(tempFile).catch(console.error); // If an error occurred, try to delete the temp file.

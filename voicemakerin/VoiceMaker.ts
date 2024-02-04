@@ -1,7 +1,7 @@
 import path from "node:path";
 import { homedir } from "node:os";
 import fs from "node:fs";
-import axios, { AxiosResponse } from "axios";
+import { axios, type AxiosResponse } from "../deps.ts";
 import { VoiceMakerRequest, VoiceMakerRequestPublic } from "./VoiceMakerRequest.ts";
 import { CommonTTS } from "../common/commonTTS.ts";
 import { Buffer } from "../deps.ts";
