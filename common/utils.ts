@@ -1,15 +1,9 @@
 import ElevenLabs from "../elevenLabsio/ElevenLabs.ts";
 import { GoogleTTS } from "../googleTTS/GoogleTTS.ts";
 import GoogleTTS2 from "../googleTTS2/GoogleTTS2.ts";
-import {
-  GoogleTTS2Voice,
-  GoogleVoices,
-} from "../googleTTS2/GoogleTTS2Voices.ts";
+import { GoogleTTS2Voice, GoogleVoices } from "../googleTTS2/GoogleTTS2Voices.ts";
 import VoiceMaker from "../voicemakerin/VoiceMaker.ts";
-import {
-  voiceMakerVoiceCache,
-  VoiceMakerVoices,
-} from "../voicemakerin/VoiceMakerVoices.ts";
+import { voiceMakerVoiceCache, VoiceMakerVoices } from "../voicemakerin/VoiceMakerVoices.ts";
 import { Watson } from "../watson/Watson.ts";
 import { WATSON_VOICES_SET, WatsonVoices } from "../watson/watsonVoices.ts";
 import { CommonTTS } from "./commonTTS.ts";

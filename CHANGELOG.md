@@ -75,8 +75,7 @@
 
 ## v 0.1.1
 
-- token can not be store in ~/.tts/voiceMaker/key.json for voicemaker and
-  ~/.tts/googlecloud/key.json for google cloud
+- token can not be store in ~/.tts/voiceMaker/key.json for voicemaker and ~/.tts/googlecloud/key.json for google cloud
 
 ## v 0.1.0
 

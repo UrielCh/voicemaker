@@ -8,8 +8,7 @@ export abstract class CommonTTS<
 > {
   private _player?: SoundPlayer;
   protected cacheDir: LocalCache;
-  public userAgent =
-    `VoiceMaker (https://github.com/UrielCh/voicemaker)`;
+  public userAgent = `VoiceMaker (https://github.com/UrielCh/voicemaker)`;
 
   constructor(cacheDir: string) {
     this.cacheDir = new LocalCache(cacheDir);

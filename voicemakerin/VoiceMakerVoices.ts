@@ -732,8 +732,7 @@ export const voiceMakerVoice = {
 };
 
 export type VoiceMakerLangs = keyof typeof voiceMakerVoice;
-export type VoiceMakerVoices =
-  (typeof voiceMakerVoice)[VoiceMakerLangs][number];
+export type VoiceMakerVoices = (typeof voiceMakerVoice)[VoiceMakerLangs][number];
 
 export const voiceMakerVoiceCache: {
   [key in VoiceMakerVoices]: VoiceMakerLangs;

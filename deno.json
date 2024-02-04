@@ -1,9 +1,11 @@
 {
   "tasks": {
     "dev": "deno run --watch main.ts",
+    "dnt": "deno run -A _build_npm.ts",
     "dumpVoicesGoogle": "deno run -A googleTTS2/dumpVoices.ts"
   },
   "fmt": {
+    "lineWidth": 160,
     "exclude": ["npm/"]
   },
   "lint": {

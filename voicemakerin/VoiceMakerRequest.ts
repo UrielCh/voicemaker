@@ -1,10 +1,6 @@
 import { AudioFormat } from "../common/commonTTSRequest.ts";
 import { CommonTTSRequestAdv } from "../common/CommonTTSRequestAdv.ts";
-import {
-  getLangFromVoice,
-  VoiceMakerLangs,
-  VoiceMakerVoices,
-} from "./VoiceMakerVoices.ts";
+import { getLangFromVoice, VoiceMakerLangs, VoiceMakerVoices } from "./VoiceMakerVoices.ts";
 
 export const VoiceMakerEffectList = [
   "default",

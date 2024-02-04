@@ -50,8 +50,7 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
     }
     const ELEVENLABS_IO_TOKEN = await this.getToken();
     const reqData: ElevenLabsRequestPublic = request.toRequest();
-    const API_URL =
-      `https://api.elevenlabs.io/v1/text-to-speech/${reqData.voiceId}?optimize_streaming_latency=${reqData.optimize_streaming_latency}`;
+    const API_URL = `https://api.elevenlabs.io/v1/text-to-speech/${reqData.voiceId}?optimize_streaming_latency=${reqData.optimize_streaming_latency}`;
     const headers = {
       "user-agent": this.userAgent,
       "xi-api-key": ELEVENLABS_IO_TOKEN,

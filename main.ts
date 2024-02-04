@@ -1,14 +1,8 @@
 import { Command, InvalidArgumentError } from "commander";
 import { ALL_WATSON_VOICES } from "./mod.ts";
 import { ALL_ENGINE, getEngine, getVoice } from "./common/utils.ts";
-import {
-  GoogleTTS2Voice,
-  GoogleVoices,
-} from "./googleTTS2/GoogleTTS2Voices.ts";
-import {
-  voiceMakerVoiceCache,
-  VoiceMakerVoices,
-} from "./voicemakerin/VoiceMakerVoices.ts";
+import { GoogleTTS2Voice, GoogleVoices } from "./googleTTS2/GoogleTTS2Voices.ts";
+import { voiceMakerVoiceCache, VoiceMakerVoices } from "./voicemakerin/VoiceMakerVoices.ts";
 import ElevenLabs from "./elevenLabsio/ElevenLabs.ts";
 import pc from "picocolors";
 import { getVoicemakerEffect } from "./voicemakerin/VoiceMakerRequest.ts";
@@ -72,9 +66,7 @@ if (import.meta.main) {
           dispVoice = pc.yellow(dispVoice);
           const effects = getVoicemakerEffect(voice);
           console.log(
-            `${dispVoice} speak ${pc.green(lang.padEnd(6))} supported effect: ${
-              pc.red(effects.join(", "))
-            }`,
+            `${dispVoice} speak ${pc.green(lang.padEnd(6))} supported effect: ${pc.red(effects.join(", "))}`,
           );
         }
         return;
@@ -118,9 +110,7 @@ if (import.meta.main) {
           // }
           const voice_id = pc.yellow(voice.voice_id);
           const name = pc.yellow(voice.name.padEnd(10));
-          const txt = `${voice_id} name: ${name} [${
-            pc.red(voice.category)
-          }] sample: ${pc.underline(voice.preview_url)}`;
+          const txt = `${voice_id} name: ${name} [${pc.red(voice.category)}] sample: ${pc.underline(voice.preview_url)}`;
           console.log(txt);
         }
         return;

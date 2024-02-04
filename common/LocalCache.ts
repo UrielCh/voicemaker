@@ -41,9 +41,7 @@ export class LocalCache {
 
   async log(req: CommonTTSRequest): Promise<void> {
     try {
-      const text = `${new Date().toISOString()}\t${req.filename()}\t${
-        req.summery().replace(/[\r\n\t]+/g, " ")
-      }${EOL}`;
+      const text = `${new Date().toISOString()}\t${req.filename()}\t${req.summery().replace(/[\r\n\t]+/g, " ")}${EOL}`;
       await fs.promises.appendFile(this.logFile, text, { encoding: "utf-8" });
     } catch (_e) {
       console.error(`warning failed to log request in ${this.logFile}`);

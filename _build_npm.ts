@@ -1,9 +1,5 @@
 // dnt deps can not be moved to dev_deps.ts
-import {
-  build,
-  emptyDir,
-  type PackageJson,
-} from "https://deno.land/x/dnt@0.40.0/mod.ts";
+import { build, emptyDir, type PackageJson } from "https://deno.land/x/dnt@0.40.0/mod.ts";
 import * as pc from "https://deno.land/std@0.189.0/fmt/colors.ts";
 
 export async function buildDnt() {
@@ -36,11 +32,7 @@ export async function buildDnt() {
   // allow only semver string
   if (!version.match(/[\d]+\.[\d]+\.[\d]+/)) {
     console.error(
-      `version number ${
-        pc.green(version)
-      } do not match Semantic Versioning syntax ${
-        pc.green("major.minor.path")
-      }`,
+      `version number ${pc.green(version)} do not match Semantic Versioning syntax ${pc.green("major.minor.path")}`,
     );
     Deno.exit(-1);
   }
@@ -70,7 +62,7 @@ export async function buildDnt() {
     version,
     repository: {
       type: "git",
-      url: "git+https://github.com/UrielCh/voicemaker.git"
+      url: "git+https://github.com/UrielCh/voicemaker.git",
     },
     bugs: {
       url: "https://github.com/UrielCh/voicemaker/issues",

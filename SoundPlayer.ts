@@ -38,9 +38,7 @@ function findCommand(command: string) {
  * find a binary on the host
  */
 function findExec(args: string[]): string {
-  const commands = Array.isArray(args[0])
-    ? args[0]
-    : Array.prototype.slice.apply(args);
+  const commands = Array.isArray(args[0]) ? args[0] : Array.prototype.slice.apply(args);
   let command = "";
   commands.some(function (c) {
     if (isExec(findCommand(c))) {
@@ -67,9 +65,7 @@ export class SoundPlayer {
   }
 
   public async playOS(path: string): Promise<void> {
-    const playCommand = Deno.build.os == "darwin"
-      ? `afplay ${path}`
-      : `start ${path}`;
+    const playCommand = Deno.build.os == "darwin" ? `afplay ${path}` : `start ${path}`;
     try {
       await execPromise(playCommand);
     } catch (_err) {
