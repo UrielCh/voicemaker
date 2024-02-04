@@ -1,6 +1,6 @@
-import { EOL } from 'os';
+import { EOL } from 'node:os';
 import * as textToSpeech from '@google-cloud/text-to-speech';
-import { GoogleTTS2 } from './GoogleTTS2';
+import { GoogleTTS2 } from './GoogleTTS2.ts';
 
 async function main() {
     const tts = new GoogleTTS2();

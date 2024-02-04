@@ -1,6 +1,6 @@
 // import { protos } from '@google-cloud/text-to-speech';
-import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
-import { GoogleTTS2Voice, GoogleVoices } from './GoogleTTS2Voices';
+import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv.ts';
+import { GoogleTTS2Voice, GoogleVoices } from './GoogleTTS2Voices.ts';
 
 export interface ISynthesizeSpeechRequest {
     input: { text: string },

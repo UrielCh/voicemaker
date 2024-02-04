@@ -1,9 +1,10 @@
-import path from 'path';
-import { homedir } from 'os';
-import fs from 'fs';
+import path from 'node:path';
+import { homedir } from 'node:os';
+import fs from 'node:fs';
 import axios, { AxiosResponse } from 'axios';
-import { ElevenLabsRequest, ElevenLabsRequestModel, ElevenLabsRequestPublic, ElevenLabsRequestPublicBody, ElevenLabsRequestVoice } from './ElevenLabsRequest';
-import { CommonTTS } from '../common/commonTTS';
+import { ElevenLabsRequest, ElevenLabsRequestModel, ElevenLabsRequestPublic, ElevenLabsRequestPublicBody, ElevenLabsRequestVoice } from './ElevenLabsRequest.ts';
+import { CommonTTS } from '../common/commonTTS.ts';
+import { Buffer } from "https://deno.land/std@0.177.0/node/buffer.ts";
 
 export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
     constructor(cacheDir?: string) {
@@ -11,14 +12,14 @@ export class ElevenLabs extends CommonTTS<ElevenLabsRequest> {
     }
 
     public async getToken(): Promise<string> {
-        let ELEVENLABS_IO_TOKEN = process.env.ELEVENLABS_IO_TOKEN;
+        let ELEVENLABS_IO_TOKEN = Deno.env.get("ELEVENLABS_IO_TOKEN");
         if (!ELEVENLABS_IO_TOKEN) {
             const key = await this.cacheDir.getKey();
             if (key) {
                 const data = await fs.promises.readFile(key, { encoding: 'utf-8' });
                 const m = data.match(/[0-9a-fA-F]{32}/);
                 if (m) {
-                    process.env.ELEVENLABS_IO_TOKEN = m[0];
+                    Deno.env.set("ELEVENLABS_IO_TOKEN", m[0]);
                     ELEVENLABS_IO_TOKEN = m[0];
                 } else {
                     console.error(`${key} exists but does not contains any Token`);

@@ -1,6 +1,6 @@
-import { AudioFormat } from '../common/commonTTSRequest';
-import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
-import { getLangFromVoice, VoiceMakerLangs, VoiceMakerVoices } from "./VoiceMakerVoices";
+import { AudioFormat } from '../common/commonTTSRequest.ts';
+import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv.ts';
+import { getLangFromVoice, VoiceMakerLangs, VoiceMakerVoices } from "./VoiceMakerVoices.ts";
 
 export const VoiceMakerEffectList = [ 'default', 'breathing', 'soft', 'whispered', 'conversational', 'news', 'customersupport', 'assistant', 'happy', 'empathic', 'clam', 'whispered', 'happy', 'sad', 'angry', 'excited', 'friendly', 'hopeful', 'shouting', 'terrified', 'unfriendly' ] as const 
 export type VoiceMakerEffect = typeof VoiceMakerEffectList[number]

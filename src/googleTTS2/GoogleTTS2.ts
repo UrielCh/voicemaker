@@ -6,12 +6,12 @@
 
 import * as textToSpeech from '@google-cloud/text-to-speech';
 
-import path from 'path';
-import { homedir } from 'os';
-import fs from 'fs';
-import { CommonTTS } from '../common/commonTTS';
-import { GoogleTTS2Request } from './GoogleTTS2Request';
-import { GoogleVoices } from './GoogleTTS2Voices';
+import path from 'node:path';
+import { homedir } from 'node:os';
+import fs from 'node:fs';
+import { CommonTTS } from '../common/commonTTS.ts';
+import { GoogleTTS2Request } from './GoogleTTS2Request.ts';
+import { GoogleVoices } from './GoogleTTS2Voices.ts';
 
 export interface GoogleToken {
     "type": "service_account",
@@ -34,11 +34,11 @@ export class GoogleTTS2 extends CommonTTS<GoogleTTS2Request> {
     }
 
     public async getToken(): Promise<string> {
-        let GOOGLE_APPLICATION_CREDENTIALS = process.env.GOOGLE_APPLICATION_CREDENTIALS;
+        let GOOGLE_APPLICATION_CREDENTIALS = Deno.env.get("GOOGLE_APPLICATION_CREDENTIALS");
         if (!GOOGLE_APPLICATION_CREDENTIALS) {
             const key = await this.cacheDir.getKey();
             if (key) {
-                process.env.GOOGLE_APPLICATION_CREDENTIALS = key;
+                Deno.env.set("GOOGLE_APPLICATION_CREDENTIALS", key);
                 GOOGLE_APPLICATION_CREDENTIALS = key
             }
         }

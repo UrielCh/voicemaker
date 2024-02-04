@@ -1,4 +1,4 @@
-import { AudioFormat, CommonTTSRequest } from '../common/commonTTSRequest';
+import { AudioFormat, CommonTTSRequest } from '../common/commonTTSRequest.ts';
 
 export class GoogleTTSRequest extends CommonTTSRequest {
     lang = 'en-US';
@@ -18,15 +18,14 @@ export class GoogleTTSRequest extends CommonTTSRequest {
         return `tts-${this.hash()}.${this.outputFormat}`;
     }
 
-    set sampleRate(sampleRate: number) {}
-    set pitch(pitch: number) {}
-    set speed(speed: number) { this.slow = (speed < 0);}
-    set volume(volume: number) {}
-
     get sampleRate(): number {return 0;}
-    get speed(): number {return (this.slow) ? -1 : 0;}
+    set sampleRate(sampleRate: number) {}
     get pitch(): number {return 0;}
+    set pitch(pitch: number) {}
+    get speed(): number {return (this.slow) ? -1 : 0;}
+    set speed(speed: number) { this.slow = (speed < 0);}
     get volume(): number {return 0;}
+    set volume(volume: number) {}
 
     set pitchPer100(pitch: number) {}
     set speedPer100(speed: number) { this.slow = (speed < 0);}

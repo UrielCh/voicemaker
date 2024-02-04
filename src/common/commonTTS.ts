@@ -1,6 +1,6 @@
-import SoundPlayer from "../SoundPlayer";
-import { CommonTTSRequest } from "./commonTTSRequest";
-import { LocalCache } from "./LocalCache";
+import SoundPlayer from "../SoundPlayer.ts";
+import { CommonTTSRequest } from "./commonTTSRequest.ts";
+import { LocalCache } from "./LocalCache.ts";
 
 export abstract class CommonTTS<T extends CommonTTSRequest, TokenType = string> {
     private _player?: SoundPlayer;

@@ -1,7 +1,7 @@
-import { join } from 'path';
-import fs from 'fs';
-import { EOL } from 'os';
-import { CommonTTSRequest } from './commonTTSRequest';
+import { join } from 'node:path';
+import fs from 'node:fs';
+import { EOL } from 'node:os';
+import { CommonTTSRequest } from './commonTTSRequest.ts';
 /**
  * deal with local cacher files
  */
@@ -10,7 +10,9 @@ export class LocalCache {
     constructor(private root: string) {
         try {
             fs.mkdirSync(this.root, {recursive: true});
-        } catch (e) { }
+        } catch (_e) {
+            // exists
+        }
         this.logFile = join(this.root, 'log.txt');
     }
 
@@ -26,7 +28,7 @@ export class LocalCache {
         try {
             await fs.promises.stat(file);
             exists = true;
-        } catch (e) {
+        } catch (_e) {
             // create new one
         }
         return {file, exists};
@@ -46,7 +48,7 @@ export class LocalCache {
             const keyFile = join(this.root, filename || 'key.json');
             await fs.promises.stat(keyFile);
             return keyFile;
-        } catch (e) {
+        } catch (_e) {
             return null;
         }
     }

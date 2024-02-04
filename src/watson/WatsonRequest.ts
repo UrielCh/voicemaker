@@ -1,4 +1,4 @@
-import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv';
+import { CommonTTSRequestAdv } from '../common/CommonTTSRequestAdv.ts';
 
 export interface WatsonRequestPublic {
     text: string,
@@ -10,7 +10,7 @@ export interface WatsonRequestPublic {
  * $20.00 USD / 1 million characters
  */
 export class WatsonRequest extends CommonTTSRequestAdv {
-    private voice: string = 'en-US_MichaelV3Voice';
+    private voice = 'en-US_MichaelV3Voice';
 
     constructor(text: string, voice?: string) {
         super(text, { pitch: { min: 0, max: 0 }, speed: { min: 0, max: 0 }, volume: { min: 0, max: 0 }, supportedFormat: ['mp3', 'wav', 'flac'] });

@@ -1,4 +1,4 @@
-import { AudioFormat, CommonTTSRequest } from "./commonTTSRequest";
+import { AudioFormat, CommonTTSRequest } from "./commonTTSRequest.ts";
 
 export interface FieldConstraint {
     min: number;
@@ -11,10 +11,14 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
     _speed = 0;
     _pitch = 0;
     _volume = 0;
-    _sampleRate: number = 24000;
+    _sampleRate = 24000;
 
     constructor(text: string, private limits: { speed: FieldConstraint, pitch: FieldConstraint, volume: FieldConstraint, supportedFormat: AudioFormat[] }) {
         super(text, limits.supportedFormat);
+    }
+
+    get sampleRate(): number {
+        return this._sampleRate
     }
 
     set sampleRate(sampleRate: number) {
@@ -45,12 +49,24 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
         return value;
     }
 
+    get pitch(): number {
+        return this._pitch;
+    }
+
     set pitch(pitch: number) {
         this._pitch = this.filterValue('pitch', this.limits.pitch, pitch);
     }
 
+    get speed(): number {
+        return this._speed;
+    }
+
     set speed(speed: number) {
         this._speed = this.filterValue('speed', this.limits.speed, speed);
+    }
+
+    get volume(): number {
+        return this._volume;
     }
 
     set volume(volume: number) {
@@ -67,22 +83,6 @@ export abstract class CommonTTSRequestAdv extends CommonTTSRequest {
 
     set volumePer100(volume: number) {
         this._volume = this.filterValuePer100('volume', this.limits.volume, volume);
-    }
-
-    get sampleRate(): number {
-        return this._sampleRate
-    }
-
-    get speed(): number {
-        return this._speed;
-    }
-
-    get pitch(): number {
-        return this._pitch;
-    }
-
-    get volume(): number {
-        return this._volume;
     }
 
     specSummery() {

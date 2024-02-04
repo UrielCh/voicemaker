@@ -1,4 +1,4 @@
-import { CommonTTSRequest } from "../common/commonTTSRequest";
+import { CommonTTSRequest } from "../common/commonTTSRequest.ts";
 
 export interface ElevenLabsRequestPublicBody {
   text: string;

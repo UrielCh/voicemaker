@@ -1,9 +1,10 @@
-import path from 'path';
-import { homedir } from 'os';
-import fs from 'fs';
+import path from 'node:path';
+import { homedir } from 'node:os';
+import fs from 'node:fs';
 import axios, { AxiosResponse } from 'axios';
-import { VoiceMakerRequest, VoiceMakerRequestPublic } from './VoiceMakerRequest';
-import { CommonTTS } from '../common/commonTTS';
+import { VoiceMakerRequest, VoiceMakerRequestPublic } from './VoiceMakerRequest.ts';
+import { CommonTTS } from '../common/commonTTS.ts';
+import { Buffer } from "https://deno.land/std@0.177.0/node/buffer.ts";
 
 interface VoiceMakerResponse {
     success: boolean,
@@ -16,14 +17,14 @@ export class VoiceMaker extends CommonTTS<VoiceMakerRequest> {
     }
 
     public async getToken(): Promise<string> {
-        let VOICEMAKER_IN_TOKEN = process.env.VOICEMAKER_IN_TOKEN;
+        let VOICEMAKER_IN_TOKEN = Deno.env.get("VOICEMAKER_IN_TOKEN");
         if (!VOICEMAKER_IN_TOKEN) {
             const key = await this.cacheDir.getKey();
             if (key) {
                 const data = await fs.promises.readFile(key, { encoding: 'utf-8' });
                 const m = data.match(/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/);
                 if (m) {
-                    process.env.VOICEMAKER_IN_TOKEN = m[0];
+                    Deno.env.set("VOICEMAKER_IN_TOKEN", m[0]);
                     VOICEMAKER_IN_TOKEN = m[0];
                 } else {
                     console.error(`${key} exists but do not contains any Token`);

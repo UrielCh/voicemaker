@@ -1,6 +1,6 @@
-import child_process from 'child_process';
-import os from 'os';
-import { promisify } from 'util';
+import child_process from 'node:child_process';
+import os from 'node:os';
+import { promisify } from 'node:util';
 
 const players = ['mplayer', 'afplay', 'mpg123', 'mpg321', 'play', 'omxplayer', 'aplay', 'cmdmp3'];
 
@@ -57,10 +57,10 @@ export class SoundPlayer {
     }
 
     public async playOS(path: string): Promise<void> {
-        const playCommand = process.platform == 'darwin' ? `afplay ${path}` : `start ${path}`;
+        const playCommand = Deno.build.os == 'darwin' ? `afplay ${path}` : `start ${path}`;
         try {
             await execPromise(playCommand);
-        } catch (err) {
+        } catch (_err) {
             if (0 == playError++) {
                 console.error('Not able to play any sound on thie computer');
             }

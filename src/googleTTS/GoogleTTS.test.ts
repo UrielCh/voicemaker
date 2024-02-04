@@ -1,6 +1,6 @@
-import { createWriteStream } from "fs";
-import { getEngine } from "../index";
-import { once } from 'events';
+// import { createWriteStream } from "node:fs";
+import { getEngine } from "../mod.ts";
+import { once } from 'node:events';
 
 
 async function doTest() {

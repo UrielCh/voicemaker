@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 
 export type AudioFormat = "mp3" | 'wav' | 'ogg' | 'flac';
 

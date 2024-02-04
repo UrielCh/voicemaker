@@ -1,13 +1,13 @@
-import ElevenLabs from "../elevenLabsio/ElevenLabs";
-import { GoogleTTS } from "../googleTTS/GoogleTTS";
-import GoogleTTS2 from "../googleTTS2/GoogleTTS2";
-import { GoogleTTS2Voice, GoogleVoices } from "../googleTTS2/GoogleTTS2Voices";
-import VoiceMaker from "../voicemakerin/VoiceMaker";
-import { voiceMakerVoiceCache, VoiceMakerVoices } from "../voicemakerin/VoiceMakerVoices";
-import { Watson } from "../watson/Watson";
-import { WatsonVoices, WATSON_VOICES_SET } from "../watson/watsonVoices";
-import { CommonTTS } from "./commonTTS";
-import { CommonTTSRequest } from "./commonTTSRequest";
+import ElevenLabs from "../elevenLabsio/ElevenLabs.ts";
+import { GoogleTTS } from "../googleTTS/GoogleTTS.ts";
+import GoogleTTS2 from "../googleTTS2/GoogleTTS2.ts";
+import { GoogleTTS2Voice, GoogleVoices } from "../googleTTS2/GoogleTTS2Voices.ts";
+import VoiceMaker from "../voicemakerin/VoiceMaker.ts";
+import { voiceMakerVoiceCache, VoiceMakerVoices } from "../voicemakerin/VoiceMakerVoices.ts";
+import { Watson } from "../watson/Watson.ts";
+import { WatsonVoices, WATSON_VOICES_SET } from "../watson/watsonVoices.ts";
+import { CommonTTS } from "./commonTTS.ts";
+import { CommonTTSRequest } from "./commonTTSRequest.ts";
 
 
 export interface VoiceSelectionElevenLabs {

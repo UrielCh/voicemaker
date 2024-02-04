@@ -1,9 +1,10 @@
-import { homedir } from "os";
-import path from "path";
-import fs from "fs";
-import { CommonTTS } from "../common/commonTTS";
-import { WatsonRequest } from "./WatsonRequest";
+import { homedir } from "node:os";
+import path from "node:path";
+import fs from "node:fs";
+import { CommonTTS } from "../common/commonTTS.ts";
+import { WatsonRequest } from "./WatsonRequest.ts";
 import axios, { AxiosResponse } from 'axios';
+import { Buffer } from "https://deno.land/std@0.177.0/node/buffer.ts";
 
 export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: string, TEXT_TO_SPEECH_URL: string }> {
     /**
@@ -21,8 +22,8 @@ export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: st
     }
 
     public async getToken(): Promise<{ TEXT_TO_SPEECH_APIKEY: string, TEXT_TO_SPEECH_URL: string }> {
-        let TEXT_TO_SPEECH_APIKEY = process.env.TEXT_TO_SPEECH_APIKEY;
-        let TEXT_TO_SPEECH_URL = process.env.TEXT_TO_SPEECH_URL;
+        let TEXT_TO_SPEECH_APIKEY = Deno.env.get("TEXT_TO_SPEECH_APIKEY");
+        let TEXT_TO_SPEECH_URL = Deno.env.get("TEXT_TO_SPEECH_URL");
 
         if (!TEXT_TO_SPEECH_APIKEY) {
             const key = await this.cacheDir.getKey();
@@ -39,7 +40,7 @@ export class Watson extends CommonTTS<WatsonRequest, { TEXT_TO_SPEECH_APIKEY: st
 
                 m = data.match(/[a-zA-Z0-9_]{44}/);
                 if (m) {
-                    process.env.TEXT_TO_SPEECH_APIKEY = m[0];
+                    Deno.env.set("TEXT_TO_SPEECH_APIKEY", m[0]);
                     TEXT_TO_SPEECH_APIKEY = m[0];
                 } else {
                     throw Error(`can not found TEXT_TO_SPEECH_APIKEY api key in ${key}`)

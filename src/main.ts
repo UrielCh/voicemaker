@@ -1,18 +1,18 @@
-import commander, { Command } from "commander";
-import { ALL_WATSON_VOICES } from ".";
-import { ALL_ENGINE, getEngine, getVoice } from "./common/utils";
-import { GoogleTTS2Voice, GoogleVoices } from "./googleTTS2/GoogleTTS2Voices";
+import { Command, InvalidArgumentError} from "commander";
+import { ALL_WATSON_VOICES } from "./mod.ts";
+import { ALL_ENGINE, getEngine, getVoice } from "./common/utils.ts";
+import { GoogleTTS2Voice, GoogleVoices } from "./googleTTS2/GoogleTTS2Voices.ts";
 import {
   voiceMakerVoiceCache,
   VoiceMakerVoices,
-} from "./voicemakerin/VoiceMakerVoices";
-import ElevenLabs from "./elevenLabsio/ElevenLabs";
+} from "./voicemakerin/VoiceMakerVoices.ts";
+import ElevenLabs from "./elevenLabsio/ElevenLabs.ts";
 import pc from "picocolors";
-import { getVoicemakerEffect } from "./voicemakerin/VoiceMakerRequest";
+import { getVoicemakerEffect } from "./voicemakerin/VoiceMakerRequest.ts";
 
 function parseLangCode(value: string): string {
   if (!value.match(/^[a-z]{2,3}(-[A-Z]{2})?$/))
-    throw new commander.InvalidArgumentError(
+    throw new InvalidArgumentError(
       "should be a lang code like en-US, en-GB, es-MX, fr-FR ..."
     );
   return value;
@@ -24,14 +24,14 @@ function parsePerCent(value: string): number {
   const parsedValue = parseInt(value2, 10);
   if (value === value2) {
     if (parsedValue > 1 || parsedValue < -1) {
-      throw new commander.InvalidArgumentError(
+      throw new InvalidArgumentError(
         'Not a valid percent value like ".2", "-0.4", "60%", "-10%"'
       );
     }
     return parsedValue;
   }
   if (parsedValue > 100 || parsedValue < -100) {
-    throw new commander.InvalidArgumentError(
+    throw new InvalidArgumentError(
       'Not a valid percent value like ".2", "-0.4", "60%", "-10%"'
     );
   }
@@ -114,7 +114,7 @@ program
       return;
     }
     console.error(`Engine parameter should be on of: ${ALL_ENGINE.join(", ")}`);
-    process.exit(-1);
+    Deno.exit(-1);
   });
 
 program
@@ -144,8 +144,8 @@ program
       await engine.say(req);
     } catch (e) {
       console.error(e);
-      process.exit(-1);
+      Deno.exit(-1);
     }
   });
-
-program.parse(process.argv);
+// process.argv
+program.parse();

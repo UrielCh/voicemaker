@@ -1,12 +1,13 @@
 import * as googleTTS from 'google-tts-api'; // ES6 or TypeScript
-import os from 'os';
-import path from 'path';
+import os from 'node:os';
+import path from 'node:path';
 import axios from 'axios';
-import { GoogleTTSRequest } from './GoogleTTSRequest';
-import { CommonTTS } from '../common/commonTTS';
-import { createWriteStream, createReadStream, promises as fs } from 'fs';
-import { PassThrough, pipeline } from 'stream';
-import { promisify } from 'util';
+import { GoogleTTSRequest } from './GoogleTTSRequest.ts';
+import { CommonTTS } from '../common/commonTTS.ts';
+import { createWriteStream, createReadStream, promises as fs } from 'node:fs';
+import { PassThrough, pipeline } from 'node:stream';
+import { promisify } from 'node:util';
+import { Buffer } from "https://deno.land/std@0.177.0/node/buffer.ts";
 
 const pipelineAsync = promisify(pipeline);
 
