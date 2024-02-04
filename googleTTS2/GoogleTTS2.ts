@@ -4,7 +4,7 @@
 // build speech POST /v1/text:synthesize
 // https://texttospeech.googleapis.com/v1/voices
 
-import * as textToSpeech from "@google-cloud/text-to-speech";
+import * as textToSpeech from "https://esm.sh/@google-cloud/text-to-speech@5.0.2";
 
 import path from "node:path";
 import { homedir } from "node:os";

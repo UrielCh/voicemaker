@@ -3,6 +3,7 @@
   "packages": {
     "specifiers": {
       "npm:@google-cloud/text-to-speech@^5.0.2": "npm:@google-cloud/text-to-speech@5.0.2",
+      "npm:@types/node": "npm:@types/node@18.16.19",
       "npm:@types/node@^20.11.16": "npm:@types/node@20.11.16",
       "npm:axios@^1.6.7": "npm:axios@1.6.7",
       "npm:commander@^12.0.0": "npm:commander@12.0.0",
@@ -823,6 +824,9 @@
       }
     }
   },
+  "redirects": {
+    "https://esm.sh/@google-cloud/text-to-speech": "https://esm.sh/@google-cloud/text-to-speech@5.0.2"
+  },
   "remote": {
     "https://deno.land/std@0.177.0/_util/asserts.ts": "178dfc49a464aee693a7e285567b3d0b555dc805ff490505a8aae34f9cfb1462",
     "https://deno.land/std@0.177.0/_util/os.ts": "d932f56d41e4f6a6093d56044e29ce637f8dcc43c5a90af43504a889cf1775e3",
@@ -853,7 +857,53 @@
     "https://deno.land/std@0.177.0/node/internal_binding/string_decoder.ts": "54c3c1cbd5a9254881be58bf22637965dc69535483014dab60487e299cb95445",
     "https://deno.land/std@0.177.0/node/internal_binding/types.ts": "2187595a58d2cf0134f4db6cc2a12bf777f452f52b15b6c3aed73fa072aa5fc3",
     "https://deno.land/std@0.177.0/node/internal_binding/util.ts": "808ff3b92740284184ab824adfc420e75398c88c8bccf5111f0c24ac18c48f10",
-    "https://deno.land/std@0.177.0/node/internal_binding/uv.ts": "eb0048e30af4db407fb3f95563e30d70efd6187051c033713b0a5b768593a3a3"
+    "https://deno.land/std@0.177.0/node/internal_binding/uv.ts": "eb0048e30af4db407fb3f95563e30d70efd6187051c033713b0a5b768593a3a3",
+    "https://esm.sh/@google-cloud/text-to-speech@5.0.2": "f318819ba4cd036b48766ad05e470766e10c2986e734c846c986eebe3b1dc099",
+    "https://esm.sh/v135/@google-cloud/text-to-speech@5.0.2/denonext/text-to-speech.mjs": "4f9e3380f80581d5bcf36c92684e5426fa58e62ebf622584ba24a8fbc876f74f",
+    "https://esm.sh/v135/@protobufjs/aspromise@1.1.2/denonext/aspromise.mjs": "3d83037425036ea5fa83a5893059b313e9197af8b1ba84f775ac05e6df7736e4",
+    "https://esm.sh/v135/@protobufjs/base64@1.1.2/denonext/base64.mjs": "acea461f17e7d0f813b08a633809c6810dc592b28a9eb26dba0b8f1b7af911b8",
+    "https://esm.sh/v135/@protobufjs/codegen@2.0.4/denonext/codegen.mjs": "2cd98d35edba82c53dc7e96036c2dc4080f058e3c94c340e4c559a5d83bdeff5",
+    "https://esm.sh/v135/@protobufjs/eventemitter@1.1.0/denonext/eventemitter.mjs": "0299224895b8f43109b42926a0ee2dadd6138e638445327585107a8cc82f6a17",
+    "https://esm.sh/v135/@protobufjs/fetch@1.1.0/denonext/fetch.mjs": "59579a01545f9bd7c909e3f5477a2ba4101ffc551ce9723317733ec3f76f5893",
+    "https://esm.sh/v135/@protobufjs/float@1.0.2/denonext/float.mjs": "af49a1cdbb9b232cdef5f8a772e04bf4628671873bd39ca33a9dd9ffd0115dea",
+    "https://esm.sh/v135/@protobufjs/inquire@1.1.0/denonext/inquire.mjs": "5920ac62d435331221345c39a263ceb1d2f8711df73cb5af89ccd41074fcc82a",
+    "https://esm.sh/v135/@protobufjs/path@1.1.2/denonext/path.mjs": "0c5e2f8b6b186e358d8fdb94a46f54fc18b3b53cb5fc82e18dd9b041858e4d7e",
+    "https://esm.sh/v135/@protobufjs/pool@1.1.0/denonext/pool.mjs": "01b3d9ea0df1fefa04eae55ea83d2a8198cfcb3e6dbfac15a8bf37cfc80abd19",
+    "https://esm.sh/v135/@protobufjs/utf8@1.1.0/denonext/utf8.mjs": "52b7bc421bad149db24d90d8ac5364f2c9f9766e5449fd266d5edf04b2669f23",
+    "https://esm.sh/v135/agent-base@7.1.0/denonext/agent-base.mjs": "0cfda332cb4694510eaeaa42dc88eed2223a9e6bed7352727a15ff163ee6b285",
+    "https://esm.sh/v135/base64-js@1.5.1/denonext/base64-js.mjs": "37ce4431d0b110375d0cafee5cb015592b09352595aca9393e5ecf417f71fae2",
+    "https://esm.sh/v135/bignumber.js@9.1.2/denonext/bignumber.mjs": "881ca4ea8416ac1357be523dd209ad771bc9fa3c41b881ddae76592491a7007f",
+    "https://esm.sh/v135/buffer-equal-constant-time@1.0.1/denonext/buffer-equal-constant-time.mjs": "8078ba0314f3174eb9f95f33122dda5f7fc05f6cfbbf153449133f3f4454c6dd",
+    "https://esm.sh/v135/debug@4.3.4/denonext/debug.mjs": "d2ebf776ea77aa7df1b4460eb2a4aab245a9d5b19f11fa1db25f756b350bae9d",
+    "https://esm.sh/v135/duplexify@4.1.2/denonext/duplexify.mjs": "d79a0a74ba6698784ee6dd0489585ee927c64ec7fe7a21b605313321847fa91e",
+    "https://esm.sh/v135/ecdsa-sig-formatter@1.0.11/denonext/ecdsa-sig-formatter.mjs": "c257539e93bbc1e554ae0286d9a60a72c79594fd4d2f8d133d37412748c9810c",
+    "https://esm.sh/v135/end-of-stream@1.4.4/denonext/end-of-stream.mjs": "5eaf8ba6f7550da833b916236d3f97a393169d39ebd9012239fb43c161f6e4db",
+    "https://esm.sh/v135/extend@3.0.2/denonext/extend.mjs": "6ab9e4890dfa54ec88fa326fca525c211141d6da72188f54e9610d1281219c9e",
+    "https://esm.sh/v135/gaxios@6.1.1/denonext/gaxios.mjs": "42b75bb073b7364847ddfdf611adf13a5a3fe3cb7c2757423f6331f4eb3f3fed",
+    "https://esm.sh/v135/gcp-metadata@6.0.0/denonext/gcp-metadata.mjs": "24b6d7723804bb5e57acb23707195c20ccda0a8f58e144badd410b73598bbfb3",
+    "https://esm.sh/v135/google-auth-library@9.2.0/denonext/google-auth-library.mjs": "4c2b528be1de1b5e41e03a907144681f8c0eba0286da1227d14b54bd8ef8ff4c",
+    "https://esm.sh/v135/google-gax@4.0.5/denonext/build/src/protobuf.js": "5badde20d3376455a48f0eb408cb04ac80cbef223d6f052ada48fd6de8a9937e",
+    "https://esm.sh/v135/google-gax@4.0.5/denonext/google-gax.mjs": "ea434f48601b861d94d5f916f53e292db4509a04b2b14cfef19b6a35c198bb22",
+    "https://esm.sh/v135/gtoken@7.0.1/denonext/gtoken.mjs": "ff40de03d54e9b22e866b9e34261b98954697cfc41fe7ec45ffa589e2e76c23c",
+    "https://esm.sh/v135/https-proxy-agent@7.0.2/denonext/https-proxy-agent.mjs": "2820b2c86a978463ff9f5378a78a51130c67d83d66e3ee42137a2016cce88e80",
+    "https://esm.sh/v135/inherits@2.0.4/denonext/inherits.mjs": "8095f3d6aea060c904fb24ae50f2882779c0acbe5d56814514c8b5153f3b4b3b",
+    "https://esm.sh/v135/is-stream@2.0.1/denonext/is-stream.mjs": "456bc690361378c52fac24a7f362044f036942b1298e812799a67882d6c1febf",
+    "https://esm.sh/v135/json-bigint@1.0.0/denonext/json-bigint.mjs": "51b2f93368973009d3ece79e6c9fb8d9527656ff32f492360d08c9255fbd967a",
+    "https://esm.sh/v135/jwa@2.0.0/denonext/jwa.mjs": "86e24b9695b451cf73568b31a1ebc7002b3df50be3ab1c4d6f4f8433dc0e0bf1",
+    "https://esm.sh/v135/jws@4.0.0/denonext/jws.mjs": "b7afb0714756f5517e04e4e04feebf36788b9d18d4a411d528ff9e690fc85423",
+    "https://esm.sh/v135/ms@2.1.2/denonext/ms.mjs": "aa4dc45ba72554c5011168f8910cc646c37af53cfff1a15a4decced838b8eb14",
+    "https://esm.sh/v135/node_fetch.js": "b11355358cf61343a3c30bd5942df60a3586d13e2c979b515164bfe851662798",
+    "https://esm.sh/v135/object-hash@3.0.0/denonext/object-hash.mjs": "1f46afac72dcbd7ca11d5753c960db4ec0a68e8cb9541a8fa0865623dc74d5ee",
+    "https://esm.sh/v135/once@1.4.0/denonext/once.mjs": "5ab9193c36609f6c5cf6f1e2e37dd952c87d8ff0b0267433c29b228a2c470cd5",
+    "https://esm.sh/v135/proto3-json-serializer@2.0.0/denonext/proto3-json-serializer.mjs": "39cdc1d6d9aeede4cbe117f5fa498ff66e78602da00e8c1163755766db6f7fbe",
+    "https://esm.sh/v135/protobufjs@7.2.5/denonext/minimal.js": "f21b726a772649329cfd177faae9f8575e163e8f3d61478f2f2ff261f2eb6729",
+    "https://esm.sh/v135/protobufjs@7.2.5/denonext/protobufjs.mjs": "4823ee00c5405e8b0f1c132e219ff9881fdbe6db4120910833f232ae65763aad",
+    "https://esm.sh/v135/readable-stream@3.6.2/denonext/readable-stream.mjs": "35fc04c3200b796d676d0e83607fcfc150048bdcc5bdb7d5d836b5921049788f",
+    "https://esm.sh/v135/retry-request@7.0.1/denonext/retry-request.mjs": "bce949acda6daafe04a8dcfb3d839c22f9c965e0013c4e7e6d48dc76463ee878",
+    "https://esm.sh/v135/safe-buffer@5.2.1/denonext/safe-buffer.mjs": "facbcb4f4622e13062978522fa12c42cae4e12f55b0e1d3fa1c4bc751bd827c7",
+    "https://esm.sh/v135/stream-shift@1.0.1/denonext/stream-shift.mjs": "1ec867cd3a4f89303a28e3f50e56a1d60c200b9204e9678e1a7f908f91ccccd9",
+    "https://esm.sh/v135/util-deprecate@1.0.2/denonext/util-deprecate.mjs": "f69f67cf655c38428b0934e0f7c865c055834a87cc3866b629d6b2beb21005e9",
+    "https://esm.sh/v135/wrappy@1.0.2/denonext/wrappy.mjs": "3c31e4782e0307cf56b319fcec6110f925dafe6cb47a8fa23350d480f5fa8b06"
   },
   "workspace": {
     "packageJson": {

@@ -1,5 +1,5 @@
 import { EOL } from "node:os";
-import * as textToSpeech from "@google-cloud/text-to-speech";
+import * as textToSpeech from "https://esm.sh/@google-cloud/text-to-speech@5.0.2";
 import { GoogleTTS2 } from "./GoogleTTS2.ts";
 
 async function main() {
